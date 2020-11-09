@@ -41,7 +41,7 @@ jobs:
       - name: Setup Maven settings.xml
         uses: whelk-io/maven-settings-xml-action@v11
         with:
-          servers: '[{ "id": "releases-repo", "username": "${{ secrets.ARTIFACTORY_USERNAME }}", "password": "${{ secrets.ARTIFACTORY_TOKEN }}" }]'
+          servers: '[{ "id": "releases-repo", "username": "${{ secrets.ARTIFACTORY_USERNAME }}", "password": "${{ secrets.ARTIFACTORY_TOKEN }}" }, { "id": "snapshot-repo", "username": "${{ secrets.ARTIFACTORY_USERNAME }}", "password": "${{ secrets.ARTIFACTORY_TOKEN }}" }]'
       - name: Build with Maven
         run: |
           cd gw2util-parent-build
