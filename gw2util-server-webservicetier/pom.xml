@@ -1,0 +1,61 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>de.morrigan.dev.gw2</groupId>
+		<artifactId>gw2util-server-build</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../gw2util-server-build/pom.xml</relativePath>
+	</parent>
+
+	<artifactId>gw2util-server-webservicetier</artifactId>
+	<packaging>war</packaging>
+
+	<!-- Libs, die in diesem Projekt benötigt werden -->
+	<dependencies>
+		<!-- Eigene Libs -->
+		<dependency>
+			<groupId>de.morrigan.dev.gw2</groupId>
+			<artifactId>gw2util-utils</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>de.morrigan.dev.gw2</groupId>
+			<artifactId>gw2util-dto</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>de.morrigan.dev.gw2</groupId>
+			<artifactId>gw2util-server-businesstier</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>de.morrigan.dev.gw2</groupId>
+			<artifactId>gw2util-server-daotier</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>de.morrigan.dev.gw2</groupId>
+			<artifactId>gw2util-resources</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<!-- Fremde Libs -->
+		<dependency>
+			<groupId>org.jboss.spec.javax.ws.rs</groupId>
+			<artifactId>jboss-jaxrs-api_2.1_spec</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.enterprise</groupId>
+			<artifactId>jakarta.enterprise.cdi-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.spec.javax.xml.bind</groupId>
+			<artifactId>jboss-jaxb-api_2.3_spec</artifactId>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+</project>

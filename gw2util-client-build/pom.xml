@@ -1,0 +1,50 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>de.morrigan.dev.gw2</groupId>
+		<artifactId>gw2util-parent-build</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../gw2util-parent-build/pom.xml</relativePath>
+	</parent>
+
+	<artifactId>gw2util-client-build</artifactId>
+	<packaging>pom</packaging>
+
+	<name>GW2-Utility Client (build)</name>
+	<description>Build-Modul für das GW2-Utility Client Produkt</description>
+
+	<modules>
+		<module>../gw2util-utils</module>
+		<module>../gw2util-resources</module>
+		<module>../gw2util-resources-sd</module>
+		<module>../gw2util-swingutils</module>
+		<module>../gw2util-dto</module>
+		<module>../gw2util-client-java</module>
+		<module>../gw2util-client-jar</module>
+	</modules>
+
+	<properties>
+		<!-- Properties für SonarCloud.io -->
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		<sonar.organization>morrigan-dev</sonar.organization>
+		<sonar.projectKey>morrigan-dev_gw2-util</sonar.projectKey>
+		<!-- Lösung für ein StackOverflowError Problem (siehe: https://community.sonarsource.com/t/stackoverflowerror-at-defaultinputcomponent-equals/20324) -->
+		<sonar.moduleKey>${project.artifactId}</sonar.moduleKey>
+
+		<version.server.bom>21.0.0.Final</version.server.bom>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.wildfly.bom</groupId>
+				<artifactId>wildfly-jakartaee8-with-tools-builder</artifactId>
+				<version>${version.server.bom}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+</project>

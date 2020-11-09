@@ -1,0 +1,111 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>de.morrigan.dev.gw2</groupId>
+		<artifactId>gw2util-server-build</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../gw2util-server-build/pom.xml</relativePath>
+	</parent>
+
+	<artifactId>gw2util-server-ear</artifactId>
+	<packaging>ear</packaging>
+
+	<!-- Libs, die in diesem Projekt benötigt werden -->
+	<dependencies>
+		<!-- Eigene Libs -->
+		<dependency>
+			<groupId>de.morrigan.dev.gw2</groupId>
+			<artifactId>gw2util-utils</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>de.morrigan.dev.gw2</groupId>
+			<artifactId>gw2util-resources-sd</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>de.morrigan.dev.gw2</groupId>
+			<artifactId>gw2util-dto</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>de.morrigan.dev.gw2</groupId>
+			<artifactId>gw2util-server-daotier</artifactId>
+			<version>${project.version}</version>
+			<type>ejb</type>
+		</dependency>
+		<dependency>
+			<groupId>de.morrigan.dev.gw2</groupId>
+			<artifactId>gw2util-server-businesstier</artifactId>
+			<version>${project.version}</version>
+			<type>ejb</type>
+		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>de.morrigan.dev.gw2</groupId> -->
+<!-- 			<artifactId>gw2util-server-webservicetier</artifactId> -->
+<!-- 			<version>${project.version}</version> -->
+<!-- 			<type>war</type> -->
+<!-- 		</dependency> -->
+
+		<!-- Fremde Libs -->
+	</dependencies>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<artifactId>maven-ear-plugin</artifactId>
+					<version>${maven-ear-plugin.version}</version>
+					<configuration>
+						<defaultJavaBundleDir>lib/</defaultJavaBundleDir>
+						<modules>
+							<ejbModule>
+								<groupId>de.morrigan.dev.gw2</groupId>
+								<artifactId>gw2util-server-daotier</artifactId>
+							</ejbModule>
+							<ejbModule>
+								<groupId>de.morrigan.dev.gw2</groupId>
+								<artifactId>gw2util-server-businesstier</artifactId>
+							</ejbModule>
+<!-- 							<webModule> -->
+<!-- 								<groupId>de.morrigan.dev.gw2</groupId> -->
+<!-- 								<artifactId>gw2util-server-webservicetier</artifactId> -->
+<!-- 							</webModule> -->
+						</modules>
+						<!-- If I want maven to generate the application.xml, set this to true -->
+<!-- 						<generateApplicationXml>true</generateApplicationXml> -->
+					</configuration>
+				</plugin>
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.apache.maven.plugins</groupId>
+										<artifactId>maven-ear-plugin</artifactId>
+										<versionRange>[2.8,)</versionRange>
+										<goals>
+											<goal>generate-application-xml</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<finalName>GW2Util-Server</finalName>
+	</build>
+</project>

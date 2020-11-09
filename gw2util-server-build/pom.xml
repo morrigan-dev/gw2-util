@@ -1,0 +1,41 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>de.morrigan.dev.gw2</groupId>
+		<artifactId>gw2util-parent-build</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../gw2util-parent-build/pom.xml</relativePath>
+	</parent>
+
+	<artifactId>gw2util-server-build</artifactId>
+	<packaging>pom</packaging>
+
+	<modules>
+		<module>../gw2util-utils</module>
+		<module>../gw2util-resources</module>
+		<module>../gw2util-resources-sd</module>
+		<module>../gw2util-dto</module>
+		<module>../gw2util-server-daotier</module>
+		<module>../gw2util-server-businesstier</module>
+		<module>../gw2util-server-webservicetier</module>
+		<module>../gw2util-server-ear</module>
+	</modules>
+
+	<properties>
+		<version.server.bom>21.0.0.Final</version.server.bom>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.wildfly.bom</groupId>
+				<artifactId>wildfly-jakartaee8-with-tools-builder</artifactId>
+				<version>${version.server.bom}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+</project>
