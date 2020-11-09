@@ -1,6 +1,7 @@
 package de.morrigan.dev.gw2.dto.common.enums;
 
-import org.jboss.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public enum ItemRarity {
 
@@ -12,8 +13,8 @@ public enum ItemRarity {
 	MASTERWORK("Masterwork", "masterwork"), //
 	RARE("Rare", "rare");
 
-	/** Logger für Debug/Fehlerausgaben */
-	private static final Logger LOG = Logger.getLogger(ItemRarity.class);
+	/** Logger für Debugausgaben */
+	private static final Logger LOG = LoggerFactory.getLogger(ItemRarity.class);
 
 	public static final ItemRarity getValueOf(String value) {
 		ItemRarity result = null;
@@ -24,7 +25,7 @@ public enum ItemRarity {
 			}
 		}
 		if (result == null) {
-			LOG.warn(value + " konnte nicht in ein ItemRarity umgewandelt werden!");
+			LOG.warn("{} konnte nicht in ein ItemRarity umgewandelt werden!", value);
 			result = UNKNOWN;
 		}
 		return result;
@@ -40,9 +41,5 @@ public enum ItemRarity {
 
 	public String getLabelKey() {
 		return this.labelKey;
-	}
-
-	public void setLabelKey(String labelKey) {
-		this.labelKey = labelKey;
 	}
 }

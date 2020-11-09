@@ -1,18 +1,19 @@
 package de.morrigan.dev.gw2.dto.common.enums;
 
-import org.jboss.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public enum DamageType {
 
-	UNKNOWN("", "unknown"), //
-	CHOKING("Choking", "choking"), //
-	FIRE("Fire", "fire"), //
-	ICE("Ice", "ice"), //
-	LIGHTNING("Lightning", "lightning"), //
+	UNKNOWN("", "unknown"),
+	CHOKING("Choking", "choking"),
+	FIRE("Fire", "fire"),
+	ICE("Ice", "ice"),
+	LIGHTNING("Lightning", "lightning"),
 	PHYSICAL("Physical", "physical");
 
-	/** Logger für Debug/Fehlerausgaben */
-	private static final Logger LOG = Logger.getLogger(DamageType.class);
+	/** Logger für Debugausgaben */
+	private static final Logger LOG = LoggerFactory.getLogger(DamageType.class);
 
 	public static final DamageType getValueOf(String value) {
 		DamageType result = null;
@@ -23,7 +24,7 @@ public enum DamageType {
 			}
 		}
 		if (result == null) {
-			LOG.warn(value + " konnte nicht in ein DamageType umgewandelt werden!");
+			LOG.warn("{} konnte nicht in ein DamageType umgewandelt werden!", value);
 			result = UNKNOWN;
 		}
 		return result;
@@ -39,9 +40,5 @@ public enum DamageType {
 
 	public String getLabelKey() {
 		return this.labelKey;
-	}
-
-	public void setLabelKey(String labelKey) {
-		this.labelKey = labelKey;
 	}
 }

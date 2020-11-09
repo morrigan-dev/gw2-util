@@ -108,7 +108,6 @@ public class StartupService {
 		List<Right> rights = createDefaultRights();
 		List<UserGroup> userGroups = createDefaultUserGroups(rights);
 		User admin = createAdminUser();
-		
 	}
 
 	private List<Right> createDefaultRights() throws PersistenceException {
@@ -122,11 +121,11 @@ public class StartupService {
 		}
 		return availableActiveRights;
 	}
-	
+
 	private List<UserGroup> createDefaultUserGroups(List<Right> rights) throws PersistenceException {
 		IUserGroupDAO userGroupDao = DBDAOFactory.getInstance().getUserGroupDAO();
 		List<UserGroup> availableActiveUserGroups = userGroupDao.getUserGroupByActiveState(ActiveState.ACTIVE);
-		if(availableActiveUserGroups.isEmpty()) {
+		if (availableActiveUserGroups.isEmpty()) {
 			UserGroup adminUserGroup = new UserGroup(ActiveState.ACTIVE, "Admin");
 			adminUserGroup.setRightSet(new HashSet<>(rights));
 			UserGroup sdUserGroup = new UserGroup(ActiveState.ACTIVE, "SD-Member");
@@ -136,7 +135,7 @@ public class StartupService {
 		}
 		return availableActiveUserGroups;
 	}
-	
+
 	private User createAdminUser() throws PersistenceException {
 		IUserDAO userDAO = DBDAOFactory.getInstance().getUserDAO();
 		IUserGroupDAO userGroupDAO = DBDAOFactory.getInstance().getUserGroupDAO();
@@ -147,11 +146,10 @@ public class StartupService {
 			User sysAdmin = new User(ActiveState.NOT_ADMIN, "SysAdmin", "SysAdmin", "SysAdmin",
 					"a25323682fc39c13852c5423bc856cafd776e7d5fdd29cb4c199b83c0802e289",
 					"f29e6f64-af76-4428-b5ee-9a99bce44ab5", curDate, curDate, adminGroup);
-			admin= userDAO.save(sysAdmin);
+			admin = userDAO.save(sysAdmin);
 		}
 		return admin;
 	}
-
 
 	private void loadUserGroupRightCache() throws ServiceException {
 		final IAuthenticationService authService = ServiceFactory.getInstance().getAuthenticationService();
@@ -168,16 +166,16 @@ public class StartupService {
 			}
 		}
 		if (LOG.isInfoEnabled()) {
-			LOG.info(userGroups.size() + " Benutzergruppe(n) wurde(n) erfolgreich hinzugefügt.");
+			LOG.info("{} Benutzergruppe(n) wurde(n) erfolgreich hinzugefügt.", userGroups.size());
 		}
 	}
 
 	private void startServices() {
 		try {
 			initSystemData();
-//			initGemsStatisticJob();
-//			initItemsJob();
-//			initRecipesJob();
+			//			initGemsStatisticJob();
+			//			initItemsJob();
+			//			initRecipesJob();
 			loadUserGroupRightCache();
 		} catch (Exception e) {
 			LOG.error(e.getMessage(), e);

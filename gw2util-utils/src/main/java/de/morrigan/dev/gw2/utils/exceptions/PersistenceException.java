@@ -3,9 +3,9 @@ package de.morrigan.dev.gw2.utils.exceptions;
 /**
  * Diese Exceptionklasse wird verwendet, um Fehler in der Persistence Schicht (DAOs) zu behandeln. Dabei werden
  * Exception aus Fremdlibraries beim Zugriff auf z.B. Datenbanken direkt an der auftretenden Stelle gefangen und in
- * einer {@link PersistenceException} gekapselt.<br>
+ * einer {@code PersistenceException} gekapselt.<br>
  * Diese Exception darf maximal bis an die Service Schicht gereicht werden. Danach muss sie in eine
- * {@link LossyServiceException} umgewandelt werden!
+ * {@code ServiceException} umgewandelt werden!
  * 
  * @author morrigan
  */

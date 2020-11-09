@@ -28,12 +28,12 @@ public abstract class AbstractBaseTableModel<T> extends AbstractTableModel imple
 
 	/** Logger für Debugausgaben */
 	private static final Logger LOG = LoggerFactory.getLogger(AbstractBaseTableModel.class);
-	
+
 	/** Handle auf den ResourceManager */
 	protected static final ResourceManager RESOURCE_MANAGER = ResourceManager.getInstance();
 
 	/** Liste mit den einzelnen Entities, wobei jeder Satz einer Zeile in der Tabelle entspricht */
-	private List<T> dataList = new ArrayList<T>();
+	private List<T> dataList = new ArrayList<>();
 
 	/** Anzahl der Spalten in der Tabelle */
 	private final int columnCount;
@@ -113,7 +113,7 @@ public abstract class AbstractBaseTableModel<T> extends AbstractTableModel imple
 	public void setDataList(final List<T> dataList) {
 		Validate.notNull(dataList, "Der Parameter (dataList) darf nicht null sein!");
 		LOG.debug("dataList: {}", dataList);
-		
+
 		this.dataList = dataList;
 		fireTableDataChanged();
 	}

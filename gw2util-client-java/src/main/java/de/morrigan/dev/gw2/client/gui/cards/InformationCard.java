@@ -49,7 +49,7 @@ import de.morrigan.dev.swing.factories.MessageDialogFactory;
 
 public class InformationCard extends AbstractView<InformationModel> implements IThreadCallback {
 
-	private static enum ListenerAction implements IListenerAction {}
+	private static final long serialVersionUID = 1L;
 
 	/** Logger für Debugausgaben */
 	private static final Logger LOG = LoggerFactory.getLogger(InformationCard.class);
@@ -163,8 +163,7 @@ public class InformationCard extends AbstractView<InformationModel> implements I
 
 	@Override
 	public void configureListener() {
-		// TODO Auto-generated method stub
-
+		// keine Listener vorhanden
 	}
 
 	@Override
@@ -197,8 +196,7 @@ public class InformationCard extends AbstractView<InformationModel> implements I
 
 	@Override
 	public void handleListenerEvent(IListenerAction listenerAction, EventObject event) {
-		// TODO Auto-generated method stub
-
+		// keine Listener vorhanden
 	}
 
 	@Override
@@ -248,7 +246,7 @@ public class InformationCard extends AbstractView<InformationModel> implements I
 
 		GCUtil.configGC(gbc, 0, y++, GCUtil.WEST, GCUtil.NONE, 0.0, 0.0, 3, 1, InsetConstants.LTR_INSETS);
 		this.pnlContent.add(this.mbSDNote, gbc);
-		GCUtil.configGC(gbc, 0, y++, GCUtil.WEST, GCUtil.BOTH, 1.0, 1.0, 3, 1, InsetConstants.NO_INSETS);
+		GCUtil.configGC(gbc, 0, y, GCUtil.WEST, GCUtil.BOTH, 1.0, 1.0, 3, 1, InsetConstants.NO_INSETS);
 		this.pnlContent.add(new JLabel(), gbc);
 
 		GCUtil.configGC(gbc, 0, 0, GCUtil.NORTH, GCUtil.BOTH, 1.0, 1.0, 1, 1, InsetConstants.ALL_INSETS);
@@ -285,6 +283,8 @@ public class InformationCard extends AbstractView<InformationModel> implements I
 	}
 
 	@Override
-	public void waypointsAvailable() {}
+	public void waypointsAvailable() {
+		// nicht benötigt
+	}
 
 }

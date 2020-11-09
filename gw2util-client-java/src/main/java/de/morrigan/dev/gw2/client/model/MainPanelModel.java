@@ -6,18 +6,12 @@ import de.morrigan.dev.swing.models.AbstractModel;
 
 public class MainPanelModel extends AbstractModel {
 
-	private static enum Request {
-		UPDATE_ITEMS_FROM_GW2DB, GET_ITEM_LIST_CONTAINER_DTO
-	}
-
-
 	public static final long ALL_CHANGED = -1L;
 	public static final long ITEM_LIST_CHANGED = BitUtils.setLongBit(0);
 	public static final long SELECTED_ITEM_CHANGED = BitUtils.setLongBit(1);
 
 	public MainPanelModel() {
 		super();
-
 	}
 
 	@Override

@@ -9,7 +9,6 @@ import javax.swing.JList;
 
 import de.morrigan.dev.gw2.utils.model.interfaces.IComboBoxItem;
 
-
 public class DefaultComboBoxLabelRenderer extends DefaultListCellRenderer {
 
 	private static final long serialVersionUID = 1L;
@@ -18,7 +17,7 @@ public class DefaultComboBoxLabelRenderer extends DefaultListCellRenderer {
 	private static final Color SELECTION_BACKGROUND_COLOR = new Color(200, 220, 255);
 
 	@Override
-	public Component getListCellRendererComponent(final JList list, final Object value, final int index,
+	public Component getListCellRendererComponent(final JList<?> list, final Object value, final int index,
 			final boolean isSelected, final boolean cellHasFocus) {
 		final JLabel result = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 		final IComboBoxItem item = (IComboBoxItem) value;

@@ -2,8 +2,6 @@ package de.morrigan.dev.gw2.business.factories;
 
 import java.io.Serializable;
 
-import org.jboss.logging.Logger;
-
 import de.morrigan.dev.gw2.business.builder.interfaces.IItemBuilder;
 import de.morrigan.dev.gw2.business.builder.interfaces.IUserBuilder;
 import de.morrigan.dev.gw2.business.builder.interfaces.IWaypointBuilder;
@@ -18,18 +16,17 @@ public abstract class BuilderFactory implements Serializable {
 
 	private static final long serialVersionUID = 4029979415572071481L;
 
-	/** Logger für Debug/Fehlerausgaben */
-	@SuppressWarnings("unused")
-	private static final Logger LOG = Logger.getLogger(BuilderFactory.class);
-
 	/** Einzige Instanz dieser Factory */
-	private static final BuilderFactory INSTANCE = new NoEJBBuilderFactory();
+	private static BuilderFactory instance;
 
 	/**
 	 * @return die einzige Instanz dieser Factory.
 	 */
 	public static BuilderFactory getInstance() {
-		return INSTANCE;
+		if (instance == null) {
+			instance = new NoEJBBuilderFactory();
+		}
+		return instance;
 	}
 
 	protected BuilderFactory() {

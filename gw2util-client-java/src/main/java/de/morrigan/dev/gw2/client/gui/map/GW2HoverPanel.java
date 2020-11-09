@@ -10,9 +10,6 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import de.morrigan.dev.gw2.client.gui.components.GW2Label;
 import de.morrigan.dev.gw2.client.gui.interfaces.IListenerAction;
 import de.morrigan.dev.gw2.client.gui.interfaces.IStructuredView;
@@ -25,9 +22,6 @@ public class GW2HoverPanel extends JDialog implements IStructuredView {
 
 	/** automatisch generierte serialVersionUID */
 	private static final long serialVersionUID = -8296584091692029189L;
-
-	/** Logger für Debugausgaben */
-	private static final Logger LOG = LoggerFactory.getLogger(GW2HoverPanel.class);
 
 	/** Handle auf den ResourceManager */
 	protected static final ResourceManager RESOURCE_MANAGER = ResourceManager.getInstance();
@@ -63,7 +57,9 @@ public class GW2HoverPanel extends JDialog implements IStructuredView {
 	}
 
 	@Override
-	public void configureListener() {}
+	public void configureListener() {
+		// keine Listener vorhanden
+	}
 
 	@Override
 	public void createGUI() {
@@ -72,7 +68,9 @@ public class GW2HoverPanel extends JDialog implements IStructuredView {
 	}
 
 	@Override
-	public void handleListenerEvent(IListenerAction listenerAction, EventObject event) {}
+	public void handleListenerEvent(IListenerAction listenerAction, EventObject event) {
+		// keine Listener vorhanden
+	}
 
 	@Override
 	public void layoutGUI() {
@@ -92,5 +90,7 @@ public class GW2HoverPanel extends JDialog implements IStructuredView {
 	}
 
 	@Override
-	public void updateLanguage() {}
+	public void updateLanguage() {
+		// keine GUI-Elemente mit Beschriftung vorhanden
+	}
 }

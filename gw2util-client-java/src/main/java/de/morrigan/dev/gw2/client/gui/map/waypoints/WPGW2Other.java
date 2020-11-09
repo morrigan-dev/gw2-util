@@ -2,7 +2,6 @@ package de.morrigan.dev.gw2.client.gui.map.waypoints;
 
 import java.util.Date;
 
-import org.jboss.logging.Logger;
 import org.jdesktop.swingx.mapviewer.GeoPosition;
 
 import de.morrigan.dev.gw2.client.gui.AbstractGW2Waypoint;
@@ -11,9 +10,6 @@ import de.morrigan.dev.gw2.dto.common.enums.WPType;
 import de.morrigan.dev.gw2.resources.ResourceManager;
 
 public class WPGW2Other extends AbstractGW2Waypoint {
-
-	/** Logger für Debug/Fehlerausgaben */
-	private static final Logger LOG = Logger.getLogger(WPGW2Other.class);
 
 	private final long id;
 	private final Date updateDate;
@@ -83,12 +79,12 @@ public class WPGW2Other extends AbstractGW2Waypoint {
 			case GUILD_BOUNTY:
 				result = new ZoomScale[] { new ZoomScale(0, 1), new ZoomScale(1, 1.5), new ZoomScale(2, 2),
 						new ZoomScale(3, 2.5) };
-				break;
+			break;
 
 			case CHEST:
 				result = new ZoomScale[] { new ZoomScale(0, 1), new ZoomScale(1, 1.5), new ZoomScale(2, 2.5),
 						new ZoomScale(3, 3) };
-				break;
+			break;
 		}
 		return result;
 	}

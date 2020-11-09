@@ -1,6 +1,7 @@
 package de.morrigan.dev.gw2.dto.common.enums;
 
-import org.jboss.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public enum Language {
 
@@ -9,8 +10,8 @@ public enum Language {
 	SPANISH("es", "spanish"), //
 	FRENCH("fr", "french");
 
-	/** Logger für Debug/Fehlerausgaben */
-	private static final Logger LOG = Logger.getLogger(Language.class);
+	/** Logger für Debugausgaben */
+	private static final Logger LOG = LoggerFactory.getLogger(Language.class);
 
 	public static final Language getValueOf(String value) {
 		Language result = null;
@@ -21,7 +22,7 @@ public enum Language {
 			}
 		}
 		if (result == null) {
-			LOG.warn(value + " konnte nicht in ein Language umgewandelt werden!");
+			LOG.warn("{} konnte nicht in ein Language umgewandelt werden!", value);
 			result = ENGLISH;
 		}
 		return result;
@@ -41,13 +42,5 @@ public enum Language {
 
 	public String getLabelKey() {
 		return this.labelKey;
-	}
-
-	public void setApiValue(String apiValue) {
-		this.apiValue = apiValue;
-	}
-
-	public void setLabelKey(String labelKey) {
-		this.labelKey = labelKey;
 	}
 }

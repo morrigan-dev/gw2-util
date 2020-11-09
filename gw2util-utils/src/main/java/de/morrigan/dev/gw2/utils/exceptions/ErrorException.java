@@ -10,12 +10,10 @@ public class ErrorException extends AbstractException {
 
 	private static final long serialVersionUID = 1L;
 
-	/** siehe {@link AbstractException#AException(int)  */
 	public ErrorException(final int errorCode) {
 		super(errorCode);
 	}
 
-	/** siehe {@link AbstractException#AException(int, String)  */
 	public ErrorException(final int errorCode, final String detailMessage) {
 		super(errorCode, detailMessage);
 	}

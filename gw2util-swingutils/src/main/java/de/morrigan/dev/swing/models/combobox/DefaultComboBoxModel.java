@@ -9,7 +9,6 @@ import javax.swing.MutableComboBoxModel;
 import de.morrigan.dev.gw2.resources.ResourceManager;
 import de.morrigan.dev.gw2.utils.model.interfaces.IComboBoxItem;
 
-
 public class DefaultComboBoxModel<T> extends AbstractListModel implements MutableComboBoxModel {
 
 	private static final long serialVersionUID = 1L;
@@ -18,7 +17,7 @@ public class DefaultComboBoxModel<T> extends AbstractListModel implements Mutabl
 	protected static final ResourceManager RESOURCE_MANAGER = ResourceManager.getInstance();
 
 	/** Liste mit den einzelnen Entities */
-	private List<T> dataList = new ArrayList<T>();
+	private List<T> dataList = new ArrayList<>();
 
 	/** Aktuell ausgewähltes Element */
 	private T selectedItem;

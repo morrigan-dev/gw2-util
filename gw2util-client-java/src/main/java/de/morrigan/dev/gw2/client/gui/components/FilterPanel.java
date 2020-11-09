@@ -129,7 +129,7 @@ public class FilterPanel extends JPanel implements IObserver {
 	}
 
 	private static final long serialVersionUID = 1L;
-	
+
 	/** Logger für Debugausgaben */
 	private static final Logger LOG = LoggerFactory.getLogger(FilterPanel.class);
 
@@ -387,14 +387,14 @@ public class FilterPanel extends JPanel implements IObserver {
 	}
 
 	private void moveAllLeft() {
-		List<DefaultMutableTreeNode> selectedNodes = new ArrayList<DefaultMutableTreeNode>();
+		List<DefaultMutableTreeNode> selectedNodes = new ArrayList<>();
 		this.model.fillSelectedLeafs(selectedNodes, (DefaultMutableTreeNode) this.lstSelectedElements.getModel()
 				.getRoot());
 		this.model.removeItems(selectedNodes);
 	}
 
 	private void moveAllRight() {
-		List<DefaultMutableTreeNode> selectedNodes = new ArrayList<DefaultMutableTreeNode>();
+		List<DefaultMutableTreeNode> selectedNodes = new ArrayList<>();
 		this.model.fillSelectedLeafs(selectedNodes, (DefaultMutableTreeNode) this.lstAvailableElements.getModel()
 				.getRoot());
 		this.model.addItems(selectedNodes);
@@ -402,7 +402,7 @@ public class FilterPanel extends JPanel implements IObserver {
 
 	private void moveLeft() {
 		TreePath[] selectionPaths = FilterPanel.this.lstSelectedElements.getSelectionModel().getSelectionPaths();
-		List<DefaultMutableTreeNode> selectedNodes = new ArrayList<DefaultMutableTreeNode>();
+		List<DefaultMutableTreeNode> selectedNodes = new ArrayList<>();
 		for (TreePath treePath : selectionPaths) {
 			DefaultMutableTreeNode selectedItem = (DefaultMutableTreeNode) treePath.getLastPathComponent();
 			this.model.fillSelectedLeafs(selectedNodes, selectedItem);
@@ -412,7 +412,7 @@ public class FilterPanel extends JPanel implements IObserver {
 
 	private void moveRight() {
 		TreePath[] selectionPaths = FilterPanel.this.lstAvailableElements.getSelectionModel().getSelectionPaths();
-		List<DefaultMutableTreeNode> selectedNodes = new ArrayList<DefaultMutableTreeNode>();
+		List<DefaultMutableTreeNode> selectedNodes = new ArrayList<>();
 		for (TreePath treePath : selectionPaths) {
 			DefaultMutableTreeNode selectedItem = (DefaultMutableTreeNode) treePath.getLastPathComponent();
 			this.model.fillSelectedLeafs(selectedNodes, selectedItem);

@@ -2,7 +2,8 @@ package de.morrigan.dev.gw2.client.model;
 
 import java.util.List;
 
-import org.jboss.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.morrigan.dev.gw2.client.model.table.AbstractGW2TableModel;
 import de.morrigan.dev.gw2.dto.admin.UserDTO;
@@ -11,8 +12,8 @@ public class UserDTOTableModel extends AbstractGW2TableModel<UserDTO> {
 
 	private static final long serialVersionUID = 1L;
 
-	/** Logger für Debug/Fehlerausgaben */
-	private static final Logger LOG = Logger.getLogger(UserDTOTableModel.class);
+	/** Logger für Debugausgaben */
+	private static final Logger LOG = LoggerFactory.getLogger(UserDTOTableModel.class);
 
 	/** Anzahl der Spalten in diesem TableModel */
 	private static final int COLUMN_COUNT = 2;
@@ -23,10 +24,7 @@ public class UserDTOTableModel extends AbstractGW2TableModel<UserDTO> {
 	public UserDTOTableModel(List<UserDTO> dataList) {
 		super(dataList, COLUMN_COUNT);
 
-		final String[] columnNames = new String[] { "username", //
-				"state" //
-		};
-		setColumnNames(columnNames);
+		setColumnNames(new String[] { "username", "state" });
 	}
 
 	@Override
@@ -38,7 +36,7 @@ public class UserDTOTableModel extends AbstractGW2TableModel<UserDTO> {
 			case COLUMN_ACTIVE_STATUS:
 				return element.getActiveState();
 			default:
-				LOG.warn("Es existiert keine Spalte mit dem Index " + columnIndex);
+				LOG.warn("Es existiert keine Spalte mit dem Index {}", columnIndex);
 				return "";
 		}
 	}

@@ -56,4 +56,8 @@ public class GCUtil {
 		gc.gridheight = gridheight;
 		gc.insets = insets;
 	}
+
+	private GCUtil() {
+		super();
+	}
 }

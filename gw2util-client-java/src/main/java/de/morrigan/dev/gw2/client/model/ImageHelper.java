@@ -8,7 +8,7 @@ import de.morrigan.dev.gw2.dto.common.enums.WPSubType;
 import de.morrigan.dev.gw2.resources.ImageManager;
 
 public class ImageHelper {
-	
+
 	/** Handel auf den ImageManager */
 	private static final ImageManager IMAGE_MANAGER = ImageManager.getInstance();
 
@@ -18,7 +18,7 @@ public class ImageHelper {
 		return INSTANCE;
 	}
 
-	private Map<WPSubType, Image> resOriginByWpSubType = new HashMap<WPSubType, Image>();
+	private Map<WPSubType, Image> resOriginByWpSubType = new HashMap<>();
 
 	private ImageHelper() {
 		super();

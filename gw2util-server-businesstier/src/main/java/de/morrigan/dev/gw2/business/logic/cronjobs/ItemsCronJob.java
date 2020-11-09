@@ -16,7 +16,7 @@ public class ItemsCronJob implements Job {
 
 	/** Logger für Debugausgaben */
 	private static final Logger LOG = LoggerFactory.getLogger(ItemsCronJob.class);
-	
+
 	public static final String JOB_NAME = ItemsCronJob.class.getName() + "_job";
 	public static final String JOB_GROUP = "GW2-Utilities_job";
 	public static final String TRIGGER_NAME = ItemsCronJob.class.getName() + "_trigger";
@@ -46,7 +46,6 @@ public class ItemsCronJob implements Job {
 				jobService.receiveItems(idsToLoad);
 			}
 		} catch (ServiceException e) {
-			LOG.error(e.getMessage(), e);
 			throw new JobExecutionException(e);
 		}
 	}

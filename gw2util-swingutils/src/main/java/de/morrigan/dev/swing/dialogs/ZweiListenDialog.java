@@ -34,7 +34,7 @@ import de.morrigan.dev.swing.models.dialogs.ZweiListenAuswahlModel;
 public class ZweiListenDialog<T extends IChoosableDTO<T>> extends ADialog {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	/** Logger für Debugausgaben */
 	private static final Logger LOG = LoggerFactory.getLogger(ZweiListenDialog.class);
 
@@ -109,7 +109,9 @@ public class ZweiListenDialog<T extends IChoosableDTO<T>> extends ADialog {
 	}
 
 	@Override
-	protected void configureListener(final Object listener) {}
+	protected void configureListener(final Object listener) {
+		// es werden keine Listener benötigt
+	}
 
 	@Override
 	protected void createGUI(final JPanel contentPanel) {

@@ -30,16 +30,16 @@ public class ZweiListenAuswahlModel<T extends IChoosableDTO<T>> extends Abstract
 	public static final long TABLE_MODELS_CHANGED = BitUtils.setLongBit(1);
 
 	/** Liste mit den verfügbaren Elementen */
-	private List<T> availableEntries = new ArrayList<T>();
+	private List<T> availableEntries = new ArrayList<>();
 
 	/** Liste mit den verfügbaren Elementen */
-	private List<T> cashedAvailableEntries = new ArrayList<T>();
+	private List<T> cashedAvailableEntries = new ArrayList<>();
 
 	/** Liste mit den ausgewählten Elementen */
-	private List<T> selectedEntries = new ArrayList<T>();
+	private List<T> selectedEntries = new ArrayList<>();
 
 	/** Liste mit den ausgewählten Elementen */
-	private List<T> cashedSelectedEntries = new ArrayList<T>();
+	private List<T> cashedSelectedEntries = new ArrayList<>();
 
 	/** Prüfsumme der Anzahl der Elemente beim initialisieren */
 	private int initialElementCount = 0;
@@ -91,7 +91,7 @@ public class ZweiListenAuswahlModel<T extends IChoosableDTO<T>> extends Abstract
 			return;
 		}
 
-		final List<T> elementsToRemove = new ArrayList<T>();
+		final List<T> elementsToRemove = new ArrayList<>();
 		for (final int index : indices) {
 			final T elementToAdd = this.availableEntries.get(index);
 			elementToAdd.setChoosableState(CHOOSABLE.ADDED);
@@ -146,9 +146,9 @@ public class ZweiListenAuswahlModel<T extends IChoosableDTO<T>> extends Abstract
 		this.availableElementsModel.setDataList(this.availableEntries);
 		this.selectedElementsModel.setDataList(this.selectedEntries);
 
-		this.cashedAvailableEntries = new LinkedList<T>();
+		this.cashedAvailableEntries = new LinkedList<>();
 		this.cashedAvailableEntries.addAll(this.availableEntries);
-		this.cashedSelectedEntries = new LinkedList<T>();
+		this.cashedSelectedEntries = new LinkedList<>();
 		this.cashedSelectedEntries.addAll(this.selectedEntries);
 
 		Collections.sort(this.availableEntries);
@@ -197,7 +197,7 @@ public class ZweiListenAuswahlModel<T extends IChoosableDTO<T>> extends Abstract
 			return;
 		}
 
-		final List<T> elementsToRemove = new ArrayList<T>();
+		final List<T> elementsToRemove = new ArrayList<>();
 		for (final int index : indices) {
 			T elementToAdd = this.selectedEntries.get(index);
 			elementToAdd.setChoosableState(CHOOSABLE.REMOVED);
@@ -251,7 +251,7 @@ public class ZweiListenAuswahlModel<T extends IChoosableDTO<T>> extends Abstract
 			}
 			return true;
 		} catch (final IllegalStateException e) {
-			e.printStackTrace();
+			LOG.error(e.getMessage(), e);
 		}
 		return false;
 	}

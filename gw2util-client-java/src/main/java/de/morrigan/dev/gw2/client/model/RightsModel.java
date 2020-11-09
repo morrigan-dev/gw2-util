@@ -26,7 +26,7 @@ import de.morrigan.dev.swing.models.AbstractModel;
  * @author morrigan
  */
 public class RightsModel extends AbstractModel {
-	
+
 	/** Logger für Debugausgaben */
 	private static final Logger LOG = LoggerFactory.getLogger(RightsModel.class);
 
@@ -89,18 +89,18 @@ public class RightsModel extends AbstractModel {
 		for (Field field : fields) {
 			for (Annotation anno : field.getDeclaredAnnotations()) {
 				if (anno.annotationType().equals(RightCheck.class)) {
-					RightCheck rights = (RightCheck) anno;
+					RightCheck annotatedRights = (RightCheck) anno;
 					field.setAccessible(true);
-					switch (rights.changeType()) {
+					switch (annotatedRights.changeType()) {
 						case VISIBILITY:
-							updateField(viewToCheck, field, rights, "setVisible");
-							break;
+							updateField(viewToCheck, field, annotatedRights, "setVisible");
+						break;
 						case CHANGEABILITY:
-							updateField(viewToCheck, field, rights, "setEditable");
-							break;
+							updateField(viewToCheck, field, annotatedRights, "setEditable");
+						break;
 
 						default:
-							break;
+						break;
 					}
 				}
 			}
@@ -122,7 +122,7 @@ public class RightsModel extends AbstractModel {
 				method.invoke(o, rightsModel.hasRight(rights.rightKeys()));
 				methodFound = true;
 			} catch (NoSuchMethodException e) {
-				LOG.info("keine " + methodName + " in " + classToCheck.getSimpleName() + " vorhanden.");
+				LOG.info("keine {} in {} vorhanden.", methodName, classToCheck.getSimpleName());
 			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 				LOG.error(e.getMessage(), e);
 			}

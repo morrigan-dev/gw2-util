@@ -43,16 +43,20 @@ import de.morrigan.dev.swing.factories.MessageDialogFactory;
 public class MainPanel extends JPanel implements IObserver, INavigation, IThreadCallback {
 
 	private enum ListenerAction implements IListenerAction {
-		CLOSE_ENTERED, CLOSE_LEFT, CLOSE_CLICKED, //
-		INFO_CLICKED, MAP_CLICKED, ADMINISTRATION_CLICKED
+		CLOSE_ENTERED,
+		CLOSE_LEFT,
+		CLOSE_CLICKED, //
+		INFO_CLICKED,
+		MAP_CLICKED,
+		ADMINISTRATION_CLICKED
 	}
 
 	/** automatisch generierte serialVersionUID */
 	private static final long serialVersionUID = 6377677619212330185L;
-	
+
 	/** Logger für Debugausgaben */
 	private static final Logger LOG = LoggerFactory.getLogger(MainPanel.class);
-	
+
 	/** Handle auf den ResourceManager */
 	private static final ResourceManager RESOURCE_MANAGER = ResourceManager.getInstance();
 
@@ -156,21 +160,21 @@ public class MainPanel extends JPanel implements IObserver, INavigation, IThread
 				case CARD_INFORMATION:
 					this.lblInformation.setIcon(IMAGE_MANAGER.getImageIcon(ImageManager.SELECTED_INFO_ICON));
 					this.informationCard.setVisible(true);
-					break;
+				break;
 				case CARD_MAP:
 					this.lblDynamicMap.setIcon(IMAGE_MANAGER.getImageIcon(ImageManager.SELECTED_MAP_ICON));
 					this.dynamicMapCard.initialize();
 					this.dynamicMapCard.setVisible(true);
-					break;
+				break;
 				case CARD_ADMINISTRATION:
 					this.lblAdministration.setIcon(IMAGE_MANAGER.getImageIcon(ImageManager.BLUE_BALL_ICON));
 					this.adminCard.initialize();
 					this.adminCard.setVisible(true);
-					break;
+				break;
 
 				default:
-					LOG.warn("Der Kartenindex " + cardIndex + " ist nicht gemappt!");
-					break;
+					LOG.warn("Der Kartenindex {} ist nicht gemappt!", cardIndex);
+				break;
 			}
 		} catch (Exception e) {
 			MessageDialogFactory.handleExcpetion(Main.getInstance().getMainFrame(), e, null);
@@ -276,26 +280,26 @@ public class MainPanel extends JPanel implements IObserver, INavigation, IThread
 			switch (action) {
 				case CLOSE_ENTERED:
 					this.lblClose.setIcon(IMAGE_MANAGER.getImageIcon(ImageManager.CLOSE_HOVER_ICON));
-					break;
+				break;
 				case CLOSE_LEFT:
 					this.lblClose.setIcon(IMAGE_MANAGER.getImageIcon(ImageManager.CLOSE_ICON));
-					break;
+				break;
 				case CLOSE_CLICKED:
 					Main.getInstance().getMainFrame().setVisible(false);
-					break;
+				break;
 				case INFO_CLICKED:
 					this.navModel.setSelectedCard(INavigation.CARD_INFORMATION);
-					break;
+				break;
 				case MAP_CLICKED:
 					this.navModel.setSelectedCard(INavigation.CARD_MAP);
-					break;
+				break;
 				case ADMINISTRATION_CLICKED:
 					this.navModel.setSelectedCard(INavigation.CARD_ADMINISTRATION);
-					break;
+				break;
 
 				default:
-					LOG.warn("Die Aktion " + action + " ist nicht gemappt!");
-					break;
+					LOG.warn("Die Aktion {} ist nicht gemappt!", action);
+				break;
 			}
 		} catch (Exception e) {
 			LOG.error(e.getMessage(), e);

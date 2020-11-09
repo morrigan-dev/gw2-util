@@ -24,7 +24,7 @@ public class CompactPanel extends JPanel implements IObserver, INavigation {
 
 	/** automatisch generierte serialVersionUID */
 	private static final long serialVersionUID = -3852890672413276158L;
-	
+
 	/** Logger für Debugausgaben */
 	private static final Logger LOG = LoggerFactory.getLogger(CompactPanel.class);
 
@@ -68,11 +68,11 @@ public class CompactPanel extends JPanel implements IObserver, INavigation {
 					layoutGUI();
 					this.dynamicMapCard.initialize();
 					this.dynamicMapCard.setVisible(true);
-					break;
+				break;
 
 				default:
 					LOG.warn("Der Kartenindex " + cardIndex + " ist nicht gemappt!");
-					break;
+				break;
 			}
 		} catch (Exception e) {
 			MessageDialogFactory.handleExcpetion(Main.getInstance().getMainFrame(), e, null);
@@ -95,7 +95,9 @@ public class CompactPanel extends JPanel implements IObserver, INavigation {
 		setBorder(new LineBorder(Color.BLACK));
 	}
 
-	private void configureListener() {}
+	private void configureListener() {
+		// keine Listener vorhanden
+	}
 
 	private void createGUI() {
 		this.dynamicMapCard = new DynamicMapCard(this.mainWindow, false);

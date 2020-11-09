@@ -13,19 +13,19 @@ import de.morrigan.dev.gw2.utils.exceptions.PersistenceException;
  * 
  * @author morrigan
  */
-public interface IGenericDAO<T, ID extends Serializable> {
+public interface IGenericDAO<T, U extends Serializable> {
 
 	/** Löscht den übergebenen Datensatz physisch aus der Datenbank */
 	public void delete(T entity) throws PersistenceException;
 
 	/** Löscht den übergebenen (detached) Datensatz physisch aus der Datenbank */
-	public void deleteDetached(ID id) throws PersistenceException;
+	public void deleteDetached(U id) throws PersistenceException;
 
 	/** @return alle Datensätze aus der Tabelle */
 	public List<T> findAll() throws PersistenceException;
 
 	/** @return den Datensatz, der die übergebene ID besitzt oder null, wenn kein Datensatz mit der ID gefunden wurde. */
-	public T findById(ID id) throws PersistenceException;
+	public T findById(U id) throws PersistenceException;
 
 	/** Setzt den Status des Datensatzes auf gelöscht und aktualisiert in in der DB */
 	public T markAsDeleted(T entity) throws PersistenceException;

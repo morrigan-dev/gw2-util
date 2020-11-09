@@ -1,36 +1,37 @@
 package de.morrigan.dev.gw2.dto.common.enums;
 
-import org.jboss.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public enum WeaponType {
 
-	UNKNOWN("", "unknown"), //
-	AXE("Axe", "axe"), //
-	DAGGER("Dagger", "dagger"), //
-	FOCUS("Focus", "focus"), //
-	GREATSWORD("Greatsword", "greatsword"), //
-	HAMMER("Hammer", "hammer"), //
-	HARPOON("Harpoon", "harpoon"), //
-	LARGE_BUNDLE("LargeBundle", "largeBundle"), //
-	LONGBOW("LongBow", "longbow"), //
-	MACE("Mace", "mace"), //
-	PISTOL("Pistol", "pistol"), //
-	RIFLE("Rifle", "rifle"), //
-	SCEPTER("Scepter", "scepter"), //
-	SHIELD("Shield", "shield"), //
-	SHORTBOW("ShortBow", "shortBow"), //
-	SMALLBUNDLE("SmallBundle", "smallBundle"), //
-	SPEARGUN("Speargun", "speargun"), //
-	STAFF("Staff", "staff"), //
-	SWORD("Sword", "sword"), //
-	TORCH("Torch", "torch"), //
-	TOY("Toy", "toy"), //
-	TRIDENT("Trident", "trident"), //
-	TWO_HANDED_TOY("TwoHandedToy", "twoHandedToy"), //
+	UNKNOWN("", "unknown"),
+	AXE("Axe", "axe"),
+	DAGGER("Dagger", "dagger"),
+	FOCUS("Focus", "focus"),
+	GREATSWORD("Greatsword", "greatsword"),
+	HAMMER("Hammer", "hammer"),
+	HARPOON("Harpoon", "harpoon"),
+	LARGE_BUNDLE("LargeBundle", "largeBundle"),
+	LONGBOW("LongBow", "longbow"),
+	MACE("Mace", "mace"),
+	PISTOL("Pistol", "pistol"),
+	RIFLE("Rifle", "rifle"),
+	SCEPTER("Scepter", "scepter"),
+	SHIELD("Shield", "shield"),
+	SHORTBOW("ShortBow", "shortBow"),
+	SMALLBUNDLE("SmallBundle", "smallBundle"),
+	SPEARGUN("Speargun", "speargun"),
+	STAFF("Staff", "staff"),
+	SWORD("Sword", "sword"),
+	TORCH("Torch", "torch"),
+	TOY("Toy", "toy"),
+	TRIDENT("Trident", "trident"),
+	TWO_HANDED_TOY("TwoHandedToy", "twoHandedToy"),
 	WARHORN("Warhorn", "warhorn");
 
-	/** Logger für Debug/Fehlerausgaben */
-	private static final Logger LOG = Logger.getLogger(WeaponType.class);
+	/** Logger für Debugausgaben */
+	private static final Logger LOG = LoggerFactory.getLogger(WeaponType.class);
 
 	public static final WeaponType getValueOf(String value) {
 		WeaponType result = null;
@@ -41,7 +42,7 @@ public enum WeaponType {
 			}
 		}
 		if (result == null) {
-			LOG.warn(value + " konnte nicht in ein WeaponType umgewandelt werden!");
+			LOG.warn("{} konnte nicht in ein WeaponType umgewandelt werden!", value);
 			result = UNKNOWN;
 		}
 		return result;
@@ -57,9 +58,5 @@ public enum WeaponType {
 
 	public String getLabelKey() {
 		return this.labelKey;
-	}
-
-	public void setLabelKey(String labelKey) {
-		this.labelKey = labelKey;
 	}
 }

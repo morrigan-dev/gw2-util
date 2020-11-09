@@ -7,7 +7,6 @@ import java.util.UUID;
  * Dieses DTO beinhaltet Daten für die Serverauswahl im Bereich DragonTimer für den Client.
  * 
  * @author morrigan
- * @since 25.04.2013
  */
 public class DTServerDTO implements Serializable {
 

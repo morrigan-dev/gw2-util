@@ -3,8 +3,6 @@ package de.morrigan.dev.gw2.client.gui.components;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.EventObject;
 
 import javax.swing.JButton;
@@ -32,16 +30,15 @@ import de.morrigan.dev.swing.factories.MessageDialogFactory;
 
 public class RegisterPanel extends JPanel implements IStructuredView, IObserver {
 
-	private static enum ListenerAction implements IListenerAction {
+	private enum ListenerAction implements IListenerAction {
 		REGISTER_CLICKED
 	}
 
 	private static final long serialVersionUID = 1L;
 
-	
 	/** Logger für Debugausgaben */
 	private static final Logger LOG = LoggerFactory.getLogger(RegisterPanel.class);
-	
+
 	/** Handel auf den LabelManager */
 	private static final ResourceManager RESOURCE_MANAGER = ResourceManager.getInstance();
 
@@ -82,14 +79,7 @@ public class RegisterPanel extends JPanel implements IStructuredView, IObserver 
 
 	@Override
 	public void configureListener() {
-		this.btRegister.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent event) {
-				handleListenerEvent(ListenerAction.REGISTER_CLICKED, event);
-			}
-		});
-
+		this.btRegister.addActionListener(event -> handleListenerEvent(ListenerAction.REGISTER_CLICKED, event));
 	}
 
 	@Override
@@ -109,11 +99,11 @@ public class RegisterPanel extends JPanel implements IStructuredView, IObserver 
 			switch (action) {
 				case REGISTER_CLICKED:
 					doRegister();
-					break;
+				break;
 
 				default:
-					LOG.warn("Die Aktion " + action + " ist nicht gemappt!");
-					break;
+					LOG.warn("Die Aktion {} ist nicht gemappt!", action);
+				break;
 			}
 		} catch (Exception e) {
 			LOG.error(e.getMessage(), e);
@@ -144,8 +134,7 @@ public class RegisterPanel extends JPanel implements IStructuredView, IObserver 
 
 	@Override
 	public void update(IObservable obs, long updateFlag) {
-		// TODO Auto-generated method stub
-
+		// keine GUI-Elemente die ein Update benötigen
 	}
 
 	@Override

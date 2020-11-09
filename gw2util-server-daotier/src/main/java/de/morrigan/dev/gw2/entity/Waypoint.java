@@ -122,7 +122,7 @@ public class Waypoint implements IEntity, IActiveStateEntity, IAuditEntity {
 	 * @param rich Flag für reichhaltige Resourcen.
 	 * @param permanent Flag für permanente Resourcen
 	 */
-	public Waypoint(long id, ActiveState activeState, Date createDate, User createUser, Date updateDate,
+	public Waypoint(ActiveState activeState, Date createDate, User createUser, Date updateDate,
 			User updateUser, WPType wpType, WPSubType wpSubType, double longitude, double latitude,
 			String informationKey, boolean rich, boolean permanent) {
 		super();

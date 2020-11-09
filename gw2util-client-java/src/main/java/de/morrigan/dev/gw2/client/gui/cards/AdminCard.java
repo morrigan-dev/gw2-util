@@ -25,7 +25,7 @@ import de.morrigan.dev.swing.factories.MessageDialogFactory;
 public class AdminCard extends AbstractView<AdminModel> {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	/** Logger für Debugausgaben */
 	private static final Logger LOG = LoggerFactory.getLogger(AdminCard.class);
 
@@ -66,8 +66,7 @@ public class AdminCard extends AbstractView<AdminModel> {
 
 	@Override
 	public void configureListener() {
-		// TODO Auto-generated method stub
-
+		// keine Listener vorhanden
 	}
 
 	@Override
@@ -77,8 +76,7 @@ public class AdminCard extends AbstractView<AdminModel> {
 
 	@Override
 	public void handleListenerEvent(IListenerAction listenerAction, EventObject event) {
-		// TODO Auto-generated method stub
-
+		// keine Listener vorhanden
 	}
 
 	public void initialize() throws AbstractException {
@@ -98,14 +96,11 @@ public class AdminCard extends AbstractView<AdminModel> {
 
 	@Override
 	public void update(IObservable obs, long updateFlag) {
-		// TODO Auto-generated method stub
-
+		// keine GUI Elemente die zu befüllen wären
 	}
 
 	@Override
 	public void updateLanguage() {
 		this.mbUserAdmin.setHeadertext(RESOURCE_MANAGER.getLabel("userAdmin"));
-
 	}
-
 }

@@ -12,6 +12,9 @@
 	<artifactId>gw2util-server-build</artifactId>
 	<packaging>pom</packaging>
 
+	<name>GW2-Utility Server (build)</name>
+	<description>Build-Modul für das GW2-Utility Server Produkt</description>
+
 	<modules>
 		<module>../gw2util-utils</module>
 		<module>../gw2util-resources</module>

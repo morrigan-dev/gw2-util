@@ -36,7 +36,7 @@ public class UserAdminService implements IUserAdminService {
 
 	/** Logger für Debugausgaben */
 	private static final Logger LOG = LoggerFactory.getLogger(UserAdminService.class);
-	
+
 	@EJB
 	private IJobService jobService;
 
@@ -58,7 +58,7 @@ public class UserAdminService implements IUserAdminService {
 			}
 
 			if (LOG.isInfoEnabled()) {
-				LOG.info(result + " Benutzer Details von " + executingUser.getUserName() + " abgerufen.");
+				LOG.info("{} Benutzer Details von {} abgerufen.", result, executingUser.getUserName());
 			}
 			return result;
 		} catch (Exception e) {
@@ -78,14 +78,14 @@ public class UserAdminService implements IUserAdminService {
 			IAuthenticationService authService = ServiceFactory.getInstance().getAuthenticationService();
 			User executingUser = authService.checkRight(authDTO);
 
-			List<UserDTO> resultList = new ArrayList<UserDTO>();
+			List<UserDTO> resultList = new ArrayList<>();
 			List<User> userList = userDAO.findAll();
 			for (User user : userList) {
 				resultList.add(userBuilder.buildUserDTO(user));
 			}
 
 			if (LOG.isInfoEnabled()) {
-				LOG.info(resultList.size() + " Benutzer von " + executingUser.getUserName() + " abgerufen.");
+				LOG.info("{} Benutzer von {} abgerufen.", resultList.size(), executingUser.getUserName());
 			}
 			return resultList;
 		} catch (Exception e) {

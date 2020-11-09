@@ -33,7 +33,6 @@ public class GemsStatisticCronJob implements Job {
 		try {
 			jobService.receiveGemsStatisticValue();
 		} catch (ServiceException e) {
-			LOG.error(e.getMessage(), e);
 			throw new JobExecutionException(e);
 		}
 	}

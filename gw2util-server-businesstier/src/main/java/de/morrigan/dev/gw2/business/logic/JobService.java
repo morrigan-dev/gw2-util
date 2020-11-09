@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -92,38 +93,19 @@ public class JobService implements IJobService {
 		GsonCoinsPerGem gemsPerGold = null;
 		GsonCoinsPerGem coinsPerGem = null;
 
-		InputStream gemsInputStream = null;
-		InputStream coinsInputStream = null;
 		BufferedReader gemsReader = null;
 		BufferedReader coinsReader = null;
-		try {
+		try (InputStream gemsInputStream = new URL(gemsUrl.toString()).openStream();
+				InputStream coinsInputStream = new URL(coinsUrl.toString()).openStream();) {
 			// Lese Anzahl an Edelsteine, die man für ein Gold erhält
-			gemsInputStream = new URL(gemsUrl.toString()).openStream();
-			gemsReader = new BufferedReader(new InputStreamReader(gemsInputStream, "UTF-8"));
+			gemsReader = new BufferedReader(new InputStreamReader(gemsInputStream, StandardCharsets.UTF_8));
 			gemsPerGold = gson.fromJson(gemsReader, GsonCoinsPerGem.class);
 
 			// Lese Anzahl an Kupfer, die man für ein Edelstein erhält
-			coinsInputStream = new URL(coinsUrl.toString()).openStream();
-			coinsReader = new BufferedReader(new InputStreamReader(coinsInputStream, "UTF-8"));
+			coinsReader = new BufferedReader(new InputStreamReader(coinsInputStream, StandardCharsets.UTF_8));
 			coinsPerGem = gson.fromJson(coinsReader, GsonCoinsPerGem.class);
-
 		} catch (IOException e) {
 			LOG.error(e.getMessage(), e);
-		} finally {
-			if (gemsReader != null) {
-				try {
-					gemsReader.close();
-				} catch (IOException e) {
-					LOG.error(e.getMessage(), e);
-				}
-			}
-			if (coinsReader != null) {
-				try {
-					coinsReader.close();
-				} catch (IOException e) {
-					LOG.error(e.getMessage(), e);
-				}
-			}
 		}
 
 		try {
@@ -135,7 +117,6 @@ public class JobService implements IJobService {
 					gemToCoins);
 			this.gemsStatisticDAO.save(gemsStatisctic);
 		} catch (PersistenceException e) {
-			LOG.error(e.getMessage(), e);
 			throw new ServiceException(e);
 		}
 	}
@@ -145,26 +126,16 @@ public class JobService implements IJobService {
 		final Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE).create();
 
 		GsonItemIds itemIds = null;
-		InputStream itemIdsInputStream = null;
 		BufferedReader itemIdsReader = null;
 		long[] ids = new long[0];
-		try {
+		try (InputStream itemIdsInputStream = new URL(HTTPConstants.GW2_API_URL_ITEMS).openStream();) {
 
 			// Lese sämtliche Item IDs
-			itemIdsInputStream = new URL(HTTPConstants.GW2_API_URL_ITEMS).openStream();
-			itemIdsReader = new BufferedReader(new InputStreamReader(itemIdsInputStream, "UTF-8"));
+			itemIdsReader = new BufferedReader(new InputStreamReader(itemIdsInputStream, StandardCharsets.UTF_8));
 			itemIds = gson.fromJson(itemIdsReader, GsonItemIds.class);
 			ids = itemIds.getIds();
 		} catch (Exception e) {
 			LOG.error(e.getMessage(), e);
-		} finally {
-			if (itemIdsReader != null) {
-				try {
-					itemIdsReader.close();
-				} catch (IOException e) {
-					LOG.error(e.getMessage(), e);
-				}
-			}
 		}
 		return ids;
 	}
@@ -195,13 +166,13 @@ public class JobService implements IJobService {
 					url.append(HTTPConstants.GW2_API_PARAM_LANG);
 					url.append("=");
 					url.append(lang.getApiValue());
-					LOG.info("url = " + url);
+					LOG.info("url = {}", url);
 					itemDetailsInputStream = new URL(url.toString()).openStream();
-					itemDetailsReader = new BufferedReader(new InputStreamReader(itemDetailsInputStream, "UTF-8"));
+					itemDetailsReader = new BufferedReader(new InputStreamReader(itemDetailsInputStream, StandardCharsets.UTF_8));
 					itemDetails = gson.fromJson(itemDetailsReader, GsonItemDetails.class);
 
 					long externalId = itemDetails.getItemId();
-					LOG.info("Prüfe " + externalId + " - " + itemDetails.getName());
+					LOG.info("Prüfe {} - {}", externalId, itemDetails.getName());
 					Item itemToSave = this.itemDAO.findByExternalId(externalId, lang);
 
 					User systemUser = this.userDAO.findById(User.SYS_ADMIN_ID);
@@ -306,13 +277,11 @@ public class JobService implements IJobService {
 		InputStream recipesDetailsInputStream = null;
 		BufferedReader recipesDetailsReader = null;
 		long id = 0;
-		try {
-
-			CSVWriter csvRecipesDetails = new CSVWriter(new FileWriter(new File("recipesdetails.csv"), true));
+		try (CSVWriter csvRecipesDetails = new CSVWriter(new FileWriter(new File("recipesdetails.csv"), true))) {
 
 			for (int i = 0; i < ids.length; i++) {
 				id = ids[i];
-				LOG.info("*** ID = " + id + " ***");
+				LOG.info("*** ID = {} ***", id);
 				// Lese zu jeder Rezept ID die Rezept Details
 				StringBuilder url = new StringBuilder();
 				url.append(HTTPConstants.GW2_API_URL_RECIPES_DETAILS);
@@ -321,7 +290,8 @@ public class JobService implements IJobService {
 				url.append("=");
 				url.append(id);
 				recipesDetailsInputStream = new URL(url.toString()).openStream();
-				recipesDetailsReader = new BufferedReader(new InputStreamReader(recipesDetailsInputStream, "UTF-8"));
+				recipesDetailsReader = new BufferedReader(
+						new InputStreamReader(recipesDetailsInputStream, StandardCharsets.UTF_8));
 				recipesDetails = gson.fromJson(recipesDetailsReader, GsonRecipesDetails.class);
 				GsonIngredients[] incredients = recipesDetails.getIngredients();
 				StringBuilder incr = new StringBuilder();
@@ -348,7 +318,6 @@ public class JobService implements IJobService {
 			}
 
 			csvRecipesDetails.flush();
-			csvRecipesDetails.close();
 
 		} catch (Exception e) {
 			LOG.error(e.getMessage() + " Failed ID: " + id, e);
@@ -368,26 +337,16 @@ public class JobService implements IJobService {
 		final Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE).create();
 
 		GsonRecipesIds recipesIds = null;
-		InputStream recipesIdsInputStream = null;
 		BufferedReader recipesIdsReader = null;
 		long[] ids = new long[0];
-		try {
+		try (InputStream recipesIdsInputStream = new URL(HTTPConstants.GW2_API_URL_RECIPES).openStream();) {
 
 			// Lese sämtliche Rezepte IDs
-			recipesIdsInputStream = new URL(HTTPConstants.GW2_API_URL_RECIPES).openStream();
-			recipesIdsReader = new BufferedReader(new InputStreamReader(recipesIdsInputStream, "UTF-8"));
+			recipesIdsReader = new BufferedReader(new InputStreamReader(recipesIdsInputStream, StandardCharsets.UTF_8));
 			recipesIds = gson.fromJson(recipesIdsReader, GsonRecipesIds.class);
 			ids = recipesIds.getIds();
 		} catch (Exception e) {
 			LOG.error(e.getMessage(), e);
-		} finally {
-			if (recipesIdsReader != null) {
-				try {
-					recipesIdsReader.close();
-				} catch (IOException e) {
-					LOG.error(e.getMessage(), e);
-				}
-			}
 		}
 		return ids;
 	}
@@ -412,13 +371,12 @@ public class JobService implements IJobService {
 		Item result = null;
 		try {
 			if ((itemId != null) && !itemId.isEmpty()) {
-				long idToLoad = Long.valueOf(itemId);
+				long idToLoad = Long.parseLong(itemId);
 				result = this.itemDAO.findByExternalId(idToLoad, language);
 			}
 		} catch (NumberFormatException e) {
 			LOG.error(e.getMessage(), e);
 		} catch (PersistenceException e) {
-			LOG.error(e.getMessage(), e);
 			throw new ServiceException(e);
 		}
 		return result;

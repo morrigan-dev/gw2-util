@@ -5,14 +5,15 @@ import java.io.IOException;
 
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.HierarchicalINIConfiguration;
-import org.jboss.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.morrigan.dev.swing.models.AbstractModel;
 
 public class PreferencesModel extends AbstractModel {
 
-	/** Logger für Debug/Fehlerausgaben */
-	private static final Logger LOG = Logger.getLogger(PreferencesModel.class);
+	/** Logger für Debugausgaben */
+	private static final Logger LOG = LoggerFactory.getLogger(PreferencesModel.class);
 
 	private static final PreferencesModel INSTANCE = new PreferencesModel();
 
@@ -36,7 +37,10 @@ public class PreferencesModel extends AbstractModel {
 		File prefFile = new File(PREFERENCES_FILE);
 		try {
 			if (!prefFile.exists()) {
-				prefFile.createNewFile();
+				boolean created = prefFile.createNewFile();
+				if (!created) {
+					LOG.warn("Preference Datei wurde nicht erstellt!");
+				}
 			}
 			this.config = new HierarchicalINIConfiguration(PREFERENCES_FILE);
 		} catch (ConfigurationException | IOException e) {
@@ -53,7 +57,9 @@ public class PreferencesModel extends AbstractModel {
 		String updateInterval = getPropertyValue(PATH_UPDATE_INTERVAL);
 		try {
 			result = Integer.parseInt(updateInterval);
-		} catch (NumberFormatException e) {}
+		} catch (NumberFormatException e) {
+			// result = 0
+		}
 		if (result < 10000) {
 			result = 10000;
 			setUpdateInterval(10000);

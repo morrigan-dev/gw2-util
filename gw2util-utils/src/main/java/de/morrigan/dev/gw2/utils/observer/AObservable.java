@@ -11,18 +11,18 @@ import java.util.List;
  */
 public abstract class AObservable implements IObservable {
 
-	/** Gibt an, ob gerade eine Aktualisierung der GUI durchgef�hrt wird */
+	/** Gibt an, ob gerade eine Aktualisierung der GUI durchgeführt wird */
 	private boolean isChanging;
 
 	/** Liste mit den angemeldeten Observern */
-	private final List<IObserver> observers = new ArrayList<IObserver>();
+	private final List<IObserver> observers = new ArrayList<>();
 
 	@Override
 	public void addObserver(final IObserver obs) {
 		this.observers.add(obs);
 	}
 
-	/** Setzt das isChanging Flag zur�ck */
+	/** Setzt das isChanging Flag zurück */
 	public final void clearChanged() {
 		this.isChanging = false;
 	}
@@ -30,10 +30,9 @@ public abstract class AObservable implements IObservable {
 	@Override
 	public final void deleteObservers() {
 		this.observers.clear();
-
 	}
 
-	/** Gibt an, ob gerade eine Aktualisierung der GUI durchgef�hrt wird */
+	/** Gibt an, ob gerade eine Aktualisierung der GUI durchgeführt wird */
 	public final boolean isChanging() {
 		return this.isChanging;
 	}

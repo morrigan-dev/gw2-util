@@ -8,6 +8,8 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 
+import de.morrigan.dev.gw2.utils.enums.ActiveState;
+
 public class DefaultTableCellRenderer implements TableCellRenderer {
 
 	/** Farbe der Selektion in einer Tabelle */
@@ -32,15 +34,11 @@ public class DefaultTableCellRenderer implements TableCellRenderer {
 			// Setze Hintergrundfarbe in Abhängigkeit des AktivStatus
 			if (table.getModel() instanceof IActiveStateModel) {
 				final IActiveStateModel model = (IActiveStateModel) table.getModel();
-				switch (model.getActiveState(row)) {
-					case DELETED:
-						result.setOpaque(true);
-						result.setBackground(ACTIVE_STATE_DELETED_BACKGROUND_COLOR);
-						break;
-
-					default:
-						result.setBackground(null);
-						break;
+				if (model.getActiveState(row) == ActiveState.DELETED) {
+					result.setOpaque(true);
+					result.setBackground(ACTIVE_STATE_DELETED_BACKGROUND_COLOR);
+				} else {
+					result.setBackground(null);
 				}
 			}
 		}

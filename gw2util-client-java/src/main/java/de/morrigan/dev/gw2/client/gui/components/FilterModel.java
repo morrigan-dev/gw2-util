@@ -3,7 +3,6 @@ package de.morrigan.dev.gw2.client.gui.components;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -74,10 +73,10 @@ public class FilterModel extends AbstractModel {
 			return true;
 		}
 	}
-	
+
 	/** Logger für Debugausgaben */
 	private static final Logger LOG = LoggerFactory.getLogger(FilterModel.class);
-	
+
 	/** Handel auf den LabelManager */
 	private static final ResourceManager RM = ResourceManager.getInstance();
 
@@ -189,7 +188,7 @@ public class FilterModel extends AbstractModel {
 	private DefaultTreeModel availableElementsModel;
 	private DefaultTreeModel selectedElementsModel;
 
-	private Map<WPSubType, Long> filterByWPSubType = new HashMap<WPSubType, Long>();
+	private Map<WPSubType, Long> filterByWPSubType = new HashMap<>();
 
 	private FilterModel() {
 		super();
@@ -206,7 +205,7 @@ public class FilterModel extends AbstractModel {
 				| PLANT_BLOOMING_PASSIFLORA | PLANT_BUTTERNUT_SQUASH | PLANT_CAYENNE_PEPPER | PLANT_HERB_PATCH
 				| PLANT_LEEKS | PLANT_PASSIFLORA | PLANT_RASPBERRIES | PLANT_VERDANT_HERBS
 				| PLANT_WINTER_ROOT_VEGETABLES | PLANT_BLACKBERRIES | PLANT_CAULIFLOWER | PLANT_CORAL
-				| PLANT_MATURE_HERBS | PLANT_PORTOBELLO_MUSHROOMS | PLANT_SCALLIONS | PLANT_SCALLIONS
+				| PLANT_MATURE_HERBS | PLANT_PORTOBELLO_MUSHROOMS | PLANT_SCALLIONS
 				| PLANT_SUGAR_PUMPKIN | PLANT_VARIEGATED_TAPROOTS);
 		setOtherFilter(OTHER_WAYPOINT | OTHER_CHEST | OTHER_MAP_NAME);
 	}
@@ -220,7 +219,7 @@ public class FilterModel extends AbstractModel {
 			DefaultMutableTreeNode group = findGroup((DefaultMutableTreeNode) this.selectedElementsModel.getRoot(),
 					userObject.value);
 			if (group == null) {
-				LOG.warn("Gruppe mit der ID " + userObject.value + " im rechten Baum nicht gefunden!");
+				LOG.warn("Gruppe mit der ID {} im rechten Baum nicht gefunden!", userObject.value);
 			} else {
 				group.add(node);
 			}
@@ -303,7 +302,7 @@ public class FilterModel extends AbstractModel {
 			DefaultMutableTreeNode group = findGroup((DefaultMutableTreeNode) this.availableElementsModel.getRoot(),
 					userObject.value);
 			if (group == null) {
-				LOG.warn("Gruppe mit der ID " + userObject.value + " im rechten Baum nicht gefunden!");
+				LOG.warn("Gruppe mit der ID {} im rechten Baum nicht gefunden!", userObject.value);
 			} else {
 				group.add(node);
 			}
@@ -589,7 +588,7 @@ public class FilterModel extends AbstractModel {
 		icon = IM.getImageIcon(ImageManager.PLANT_ONION_ICON, ICON_SIZE);
 		ItemNode onions = new ItemNode(new TreeObject(icon, RM.getLabel("onions"), PLANT_ONIONS, iSort++));
 		icon = IM.getImageIcon(ImageManager.PLANT_POTATO_ICON, ICON_SIZE);
-		ItemNode potato = new ItemNode(new TreeObject(icon, RM.getLabel("potato"), PLANT_POTATO, iSort++));
+		ItemNode potato = new ItemNode(new TreeObject(icon, RM.getLabel("potato"), PLANT_POTATO, iSort));
 
 		iSort = 0;
 		GroupNode other = new GroupNode(new TreeObject(IM.getImageIcon(ImageManager.BLUE_BALL_ICON, ICON_SIZE),
@@ -613,7 +612,7 @@ public class FilterModel extends AbstractModel {
 		icon = IM.getImageIcon(ImageManager.UNLOCK_ICON, ICON_SIZE);
 		ItemNode dungeon = new ItemNode(new TreeObject(icon, RM.getLabel("dungeon"), OTHER_UNLOCK, iSort++));
 		icon = IM.getImageIcon(ImageManager.EMPTY_ICON, ICON_SIZE);
-		ItemNode mapName = new ItemNode(new TreeObject(icon, RM.getLabel("mapName"), OTHER_MAP_NAME, iSort++));
+		ItemNode mapName = new ItemNode(new TreeObject(icon, RM.getLabel("mapName"), OTHER_MAP_NAME, iSort));
 
 		root.add(ore);
 		ore.add(oricalcum);
@@ -795,7 +794,7 @@ public class FilterModel extends AbstractModel {
 		GroupNode plant = new GroupNode(new TreeObject(IM.getImageIcon(ImageManager.PLANT_ICON, ICON_SIZE),
 				RM.getLabel("plant"), GROUP_PLANT, groupSort++));
 		GroupNode other = new GroupNode(new TreeObject(IM.getImageIcon(ImageManager.BLUE_BALL_ICON, ICON_SIZE),
-				RM.getLabel("other"), GROUP_OTHER, groupSort++));
+				RM.getLabel("other"), GROUP_OTHER, groupSort));
 
 		root.add(ore);
 		root.add(wood);
@@ -809,7 +808,7 @@ public class FilterModel extends AbstractModel {
 		LOG.debug("groupID: {}, filter: {}", groupID, filter);
 
 		// Entferne alle Items aus der rechten Liste
-		List<DefaultMutableTreeNode> allSelected = new ArrayList<DefaultMutableTreeNode>();
+		List<DefaultMutableTreeNode> allSelected = new ArrayList<>();
 		DefaultMutableTreeNode group = findGroup((DefaultMutableTreeNode) this.selectedElementsModel.getRoot(), groupID);
 		fillSelectedLeafs(allSelected, group);
 		removeItems(allSelected);
@@ -817,47 +816,53 @@ public class FilterModel extends AbstractModel {
 		switch (groupID) {
 			case GROUP_ORE:
 				this.oreFilter = filter;
-				break;
+			break;
 			case GROUP_WOOD:
 				this.woodFilter = filter;
-				break;
+			break;
 			case GROUP_PLANT:
 				this.plantFilter = filter;
-				break;
+			break;
 			case GROUP_OTHER:
 				this.otherFilter = filter;
-				break;
+			break;
+			default:
+				throw new IllegalStateException("Fehlendes Mapping für groupID: " + groupID);
 		}
 
 		// Ermittle nun alle Items aus der linken Liste, die wieder selektiert werden sollen
 		group = findGroup((DefaultMutableTreeNode) this.availableElementsModel.getRoot(), groupID);
-		List<DefaultMutableTreeNode> selectedNodes = new ArrayList<DefaultMutableTreeNode>();
-		int childCount = group.getChildCount();
-		for (int i = 0; i < childCount; i++) {
-			ItemNode childAt = (ItemNode) group.getChildAt(i);
-			TreeObject userObject = (TreeObject) childAt.getUserObject();
+		List<DefaultMutableTreeNode> selectedNodes = new ArrayList<>();
+		if (group != null) {
+			int childCount = group.getChildCount();
+			for (int i = 0; i < childCount; i++) {
+				ItemNode childAt = (ItemNode) group.getChildAt(i);
+				TreeObject userObject = (TreeObject) childAt.getUserObject();
 
-			switch (groupID) {
-				case GROUP_ORE:
-					if ((this.oreFilter & userObject.value) != 0) {
-						selectedNodes.add(childAt);
-					}
+				switch (groupID) {
+					case GROUP_ORE:
+						if ((this.oreFilter & userObject.value) != 0) {
+							selectedNodes.add(childAt);
+						}
 					break;
-				case GROUP_WOOD:
-					if ((this.woodFilter & userObject.value) != 0) {
-						selectedNodes.add(childAt);
-					}
+					case GROUP_WOOD:
+						if ((this.woodFilter & userObject.value) != 0) {
+							selectedNodes.add(childAt);
+						}
 					break;
-				case GROUP_PLANT:
-					if ((this.plantFilter & userObject.value) != 0) {
-						selectedNodes.add(childAt);
-					}
+					case GROUP_PLANT:
+						if ((this.plantFilter & userObject.value) != 0) {
+							selectedNodes.add(childAt);
+						}
 					break;
-				case GROUP_OTHER:
-					if ((this.otherFilter & userObject.value) != 0) {
-						selectedNodes.add(childAt);
-					}
+					case GROUP_OTHER:
+						if ((this.otherFilter & userObject.value) != 0) {
+							selectedNodes.add(childAt);
+						}
 					break;
+					default:
+						throw new IllegalStateException("Fehlendes Mapping für groupID: " + groupID);
+				}
 			}
 		}
 		addItems(selectedNodes);
@@ -868,23 +873,19 @@ public class FilterModel extends AbstractModel {
 
 	private void sort(DefaultMutableTreeNode parent) {
 		int n = parent.getChildCount();
-		List<DefaultMutableTreeNode> children = new ArrayList<DefaultMutableTreeNode>();
+		List<DefaultMutableTreeNode> children = new ArrayList<>();
 		for (int i = 0; i < n; i++) {
 			children.add((DefaultMutableTreeNode) parent.getChildAt(i));
 		}
-		Collections.sort(children, new Comparator<DefaultMutableTreeNode>() {
-
-			@Override
-			public int compare(DefaultMutableTreeNode left, DefaultMutableTreeNode right) {
-				if (left.isLeaf() && !right.isLeaf()) {
-					return 1;
-				} else if (!left.isLeaf() && right.isLeaf()) {
-					return -1;
-				} else {
-					Integer leftSortOrder = ((TreeObject) left.getUserObject()).sortOrder;
-					Integer rightSortOrder = ((TreeObject) right.getUserObject()).sortOrder;
-					return leftSortOrder.compareTo(rightSortOrder);
-				}
+		Collections.sort(children, (left, right) -> {
+			if (left.isLeaf() && !right.isLeaf()) {
+				return 1;
+			} else if (!left.isLeaf() && right.isLeaf()) {
+				return -1;
+			} else {
+				Integer leftSortOrder = ((TreeObject) left.getUserObject()).sortOrder;
+				Integer rightSortOrder = ((TreeObject) right.getUserObject()).sortOrder;
+				return leftSortOrder.compareTo(rightSortOrder);
 			}
 		});
 		parent.removeAllChildren();

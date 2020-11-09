@@ -12,7 +12,7 @@ import de.morrigan.dev.gw2.entity.interfaces.IEntity;
 @Entity
 @Table(name = "UserGroupRightRelation")
 public class UserGroupRightRelation implements IEntity {
-	
+
 	// ========================================================================
 	// Ab hier kommen die Member, die durch die Interfaces resultieren
 	// ========================================================================
@@ -78,7 +78,9 @@ public class UserGroupRightRelation implements IEntity {
 	}
 
 	@Override
-	public void setId(final long id) {}
+	public void setId(final long id) {
+		// Entity besitzt keine eigene ID, sondern eine zusammengesetzte ID. 
+	}
 
 	public void setRight(final Right right) {
 		this.right = right;

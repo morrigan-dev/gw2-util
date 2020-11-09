@@ -31,10 +31,10 @@ import de.morrigan.dev.gw2.utils.exceptions.PersistenceException;
  * 
  * @author morrigan
  * @param <T> Die Klasse der Entity, für dieses DAO.
- * @param <ID> Der Datentyp des Primärschlüssels.
+ * @param <U> Der Datentyp des Primärschlüssels.
  */
 @PersistenceContext(name = "MainPersistenceUnit")
-public abstract class GenericDAOHibernate<T, ID extends Serializable> implements IGenericDAO<T, ID> {
+public abstract class GenericDAOHibernate<T, U extends Serializable> implements IGenericDAO<T, U> {
 
 	/** Logger für Debugausgaben */
 	private static final Logger LOG = LoggerFactory.getLogger(GenericDAOHibernate.class);
@@ -67,13 +67,12 @@ public abstract class GenericDAOHibernate<T, ID extends Serializable> implements
 		try {
 			this.entityManager.remove(entity);
 		} catch (final Exception e) {
-			LOG.error(e.getMessage(), e);
 			throw new PersistenceException(AbstractException.DATABASE_DELETE_FAILED_EXCEPTION, "", e);
 		}
 	}
 
 	@Override
-	public void deleteDetached(final ID id) throws PersistenceException {
+	public void deleteDetached(final U id) throws PersistenceException {
 		delete(this.entityManager.find(getPersistentClass(), id));
 	}
 
@@ -89,7 +88,7 @@ public abstract class GenericDAOHibernate<T, ID extends Serializable> implements
 	}
 
 	@Override
-	public T findById(final ID id) throws PersistenceException {
+	public T findById(final U id) throws PersistenceException {
 		LOG.debug("id: {}", id);
 		try {
 			if (id == null) {
@@ -97,7 +96,6 @@ public abstract class GenericDAOHibernate<T, ID extends Serializable> implements
 			}
 			return this.entityManager.find(getPersistentClass(), id);
 		} catch (final IllegalArgumentException e) {
-			LOG.error(e.getMessage(), e);
 			throw new PersistenceException(AbstractException.DATABASE_NO_ENTITY_OR_INVALID_PKEY, "", e);
 		}
 	}
@@ -118,9 +116,9 @@ public abstract class GenericDAOHibernate<T, ID extends Serializable> implements
 			statusEntity.setActiveState(ActiveState.DELETED);
 			result = save(entity);
 		} else {
-			LOG.warn("Die Entity "
-					+ entity.getClass()
-					+ " implementiert nicht das IActiveStateEntity Interface. Der Status kann somit nicht aktualisiert werden.");
+			LOG.warn(
+					"Die Entity {} implementiert nicht das IActiveStateEntity Interface. Der Status kann somit nicht aktualisiert werden.",
+					entity.getClass());
 		}
 		LOG.debug("result: {}", result);
 		return result;
@@ -168,7 +166,7 @@ public abstract class GenericDAOHibernate<T, ID extends Serializable> implements
 			savedEntity = saveNormalEntity(entity);
 			LOG.debug("saved entity: {}", savedEntity);
 		} else {
-			LOG.warn("Die Entity " + entity.getClass() + " implementiert nicht das Interface IEntity!");
+			LOG.warn("Die Entity {} implementiert nicht das Interface IEntity!", entity.getClass());
 		}
 		return savedEntity;
 	}
@@ -194,14 +192,12 @@ public abstract class GenericDAOHibernate<T, ID extends Serializable> implements
 			throws PersistenceException {
 		Validate.notNull(query, "Der Parameter (query) darf nicht null sein!");
 		LOG.debug("resultType: {}, query: {}", resultType, query);
-		List<S> result = new ArrayList<S>();
+		List<S> result = new ArrayList<>();
 		try {
 			result = checkResult(resultType, query.getResultList());
 		} catch (final IllegalStateException e) {
-			LOG.error(e.getMessage(), e);
 			throw new PersistenceException(AbstractException.UNEXPECTED_EXCEPTION, "", e);
 		} catch (final PersistenceException e) {
-			LOG.error(e.getMessage(), e);
 			throw new PersistenceException(AbstractException.DATABASE_UNEXPECTED_EXCEPTION, "", e);
 		}
 
@@ -230,16 +226,11 @@ public abstract class GenericDAOHibernate<T, ID extends Serializable> implements
 		} catch (final NoResultException e) {
 			throw new de.morrigan.dev.gw2.exception.NoResultException("", e);
 		} catch (final NonUniqueResultException e) {
-			LOG.error(e.getMessage(), e);
-			throw new PersistenceException(AbstractException.DATABASE_NON_UNIQUE_EXCEPTION, "Query: "
-					+ query.toString(), e);
+			throw new PersistenceException(AbstractException.DATABASE_NON_UNIQUE_EXCEPTION, "Query: " + query.toString(), e);
 		} catch (final IllegalStateException e) {
-			LOG.error(e.getMessage(), e);
 			throw new PersistenceException(AbstractException.UNEXPECTED_EXCEPTION, "Query: " + query.toString(), e);
 		} catch (final javax.persistence.PersistenceException e) {
-			LOG.error(e.getMessage(), e);
-			throw new PersistenceException(AbstractException.DATABASE_UNEXPECTED_EXCEPTION, "Query: "
-					+ query.toString(), e);
+			throw new PersistenceException(AbstractException.DATABASE_UNEXPECTED_EXCEPTION, "Query: " + query.toString(), e);
 		}
 		LOG.debug("result: {}", result);
 		return result;

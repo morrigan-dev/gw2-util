@@ -43,7 +43,7 @@ import de.morrigan.dev.swing.models.AbstractModel;
 
 public class GW2MapModel extends AbstractModel {
 
-	public static enum MapActionMode {
+	public enum MapActionMode {
 		DEFAULT, SET_WAYPOINT
 	}
 
@@ -96,17 +96,17 @@ public class GW2MapModel extends AbstractModel {
 		return INSTANCE;
 	}
 
-	private List<WPGW2Map> mapInfoWPs = new ArrayList<WPGW2Map>();
-	private List<WPGW2Waypoint> waypointWPs = new ArrayList<WPGW2Waypoint>();
-	private List<WPGW2PointOfInterest> poiWPs = new ArrayList<WPGW2PointOfInterest>();
-	private List<WPGW2Unlock> unlockWPs = new ArrayList<WPGW2Unlock>();
-	private List<WPGW2Vista> vistaWPs = new ArrayList<WPGW2Vista>();
-	private List<WPGW2Skill> skillWPs = new ArrayList<WPGW2Skill>();
-	private List<WPGW2Heart> heartWPs = new ArrayList<WPGW2Heart>();
+	private List<WPGW2Map> mapInfoWPs = new ArrayList<>();
+	private List<WPGW2Waypoint> waypointWPs = new ArrayList<>();
+	private List<WPGW2PointOfInterest> poiWPs = new ArrayList<>();
+	private List<WPGW2Unlock> unlockWPs = new ArrayList<>();
+	private List<WPGW2Vista> vistaWPs = new ArrayList<>();
+	private List<WPGW2Skill> skillWPs = new ArrayList<>();
+	private List<WPGW2Heart> heartWPs = new ArrayList<>();
 
 	// siehe: http://www.journaldev.com/378/
-	private List<WPGW2Resource> resWPs = new CopyOnWriteArrayList<WPGW2Resource>();
-	private List<WPGW2Other> otherWPs = new CopyOnWriteArrayList<WPGW2Other>();
+	private List<WPGW2Resource> resWPs = new CopyOnWriteArrayList<>();
+	private List<WPGW2Other> otherWPs = new CopyOnWriteArrayList<>();
 
 	private MapActionMode mapActionMode;
 	private String command;
@@ -194,21 +194,17 @@ public class GW2MapModel extends AbstractModel {
 			final double toLatitude, final double toLongitude, final IThreadCallback callback) {
 		if (checkValueChanged(this.lastMapInfoName, mapName)) {
 			this.lastMapInfoName = mapName;
-			Thread t = new Thread(new Runnable() {
-
-				@Override
-				public void run() {
-					try {
-						GW2MapModel.this.lastMapInfo = GW2MapModel.this.mapService.getMapInfo(
-								GW2MapModel.this.authModel.getAuthDTO(), mapName, fromLatitude, fromLongitude,
-								toLatitude, toLongitude);
-						LOG.info("lastMapInfoName = " + GW2MapModel.this.lastMapInfoName + ", mapName = " + mapName);
-						if (!checkValueChanged(GW2MapModel.this.lastMapInfoName, mapName)) {
-							callback.basicDataAvailable();
-						}
-					} catch (ServiceException e) {
-						LOG.error(e.getMessage(), e);
+			Thread t = new Thread(() -> {
+				try {
+					GW2MapModel.this.lastMapInfo = GW2MapModel.this.mapService.getMapInfo(
+							GW2MapModel.this.authModel.getAuthDTO(), mapName, fromLatitude, fromLongitude,
+							toLatitude, toLongitude);
+					LOG.info("lastMapInfoName = {}, mapName = {}", GW2MapModel.this.lastMapInfoName, mapName);
+					if (!checkValueChanged(GW2MapModel.this.lastMapInfoName, mapName)) {
+						callback.basicDataAvailable();
 					}
+				} catch (ServiceException e) {
+					LOG.error(e.getMessage(), e);
 				}
 			});
 			t.start();
@@ -249,7 +245,7 @@ public class GW2MapModel extends AbstractModel {
 	}
 
 	public List<Waypoint> getWaypoints() {
-		List<Waypoint> waypointsToShow = new ArrayList<Waypoint>();
+		List<Waypoint> waypointsToShow = new ArrayList<>();
 		long oreFilter = this.filterModel.getOreFilter();
 		long woodFilter = this.filterModel.getWoodFilter();
 		long plantFilter = this.filterModel.getPlantFilter();
@@ -408,21 +404,17 @@ public class GW2MapModel extends AbstractModel {
 		initMenuEntries();
 
 		if (this.updaterThread == null) {
-			this.updaterThread = new Thread(new Runnable() {
-
-				@Override
-				public void run() {
-					try {
-						while (true) {
-							Thread.sleep(PreferencesModel.getInstance().getUpdateInterval());
-							if (GW2MapModel.this.runUpdater) {
-								reloadMapData();
-							}
+			this.updaterThread = new Thread(() -> {
+				try {
+					while (true) {
+						Thread.sleep(PreferencesModel.getInstance().getUpdateInterval());
+						if (GW2MapModel.this.runUpdater) {
+							reloadMapData();
 						}
-					} catch (ServiceException | InterruptedException e) {
-						LOG.error(e.getMessage(), e);
-						MessageDialogFactory.handleExcpetion(Main.getInstance().getMainFrame(), e, null);
 					}
+				} catch (ServiceException | InterruptedException e) {
+					LOG.error(e.getMessage(), e);
+					MessageDialogFactory.handleExcpetion(Main.getInstance().getMainFrame(), e, null);
 				}
 			});
 			this.updaterThread.start();
@@ -585,7 +577,6 @@ public class GW2MapModel extends AbstractModel {
 			syncFlag |= FILTER_CHANGED;
 		}
 
-		// this.mapActionMode = MapActionMode.DEFAULT;
 		syncFlag |= MAP_ACTION_MODE_CHANGED;
 
 		// Daten haben sich geändert, daher müssen die MaoInfos auch neu geladen werden bei der nächsten Anzeige
@@ -771,7 +762,7 @@ public class GW2MapModel extends AbstractModel {
 		entry = new MenuEntry("verdantHerbs", null, WPType.PLANT, WPSubType.VERDANT_HERBS, ac, order++);
 		this.plantMithrilMenuEntries.put(ac, entry);
 		ac = AC_PLANT_PREFIX + " winterRootVegetables";
-		entry = new MenuEntry("winterRootVegetables", null, WPType.PLANT, WPSubType.WINTER_ROOT_VEGETABLES, ac, order++);
+		entry = new MenuEntry("winterRootVegetables", null, WPType.PLANT, WPSubType.WINTER_ROOT_VEGETABLES, ac, order);
 		this.plantMithrilMenuEntries.put(ac, entry);
 
 		order = 1;
@@ -797,7 +788,7 @@ public class GW2MapModel extends AbstractModel {
 		entry = new MenuEntry("sugarPumpkin", null, WPType.PLANT, WPSubType.SUGAR_PUMPKIN, ac, order++);
 		this.plantDarksteelMenuEntries.put(ac, entry);
 		ac = AC_PLANT_PREFIX + " variegatedTaproots";
-		entry = new MenuEntry("variegatedTaproots", null, WPType.PLANT, WPSubType.VARIEGATED_TAPROOTS, ac, order++);
+		entry = new MenuEntry("variegatedTaproots", null, WPType.PLANT, WPSubType.VARIEGATED_TAPROOTS, ac, order);
 		this.plantDarksteelMenuEntries.put(ac, entry);
 
 		order = 1;
@@ -820,7 +811,7 @@ public class GW2MapModel extends AbstractModel {
 		entry = new MenuEntry("youngHerbs", null, WPType.PLANT, WPSubType.YOUNG_HERBS, ac, order++);
 		this.plantSteelMenuEntries.put(ac, entry);
 		ac = AC_PLANT_PREFIX + " zucchini";
-		entry = new MenuEntry("zucchini", null, WPType.PLANT, WPSubType.ZUCCHINI, ac, order++);
+		entry = new MenuEntry("zucchini", null, WPType.PLANT, WPSubType.ZUCCHINI, ac, order);
 		this.plantSteelMenuEntries.put(ac, entry);
 
 		order = 1;
@@ -837,7 +828,7 @@ public class GW2MapModel extends AbstractModel {
 		entry = new MenuEntry("strawberryPatch", null, WPType.PLANT, WPSubType.STRAWBERRY_PATCH, ac, order++);
 		this.plantIronMenuEntries.put(ac, entry);
 		ac = AC_PLANT_PREFIX + " taproots";
-		entry = new MenuEntry("taproots", null, WPType.PLANT, WPSubType.TAPROOTS, ac, order++);
+		entry = new MenuEntry("taproots", null, WPType.PLANT, WPSubType.TAPROOTS, ac, order);
 		this.plantIronMenuEntries.put(ac, entry);
 
 		order = 1;
@@ -860,7 +851,7 @@ public class GW2MapModel extends AbstractModel {
 		entry = new MenuEntry("onions", null, WPType.PLANT, WPSubType.ONIONS, ac, order++);
 		this.plantCopperMenuEntries.put(ac, entry);
 		ac = AC_PLANT_PREFIX + " potato";
-		entry = new MenuEntry("potato", null, WPType.PLANT, WPSubType.POTATO, ac, order++);
+		entry = new MenuEntry("potato", null, WPType.PLANT, WPSubType.POTATO, ac, order);
 		this.plantCopperMenuEntries.put(ac, entry);
 
 		// Sonstige
@@ -877,13 +868,13 @@ public class GW2MapModel extends AbstractModel {
 	private void reloadMapData() throws ServiceException {
 		WaypointListWrapperDTO waypointWrapper = this.mapService.getAllAvailableWaypoints(this.authModel.getAuthDTO());
 		List<WaypointDTO> resourceWPs = waypointWrapper.getResourceWPs();
-		this.resWPs = new CopyOnWriteArrayList<WPGW2Resource>();
+		this.resWPs = new CopyOnWriteArrayList<>();
 		for (WaypointDTO wp : resourceWPs) {
 			this.resWPs.add(buildWPGW2Resource(wp));
 		}
-		List<WaypointDTO> otherWPs = waypointWrapper.getOtherWPs();
-		this.otherWPs = new CopyOnWriteArrayList<WPGW2Other>();
-		for (WaypointDTO wp : otherWPs) {
+		List<WaypointDTO> otherWpDtos = waypointWrapper.getOtherWPs();
+		this.otherWPs = new CopyOnWriteArrayList<>();
+		for (WaypointDTO wp : otherWpDtos) {
 			this.otherWPs.add(buildWPGW2Other(wp));
 		}
 		if (!isChanging()) {

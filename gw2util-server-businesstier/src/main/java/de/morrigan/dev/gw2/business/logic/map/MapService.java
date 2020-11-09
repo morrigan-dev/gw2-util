@@ -60,10 +60,8 @@ public class MapService implements IMapService {
 			Waypoint waypointToSave = waypointBuilder.createNewEntity(newWaypoint, executingUser);
 			Waypoint savedWaypoint = waypointDAO.save(waypointToSave);
 			WaypointDTO updatedWaypointDTO = waypointBuilder.buildDTO(savedWaypoint);
-			if (LOG.isInfoEnabled()) {
-				LOG.info("Neuer Spot erstellt (" + savedWaypoint.getWpType() + "/" + savedWaypoint.getWpSubType()
-						+ ") von " + executingUser.getUserName());
-			}
+			LOG.info("Neuer Spot erstellt ({}/{}) von {}", savedWaypoint.getWpType(), savedWaypoint.getWpSubType(),
+					executingUser.getUserName());
 			return updatedWaypointDTO;
 		} catch (Exception e) {
 			throw new ServiceException(e);
@@ -112,7 +110,7 @@ public class MapService implements IMapService {
 					waypointDAO.markAsDeleted(waypoint);
 				}
 			}
-			LOG.info("{} Spots ({}) gelöscht von ", waypointsToDelete.size(), mapName, executingUser.getUserName());
+			LOG.info("{} Spots ({}) gelöscht von {}", waypointsToDelete.size(), mapName, executingUser.getUserName());
 		} catch (Exception e) {
 			throw new ServiceException(e);
 		}
@@ -131,7 +129,7 @@ public class MapService implements IMapService {
 
 			IWaypointDAO waypointDAO = DBDAOFactory.getInstance().getWaypointDAO();
 
-			List<WaypointDTO> resourceWPs = new ArrayList<WaypointDTO>();
+			List<WaypointDTO> resourceWPs = new ArrayList<>();
 			// Lade und verarbeite Erz-Wegpunkte, Holz-Wegpunkte, Planzen-Wegpunkte
 			WPType[] wpTypes = new WPType[] { WPType.ORE, WPType.WOOD, WPType.PLANT };
 			List<Waypoint> resWPs = waypointDAO.getWaypoints(wpTypes, null, ActiveState.ACTIVE);
@@ -139,7 +137,7 @@ public class MapService implements IMapService {
 				resourceWPs.add(waypointBuilder.buildDTO(resWP));
 			}
 
-			List<WaypointDTO> otherWPs = new ArrayList<WaypointDTO>();
+			List<WaypointDTO> otherWPs = new ArrayList<>();
 			// Lade und verarbeite Sonstige-Wegpunkte
 			wpTypes = new WPType[] { WPType.OTHER };
 			List<Waypoint> oWPs = waypointDAO.getWaypoints(wpTypes, null, ActiveState.ACTIVE);
@@ -168,7 +166,7 @@ public class MapService implements IMapService {
 			User executingUser = authService.checkRight(authDTO);
 
 			IWaypointDAO waypointDAO = DBDAOFactory.getInstance().getWaypointDAO();
-			Map<WPSubType, Integer> resourceAmount = new HashMap<WPSubType, Integer>();
+			Map<WPSubType, Integer> resourceAmount = new HashMap<>();
 			Date latestChange = null;
 			Date nearestChange = null;
 
@@ -178,9 +176,7 @@ public class MapService implements IMapService {
 				resourceAmount.put(wpSubType, amount);
 			}
 
-			if (LOG.isInfoEnabled()) {
-				LOG.info("Karteninformationen (" + mapName + ") abgerufen von " + executingUser.getUserName());
-			}
+			LOG.info("Karteninformationen ({}) abgerufen von {}", mapName, executingUser.getUserName());
 			return new MapInfoDTO(resourceAmount, latestChange, nearestChange);
 		} catch (Exception e) {
 			throw new ServiceException(e);
@@ -203,8 +199,8 @@ public class MapService implements IMapService {
 			waypointDAO.setAuditInformation(waypointToEdit, executingUser, false);
 			waypointDAO.save(waypointToEdit);
 			if (LOG.isInfoEnabled()) {
-				LOG.info("Spot aktualisiert in permanent (" + waypointToEdit.getWpType() + "/"
-						+ waypointToEdit.getWpSubType() + ") von " + executingUser.getUserName());
+				LOG.info("Spot aktualisiert in permanent ({}/{}) von {}", waypointToEdit.getWpType(),
+						waypointToEdit.getWpSubType(), executingUser.getUserName());
 			}
 		} catch (Exception e) {
 			throw new ServiceException(e);
@@ -226,10 +222,8 @@ public class MapService implements IMapService {
 			waypointToEdit.setRich(true);
 			waypointDAO.setAuditInformation(waypointToEdit, executingUser, false);
 			waypointDAO.save(waypointToEdit);
-			if (LOG.isInfoEnabled()) {
-				LOG.info("Spot aktualisiert in reichhaltig (" + waypointToEdit.getWpType() + "/"
-						+ waypointToEdit.getWpSubType() + ") von " + executingUser.getUserName());
-			}
+			LOG.info("Spot aktualisiert in reichhaltig ({}/{}) von {}", waypointToEdit.getWpType(),
+					waypointToEdit.getWpSubType(), executingUser.getUserName());
 		} catch (Exception e) {
 			throw new ServiceException(e);
 		}

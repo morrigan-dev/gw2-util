@@ -15,12 +15,10 @@ public class NotifyException extends AbstractException {
 
 	private static final long serialVersionUID = 1L;
 
-	/** siehe {@link AbstractException#LossyException(int)  */
 	public NotifyException(final int notificationCode) {
 		super(notificationCode);
 	}
 
-	/** siehe {@link AbstractException#LossyException(int, String)  */
 	public NotifyException(final int notificationCode, final String detailMessage) {
 		super(notificationCode, detailMessage);
 	}

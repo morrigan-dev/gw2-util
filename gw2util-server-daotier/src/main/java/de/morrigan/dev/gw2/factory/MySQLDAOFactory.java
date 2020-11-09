@@ -6,6 +6,6 @@ package de.morrigan.dev.gw2.factory;
  * 
  * @author morrigan
  */
-public class MSSQLDAOFactory extends JPADAOFactory {
+public class MySQLDAOFactory extends JPADAOFactory {
 
 }

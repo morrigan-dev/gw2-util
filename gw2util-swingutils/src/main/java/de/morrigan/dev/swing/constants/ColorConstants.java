@@ -13,4 +13,7 @@ public class ColorConstants {
 	/** Hintergundfarbe der Toolbar */
 	public static final Color TOOLBAR_BACKGROUND_COLOR = Color.LIGHT_GRAY;
 
+	private ColorConstants() {
+		super();
+	}
 }

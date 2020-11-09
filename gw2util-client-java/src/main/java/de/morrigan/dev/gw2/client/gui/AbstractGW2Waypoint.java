@@ -4,14 +4,13 @@ import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.coobird.thumbnailator.Thumbnailator;
-
 import org.jdesktop.swingx.mapviewer.GeoPosition;
 import org.jdesktop.swingx.mapviewer.Waypoint;
 
 import de.morrigan.dev.gw2.dto.common.enums.WPSubType;
 import de.morrigan.dev.gw2.dto.common.enums.WPType;
 import de.morrigan.dev.gw2.resources.ImageManager;
+import net.coobird.thumbnailator.Thumbnailator;
 
 public abstract class AbstractGW2Waypoint implements Waypoint {
 
@@ -47,76 +46,76 @@ public abstract class AbstractGW2Waypoint implements Waypoint {
 			case ORE:
 				if (rich && permanent) {
 					icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.ORE_RICH_PERMANENT_ICON);
-				} else if (rich && !permanent) {
+				} else if (rich) {
 					icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.ORE_RICH_ICON);
-				} else if (!rich && permanent) {
+				} else if (permanent) {
 					icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.ORE_PERMANENT_ICON);
 				} else {
 					icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.ORE_ICON);
 				}
-				break;
+			break;
 			case WOOD:
 				if (rich && permanent) {
 					icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.WOOD_RICH_PERMANENT_ICON);
-				} else if (rich && !permanent) {
+				} else if (rich) {
 					icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.WOOD_RICH_ICON);
-				} else if (!rich && permanent) {
+				} else if (permanent) {
 					icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.WOOD_PERMANENT_ICON);
 				} else {
 					icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.WOOD_ICON);
 				}
-				break;
+			break;
 			case PLANT:
 				if (rich && permanent) {
 					icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_RICH_PERMANENT_ICON);
-				} else if (rich && !permanent) {
+				} else if (rich) {
 					icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_RICH_ICON);
-				} else if (!rich && permanent) {
+				} else if (permanent) {
 					icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_PERMANENT_ICON);
 				} else {
 					icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_ICON);
 				}
-				break;
+			break;
 			case POI:
 				icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.POI_ICON);
-				break;
+			break;
 			case UNLOCK:
 				icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.UNLOCK_ICON);
-				break;
+			break;
 			case VISTA:
 				icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.VISTA_ICON);
-				break;
+			break;
 			case SKILL_CHALLENGE:
 				icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.SKILL_CHALLEGENE_ICON);
-				break;
+			break;
 			case HEART:
 				icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.HEART_ICON);
-				break;
+			break;
 			case WAYPOINT:
 				icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.WAYPOINT_ICON);
-				break;
+			break;
 			case OTHER:
 				switch (wpSubType) {
 					case GUILD_BOUNTY:
 						icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.GUILD_BOUNTY_ICON);
-						break;
+					break;
 					case CHEST:
 						if (permanent) {
 							icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.CHEST_PERMANENT_ICON);
 						} else {
 							icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.CHEST_ICON);
 						}
-						break;
+					break;
 
 					default:
 						icon = null;
-						break;
+					break;
 				}
-				break;
+			break;
 
 			default:
 				icon = null;
-				break;
+			break;
 		}
 		return icon;
 	}
@@ -137,7 +136,7 @@ public abstract class AbstractGW2Waypoint implements Waypoint {
 	private final boolean hoverEnabled;
 
 	/** Map mit den Icons für einen GW2 Wegpunkt. Der Schlüssel entspricht einem Zoomlevel. */
-	private Map<Integer, BufferedImage> icons = new HashMap<Integer, BufferedImage>();
+	private Map<Integer, BufferedImage> icons = new HashMap<>();
 
 	public AbstractGW2Waypoint(GeoPosition position, String hoverInfo, WPType wpType, WPSubType wpSubType) {
 		this(position, hoverInfo, wpType, wpSubType, false, false);
@@ -173,7 +172,7 @@ public abstract class AbstractGW2Waypoint implements Waypoint {
 	}
 
 	public long getId() {
-		return 0;
+		return 0L;
 	}
 
 	@Override

@@ -9,8 +9,8 @@ public class WaypointListWrapperDTO extends ResultDTO {
 
 	private static final long serialVersionUID = -495346186314065709L;
 
-	private List<WaypointDTO> resourceWPs = new ArrayList<WaypointDTO>();
-	private List<WaypointDTO> otherWPs = new ArrayList<WaypointDTO>();
+	private List<WaypointDTO> resourceWPs = new ArrayList<>();
+	private List<WaypointDTO> otherWPs = new ArrayList<>();
 
 	public WaypointListWrapperDTO() {
 		super();

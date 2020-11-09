@@ -25,4 +25,8 @@ public class GUIConstants {
 
 	/** Defaultbreite für Tabellen in der Administration */
 	public static final Dimension DEFAULT_ADMIN_TABLE_SIZE = new Dimension(350, 10);
+
+	private GUIConstants() {
+		super();
+	}
 }

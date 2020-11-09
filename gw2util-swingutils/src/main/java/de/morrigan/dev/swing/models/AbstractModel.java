@@ -7,14 +7,14 @@ import de.morrigan.dev.gw2.utils.exceptions.AbstractException;
 import de.morrigan.dev.gw2.utils.observer.AObservable;
 
 /**
- * Dieses abstrakte Model stellt Hilfsmethoden f�r das Observer-Pattern zur Verf�gung. Jedes Model muss von dieser
+ * Dieses abstrakte Model stellt Hilfsmethoden für das Observer-Pattern zur Verfügung. Jedes Model muss von dieser
  * Klasse abgeleitet sein.
  * 
  * @author morrigan
  */
 public abstract class AbstractModel extends AObservable {
 
-	/** LabelManager f�r den Zugriff auf Beschriftungen */
+	/** LabelManager für den Zugriff auf Beschriftungen */
 	protected static final ResourceManager LABEL_MANAGER = ResourceManager.getInstance();
 
 	/** Gibt an, ob das Model initialisiert wurde */
@@ -51,7 +51,7 @@ public abstract class AbstractModel extends AObservable {
 	}
 
 	/**
-	 * Pr�ft, ob zwei Objekte ungleich sind.
+	 * Prüft, ob zwei Objekte ungleich sind.
 	 * 
 	 * @param oldObj Das alte Objekt
 	 * @param newObj Das neue Objekt, das mit dem alten verglichen werden soll
@@ -62,7 +62,7 @@ public abstract class AbstractModel extends AObservable {
 	}
 
 	/**
-	 * Diese Methode setzt alle Werte im Model zur�ck und veranlasst danach, dass die registrierten Observer ihre GUI
+	 * Diese Methode setzt alle Werte im Model zurück und veranlasst danach, dass die registrierten Observer ihre GUI
 	 * aktualisieren.
 	 * 
 	 * @throws AbstractException
@@ -70,8 +70,8 @@ public abstract class AbstractModel extends AObservable {
 	protected void reset() throws AbstractException {}
 
 	/**
-	 * Diese Methode benachrichtigt alle Observer, dass sich die Daten ge�ndert haben und nun ihre GUI aktualisieren
-	 * m�ssen.
+	 * Diese Methode benachrichtigt alle Observer, dass sich die Daten geändert haben und nun ihre GUI aktualisieren
+	 * müssen.
 	 */
 	protected final void syncViews() {
 		setChanged();
@@ -80,10 +80,10 @@ public abstract class AbstractModel extends AObservable {
 	}
 
 	/**
-	 * Diese Methode benachrichtigt alle Observer, dass sich die Daten ge�ndert haben und nun ihre GUI aktualisieren
-	 * m�ssen. �ber den Parametr kann gesteuert werden, welche GUI Elemente aktualisiert werden sollen. �blicherweise
-	 * wird dazu eine Enumeration im ViewModel erstellt und einer der Werte mit �bergeben. In den entsprechenden Forms
-	 * muss auf diese Enumeration dann gepr�ft werden.
+	 * Diese Methode benachrichtigt alle Observer, dass sich die Daten geändert haben und nun ihre GUI aktualisieren
+	 * müssen. über den Parameter kann gesteuert werden, welche GUI Elemente aktualisiert werden sollen. Üblicherweise
+	 * wird dazu eine Enumeration im ViewModel erstellt und einer der Werte mit übergeben. In den entsprechenden Forms
+	 * muss auf diese Enumeration dann geprüft werden.
 	 * 
 	 * @param updateObject Option zur Steuerung der zu aktualisierenden GUI Elemente
 	 */

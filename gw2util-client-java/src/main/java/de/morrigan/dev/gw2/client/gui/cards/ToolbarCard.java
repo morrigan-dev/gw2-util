@@ -43,17 +43,23 @@ import de.morrigan.dev.swing.wrapper.ListenerWrapper;
 public class ToolbarCard extends AbstractView<TopMenuBarModel> {
 
 	private enum ListenerAction implements IListenerAction {
-		INFO_ENTERED, INFO_LEFT, INFO_CLICKED, //
-		MAP_ENTERED, MAP_LEFT, MAP_CLICKED, //
-		EXIT_ENTERED, EXIT_LEFT, EXIT_CLICKED, //
+		INFO_ENTERED,
+		INFO_LEFT,
+		INFO_CLICKED, //
+		MAP_ENTERED,
+		MAP_LEFT,
+		MAP_CLICKED, //
+		EXIT_ENTERED,
+		EXIT_LEFT,
+		EXIT_CLICKED, //
 	}
 
 	/** automatisch generierte serialVersionUID */
 	private static final long serialVersionUID = -6889861073121636495L;
-	
+
 	/** Logger für Debugausgaben */
 	private static final Logger LOG = LoggerFactory.getLogger(ToolbarCard.class);
-	
+
 	/** Handel auf den ImageManager */
 	private static final ImageManager IMAGE_MANAGER = ImageManager.getInstance();
 
@@ -186,43 +192,43 @@ public class ToolbarCard extends AbstractView<TopMenuBarModel> {
 					this.barInfo.setIcon(IMAGE_MANAGER.getImageIcon(ImageManager.BAR_INFO_HOVER_ICON));
 					InfoMessageModel.getInstance().setMessage("Silver Drachenkrieger Utilities");
 					InfoMessageModel.getInstance().startTimer();
-					break;
+				break;
 				case INFO_LEFT:
 					this.barInfo.setIcon(IMAGE_MANAGER.getImageIcon(ImageManager.BAR_INFO_ICON));
 					Main.getInstance().repaint();
-					break;
+				break;
 				case INFO_CLICKED:
 					this.navModel.setSelectedCard(INavigation.CARD_INFORMATION);
-					break;
+				break;
 
 				case MAP_ENTERED:
 					this.barMap.setIcon(IMAGE_MANAGER.getImageIcon(ImageManager.BAR_MAP_HOVER_ICON));
 					InfoMessageModel.getInstance().setMessage("Silver Drachenkrieger Utilities");
 					InfoMessageModel.getInstance().startTimer();
-					break;
+				break;
 				case MAP_LEFT:
 					this.barMap.setIcon(IMAGE_MANAGER.getImageIcon(ImageManager.BAR_MAP_ICON));
 					Main.getInstance().repaint();
-					break;
+				break;
 				case MAP_CLICKED:
 					this.navModel.setSelectedCard(INavigation.CARD_MAP);
-					break;
+				break;
 				case EXIT_ENTERED:
 					this.barExit.setIcon(IMAGE_MANAGER.getImageIcon(ImageManager.BAR_EXIT_HOVER_ICON));
 					InfoMessageModel.getInstance().setMessage("Silver Drachenkrieger Utilities");
 					InfoMessageModel.getInstance().startTimer();
-					break;
+				break;
 				case EXIT_LEFT:
 					this.barExit.setIcon(IMAGE_MANAGER.getImageIcon(ImageManager.BAR_EXIT_ICON));
 					Main.getInstance().repaint();
-					break;
+				break;
 				case EXIT_CLICKED:
 					askForExit();
-					break;
+				break;
 
 				default:
-					LOG.warn("Die Aktion " + action + " ist nicht gemappt!");
-					break;
+					LOG.warn("Die Aktion {} ist nicht gemappt!", action);
+				break;
 			}
 		} catch (Exception e) {
 			LOG.error(e.getMessage(), e);
@@ -271,20 +277,17 @@ public class ToolbarCard extends AbstractView<TopMenuBarModel> {
 	}
 
 	@Override
-	public void updateLanguage() {}
+	public void updateLanguage() {
+		// keine GUI Elemente mit Beschrifung vorhanden
+	}
 
 	private void askForExit() {
-		IDefaultDialogResult resultListener = new IDefaultDialogResult() {
-
-			@Override
-			public boolean actionPerformed(DialogMessage msg) {
-				if (msg == DialogMessage.YES) {
-					savePreferences();
-					System.exit(0);
-				}
-				return false;
+		IDefaultDialogResult resultListener = msg -> {
+			if (msg == DialogMessage.YES) {
+				savePreferences();
+				System.exit(0);
 			}
-
+			return false;
 		};
 		String title = RESOURCE_MANAGER.getLabel("question");
 		String dialogHeaderText = RESOURCE_MANAGER.getLabel("question");

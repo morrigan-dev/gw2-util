@@ -33,29 +33,29 @@ public class MessageDialogFactory extends JOptionPane {
 	private static final ResourceManager RESOURCE_MANAGER = ResourceManager.getInstance();
 
 	/**
-	 * Diese Methode zeigt einen Dialog an, der je nach �bergebenen Exception ein anderes Aussehen und eine andere
-	 * Funktionalit�t bietet. Insgesamt sind vier verschiede Dialoge verf�gbar.
+	 * Diese Methode zeigt einen Dialog an, der je nach übergebenen Exception ein anderes Aussehen und eine andere
+	 * Funktionalität bietet. Insgesamt sind vier verschiede Dialoge verfügbar.
 	 * <p>
 	 * <ul>
-	 * <li>Hinweis-Dialog: Diese Dialog wird angezeigt, wenn eine {@link NotifyException} �bergeben wird. Der Dialog
-	 * zeigt den Hinweis aus der Exception an und bietet die M�glichkeit mit OK zu best�tigen. Als Antwort wird
-	 * {@link JOptionPane#OK_OPTION} zur�ckgegeben.</li>
-	 * <li>Frage-Dialog: Dieser Dialog wird angezeigt, wenn eine {@link ConfirmationException} �bergeben wird. Der
-	 * Dialog zeigt die Frage aus der Exception an und bietet die M�glichkeiten mit Ja/Nein/Abbrechen zu best�tigen. Als
-	 * Antwort wird entsprechend {@link JOptionPane#YES_OPTION}/{@link JOptionPane#NO_OPTION}/
-	 * {@link JOptionPane#CANCEL_OPTION} zur�ckgegeben.</li>
-	 * <li>Fehler-Dialog: Dieser Dialog wird in zwei F�llen angezeigt. Zum Einen kann eine {@link AbstractException}
+	 * <li>Hinweis-Dialog: Diese Dialog wird angezeigt, wenn eine {@link NotifyException} übergeben wird. Der Dialog zeigt
+	 * den Hinweis aus der Exception an und bietet die Möglichkeit mit OK zu bestätigen. Als Antwort wird
+	 * {@link JOptionPane#OK_OPTION} zurückgegeben.</li>
+	 * <li>Frage-Dialog: Dieser Dialog wird angezeigt, wenn eine {@link ConfirmationException} übergeben wird. Der Dialog
+	 * zeigt die Frage aus der Exception an und bietet die Möglichkeiten mit Ja/Nein/Abbrechen zu bestätigen. Als Antwort
+	 * wird entsprechend {@link JOptionPane#YES_OPTION}/{@link JOptionPane#NO_OPTION}/ {@link JOptionPane#CANCEL_OPTION}
+	 * zurückgegeben.</li>
+	 * <li>Fehler-Dialog: Dieser Dialog wird in zwei Fällen angezeigt. Zum Einen kann eine {@link AbstractException}
 	 * behandelt werden und zum Anderen ein beliebiges {@link Throwable}. Beim ersten fall, besitzt die Exception noch
-	 * einen ErrorCode, der in einen Fehlertext �bersetzt wird. Beim zweiten Fall wird immer ein interner Fehler
-	 * gemeldet zusammen mit einer Message aus der Exception. Der Dialog kann mit einem OK best�tigt werden. Als Antwort
-	 * wird {@link JOptionPane#OK_OPTION} zur�ckgegeben.</li>
+	 * einen ErrorCode, der in einen Fehlertext übersetzt wird. Beim zweiten Fall wird immer ein interner Fehler gemeldet
+	 * zusammen mit einer Message aus der Exception. Der Dialog kann mit einem OK bestätigt werden. Als Antwort wird
+	 * {@link JOptionPane#OK_OPTION} zurückgegeben.</li>
 	 * </ul>
 	 * 
 	 * @author morrigan
 	 * @param parent Die GUI Komponente, auf dem der Dialog liegt.
-	 * @param exception eine Exception f�r Best�tigungen.
+	 * @param exception eine Exception für Bestätigungen.
 	 * @param headerColor Die Farbe des obigen Banners
-	 * @param autoDispose Nach dieser Zeit wird der Dialog disposed, au�er es ist ein Wert<=0 angegeben
+	 * @param autoDispose Nach dieser Zeit wird der Dialog disposed, außer es ist ein Wert<=0 angegeben
 	 */
 	public static void handleExcpetion(final Window mainWindow, final Throwable exception,
 			final ListenerWrapper<Object> listenerWrapper) {
@@ -79,7 +79,7 @@ public class MessageDialogFactory extends JOptionPane {
 	 * @param message
 	 * @param messageDetail
 	 * @param headerColor Die Farbe des obigen Banners
-	 * @param autoDispose Nach dieser Zeit wird der Dialog disposed, au�er es ist ein Wert<=0 angegeben
+	 * @param autoDispose Nach dieser Zeit wird der Dialog disposed, außer es ist ein Wert<=0 angegeben
 	 */
 	public static void showConfirmationDialog(final Window mainWindow, final ListenerWrapper<Object> listenerWrapper,
 			final String messageHeader, final String message, final String messageDetail) {
@@ -96,7 +96,7 @@ public class MessageDialogFactory extends JOptionPane {
 	 * @param message
 	 * @param messageDetail
 	 * @param headerColor Die Farbe des obigen Banners
-	 * @param autoDispose Nach dieser Zeit wird der Dialog disposed, au�er es ist ein Wert<=0 angegeben
+	 * @param autoDispose Nach dieser Zeit wird der Dialog disposed, außer es ist ein Wert<=0 angegeben
 	 */
 	public static void showInformationDialog(final Window mainWindow, final ListenerWrapper<Object> listenerWrapper,
 			final String messageHeader, final String message, final String messageDetail) {

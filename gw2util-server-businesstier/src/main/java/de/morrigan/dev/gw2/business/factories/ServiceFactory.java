@@ -18,13 +18,16 @@ public abstract class ServiceFactory implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/** Einzige Instanz dieser Factory */
-	private static final ServiceFactory INSTANCE = new EJBServiceFactory();
+	private static ServiceFactory instance;
 
 	/**
 	 * @return die einzige Instanz dieser Factory.
 	 */
 	public static ServiceFactory getInstance() {
-		return INSTANCE;
+		if (instance == null) {
+			instance = new EJBServiceFactory();
+		}
+		return instance;
 	}
 
 	protected ServiceFactory() {

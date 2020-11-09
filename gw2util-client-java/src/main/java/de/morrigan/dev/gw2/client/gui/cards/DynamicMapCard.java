@@ -30,7 +30,6 @@ public class DynamicMapCard extends AbstractView<DynamicMapModel> {
 
 	private static final long serialVersionUID = 1L;
 
-	
 	/** Logger für Debugausgaben */
 	private static final Logger LOG = LoggerFactory.getLogger(DynamicMapCard.class);
 
@@ -99,7 +98,9 @@ public class DynamicMapCard extends AbstractView<DynamicMapModel> {
 	}
 
 	@Override
-	public void handleListenerEvent(IListenerAction listenerAction, EventObject event) {}
+	public void handleListenerEvent(IListenerAction listenerAction, EventObject event) {
+		// keine Listener vorhanden, die ein Event delegieren
+	}
 
 	public void initialize() throws AbstractException {
 		this.pnlMap.initialize();
@@ -134,5 +135,7 @@ public class DynamicMapCard extends AbstractView<DynamicMapModel> {
 	}
 
 	@Override
-	public void updateLanguage() {}
+	public void updateLanguage() {
+		// keine GUI Elemente vorhanden die eine Beschriftung besitzen
+	}
 }

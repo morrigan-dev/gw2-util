@@ -20,14 +20,18 @@ public class GW2Label extends JLabel {
 
 	/** automatisch generierte serialVersionUID */
 	private static final long serialVersionUID = 7349437811760158363L;
-	
+
 	/** Logger für Debugausgaben */
 	private static final Logger LOG = LoggerFactory.getLogger(GW2Label.class);
 
 	private int tracking;
-	private int left_x, left_y, right_x, right_y;
+	private int leftX;
+	private int leftY;
+	private int rightX;
+	private int rightY;
 
-	private Color left_color, right_color;
+	private Color leftColor;
+	private Color rightColor;
 
 	private Insets margin;
 
@@ -52,11 +56,11 @@ public class GW2Label extends JLabel {
 
 		int w = fm.stringWidth(text);
 		w += (text.length() - 1) * this.tracking;
-		w += this.left_x + this.right_x;
+		w += this.leftX + this.rightX;
 		w += iconWidth;
 
 		int h = fm.getHeight();
-		h += this.left_y + this.right_y;
+		h += this.leftY + this.rightY;
 
 		if (this.margin != null) {
 			w += this.margin.left + this.margin.right;
@@ -89,13 +93,13 @@ public class GW2Label extends JLabel {
 		}
 
 		Color foreground = getForeground();
-		if (this.right_color != null) {
-			this.right_color = new Color(this.right_color.getRed(), this.right_color.getGreen(),
-					this.right_color.getBlue(), foreground.getAlpha());
+		if (this.rightColor != null) {
+			this.rightColor = new Color(this.rightColor.getRed(), this.rightColor.getGreen(),
+					this.rightColor.getBlue(), foreground.getAlpha());
 		}
-		if (this.left_color != null) {
-			this.left_color = new Color(this.left_color.getRed(), this.left_color.getGreen(),
-					this.left_color.getBlue(), foreground.getAlpha());
+		if (this.leftColor != null) {
+			this.leftColor = new Color(this.leftColor.getRed(), this.leftColor.getGreen(),
+					this.leftColor.getBlue(), foreground.getAlpha());
 		}
 
 		int x = iconWidth;
@@ -108,11 +112,11 @@ public class GW2Label extends JLabel {
 			char ch = chars[i];
 			int w = fm.charWidth(ch) + this.tracking;
 
-			g.setColor(this.left_color);
-			g.drawString("" + chars[i], x - this.left_x, h - this.left_y);
+			g.setColor(this.leftColor);
+			g.drawString("" + chars[i], x - this.leftX, h - this.leftY);
 
-			g.setColor(this.right_color);
-			g.drawString("" + chars[i], x + this.right_x, h + this.right_y);
+			g.setColor(this.rightColor);
+			g.drawString("" + chars[i], x + this.rightX, h + this.rightY);
 
 			g.setColor(foreground);
 			g.drawString("" + chars[i], x, h);
@@ -130,9 +134,9 @@ public class GW2Label extends JLabel {
 
 	public void setLeftShadow(int x, int y, Color color) {
 		LOG.debug("x: {}, y: {}, color: {}", x, y, color);
-		this.left_x = x;
-		this.left_y = y;
-		this.left_color = color;
+		this.leftX = x;
+		this.leftY = y;
+		this.leftColor = color;
 	}
 
 	public void setMargin(Insets margin) {
@@ -141,9 +145,9 @@ public class GW2Label extends JLabel {
 
 	public void setRightShadow(int x, int y, Color color) {
 		LOG.debug("x: {}, y: {}, color: {}", x, y, color);
-		this.right_x = x;
-		this.right_y = y;
-		this.right_color = color;
+		this.rightX = x;
+		this.rightY = y;
+		this.rightColor = color;
 	}
 
 	@Override

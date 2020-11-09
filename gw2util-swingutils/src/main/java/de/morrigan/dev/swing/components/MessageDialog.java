@@ -10,7 +10,6 @@ import de.morrigan.dev.gw2.utils.exceptions.AbstractException;
 import de.morrigan.dev.gw2.utils.exceptions.ConfirmationException;
 import de.morrigan.dev.gw2.utils.exceptions.NotifyException;
 
-
 /**
  * Dieser Dialog zeigt Informationen aus einer {@link AbstractException} an. Als Kennzeichen, dass es sich um einen
  * unerwarteten Fehler handelt, zeigt dieser Dialog ein rotes Symbol mit einem X an.
@@ -32,16 +31,16 @@ public class MessageDialog extends JOptionPane {
 	 * Funktionalität bietet. Insgesamt sind vier verschiede Dialoge verfügbar.
 	 * <p>
 	 * <ul>
-	 * <li>Hinweis-Dialog: Diese Dialog wird angezeigt, wenn eine {@link NotifyException} übergeben wird. Der Dialog
-	 * zeigt den Hinweis aus der Exception an und bietet die Möglichkeit mit OK zu bestätigen. Als Antwort wird
+	 * <li>Hinweis-Dialog: Diese Dialog wird angezeigt, wenn eine {@link NotifyException} übergeben wird. Der Dialog zeigt
+	 * den Hinweis aus der Exception an und bietet die Möglichkeit mit OK zu bestätigen. Als Antwort wird
 	 * {@link JOptionPane#OK_OPTION} zurückgegeben.</li>
-	 * <li>Frage-Dialog: Dieser Dialog wird angezeigt, wenn eine {@link ConfirmationException} übergeben wird. Der
-	 * Dialog zeigt die Frage aus der Exception an und bietet die Möglichkeiten mit Ja/Nein/Abbrechen zu bestätigen. Als
-	 * Antwort wird entsprechend {@link JOptionPane#YES_OPTION}/{@link JOptionPane#NO_OPTION}/
-	 * {@link JOptionPane#CANCEL_OPTION} zurückgegeben.</li>
-	 * <li>Fehler-Dialog: Dieser Dialog wird in zwei Fällen angezeigt. Zum Einen kann eine {@link AbstractException} behandelt
-	 * werden und zum Anderen ein beliebiges {@link Throwable}. Beim ersten fall, besitzt die Exception noch einen
-	 * ErrorCode, der in einen Fehlertext übersetzt wird. Beim zweiten Fall wird immer ein interner Fehler gemeldet
+	 * <li>Frage-Dialog: Dieser Dialog wird angezeigt, wenn eine {@link ConfirmationException} übergeben wird. Der Dialog
+	 * zeigt die Frage aus der Exception an und bietet die Möglichkeiten mit Ja/Nein/Abbrechen zu bestätigen. Als Antwort
+	 * wird entsprechend {@link JOptionPane#YES_OPTION}/{@link JOptionPane#NO_OPTION}/ {@link JOptionPane#CANCEL_OPTION}
+	 * zurückgegeben.</li>
+	 * <li>Fehler-Dialog: Dieser Dialog wird in zwei Fällen angezeigt. Zum Einen kann eine {@link AbstractException}
+	 * behandelt werden und zum Anderen ein beliebiges {@link Throwable}. Beim ersten fall, besitzt die Exception noch
+	 * einen ErrorCode, der in einen Fehlertext übersetzt wird. Beim zweiten Fall wird immer ein interner Fehler gemeldet
 	 * zusammen mit einer Message aus der Exception. Der Dialog kann mit einem OK bestätigt werden. Als Antwort wird
 	 * {@link JOptionPane#OK_OPTION} zurückgegeben.</li>
 	 * </ul>
@@ -50,7 +49,7 @@ public class MessageDialog extends JOptionPane {
 	 * @param parent Die GUI Komponente, auf dem der Dielog liegt.
 	 * @param exception eine Exception für Bestätigungen.
 	 * @return Einen Bestätigungscode ({@link JOptionPane#OK_OPTION}, {@link JOptionPane#NO_OPTION},
-	 * {@link JOptionPane#CANCEL_OPTION})
+	 *         {@link JOptionPane#CANCEL_OPTION})
 	 */
 	public static int handleExcpetion(final Component parent, final Throwable exception) {
 		setDefaultLocale(RESOURCE_MANAGER.getCurrentLocale());

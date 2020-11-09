@@ -24,7 +24,6 @@ public class ComponentFactory {
 	/**
 	 * Diese Methode erzeugt und konifguriert eine JTable, die in der Administration verwendet wird.
 	 * 
-	 * @author morrigan
 	 * @return eine JTable
 	 */
 	public static final JTable getDefaultTable() {
@@ -73,7 +72,7 @@ public class ComponentFactory {
 	}
 
 	public static final <T> GW2ComboBox<T> getGW2ComboBox() {
-		final GW2ComboBox<T> cbResult = new GW2ComboBox<T>();
+		final GW2ComboBox<T> cbResult = new GW2ComboBox<>();
 		cbResult.setBackground(new Color(0, 0, 0));
 		cbResult.setForeground(new Color(250, 250, 250));
 		final int height = cbResult.getPreferredSize().height;
@@ -83,7 +82,7 @@ public class ComponentFactory {
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
+			public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected,
 					boolean cellHasFocus) {
 				Component result = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 				result.setBackground(Color.BLACK);
@@ -102,8 +101,7 @@ public class ComponentFactory {
 	}
 
 	/**
-	 * Diese Methode erzeugt und konfiguriert ein JTextArea Element, welches als mehrzeiliges Label verwendet werden
-	 * kann.
+	 * Diese Methode erzeugt und konfiguriert ein JTextArea Element, welches als mehrzeiliges Label verwendet werden kann.
 	 * <p>
 	 * <b>Eigenschaften</b><br>
 	 * <ul>
@@ -122,5 +120,9 @@ public class ComponentFactory {
 		taResultTextArea.setEditable(false);
 		taResultTextArea.setOpaque(false);
 		return taResultTextArea;
+	}
+
+	private ComponentFactory() {
+		super();
 	}
 }

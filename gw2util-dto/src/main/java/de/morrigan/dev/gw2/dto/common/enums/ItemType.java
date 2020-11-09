@@ -1,6 +1,7 @@
 package de.morrigan.dev.gw2.dto.common.enums;
 
-import org.jboss.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public enum ItemType {
 
@@ -19,8 +20,8 @@ public enum ItemType {
 	UPGRADE_COMPONENT("UpgradeComponent", "upgradeComponent"), //
 	WEAPON("Weapon", "weapon");
 
-	/** Logger für Debug/Fehlerausgaben */
-	private static final Logger LOG = Logger.getLogger(ItemType.class);
+	/** Logger für Debugausgaben */
+	private static final Logger LOG = LoggerFactory.getLogger(ItemType.class);
 
 	public static final ItemType getValueOf(String value) {
 		ItemType result = null;
@@ -31,7 +32,7 @@ public enum ItemType {
 			}
 		}
 		if (result == null) {
-			LOG.warn(value + " konnte nicht in ein ItemType umgewandelt werden!");
+			LOG.warn("{} konnte nicht in ein ItemType umgewandelt werden!", value);
 			result = UNKNOWN;
 		}
 		return result;
@@ -47,9 +48,5 @@ public enum ItemType {
 
 	public String getLabelKey() {
 		return this.labelKey;
-	}
-
-	public void setLabelKey(String labelKey) {
-		this.labelKey = labelKey;
 	}
 }

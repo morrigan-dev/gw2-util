@@ -2,17 +2,17 @@ package de.morrigan.dev.gw2.dto.remote;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Enumeration;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.Properties;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import org.jboss.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.morrigan.dev.gw2.dto.exceptions.ServiceException;
 import de.morrigan.dev.gw2.dto.remote.interfaces.IRemoteAuthenticationService;
@@ -25,8 +25,8 @@ import de.morrigan.dev.gw2.dto.remote.interfaces.IRemoteUserAdminService;
  */
 public class JNDIServiceFactory {
 
-	/** Logger für Debug/Fehlerausgaben */
-	private static final Logger LOG = Logger.getLogger(JNDIServiceFactory.class);
+	/** Logger für Debugausgaben */
+	private static final Logger LOG = LoggerFactory.getLogger(JNDIServiceFactory.class);
 
 	/** Einzige Instanz dieser Factory */
 	private static final JNDIServiceFactory INSTANCE = new JNDIServiceFactory();
@@ -64,26 +64,6 @@ public class JNDIServiceFactory {
 			try {
 				// Original
 				this.remoteAuthService = (IRemoteAuthenticationService) this.jndiContext.lookup(JNDI_REMOTE_AUTH_SERVICE);
-
-				//				final Hashtable jndiProperties = new Hashtable();
-
-				//				jndiProperties.put(Context.INITIAL_CONTEXT_FACTORY, "org.wildfly.naming.client.WildFlyInitialContextFactory");
-				//				jndiProperties.put(Context.PROVIDER_URL, "http-remoting://localhost:8080");
-				//				final Context ctx = new InitialContext(jndiProperties);
-				//				return (IRemoteAuthenticationService) this.jndiContext
-				//						.lookup("ejb:GW2Util-Server/gw2util-server-businesstier-0.0.1-SNAPSHOT/AuthenticationService!sd.domain.remote.interfaces.IRemoteAuthenticationService");
-
-				//				final String appName = "GW2Util-Server";
-				//        final String moduleName = "gw2util-server-businesstier-0.0.1-SNAPSHOT";
-				//        final String beanName = "AuthenticationService";
-				//        final String viewClassName = IRemoteAuthenticationService.class.getName();
-				//        System.out.println("Looking EJB via JNDI ");
-				//        System.out.println("ejb:" + appName + "/" + moduleName + "/" + beanName + "!" + viewClassName);
-				//
-				//        this.remoteAuthService= (IRemoteAuthenticationService) jndiContext.lookup("ejb:" + appName + "/" + moduleName + "/" + beanName + "!" + viewClassName);
-
-				//				this.remoteAuthService = (IRemoteAuthenticationService) this.jndiContext.lookup(
-				//						"ejb:GW2Util-Server/gw2util-server-businesstier-0.0.1-SNAPSHOT/AuthenticationService!sd.domain.remote.interfaces.IRemoteAuthenticationService");
 			} catch (NamingException e) {
 				throw new ServiceException(e);
 			}
@@ -115,15 +95,15 @@ public class JNDIServiceFactory {
 	}
 
 	private void initJNDIContext() {
-		try {
+		File jndiPropertiesFile = new File("config/jndi.properties");
+		try (FileInputStream stream = new FileInputStream(jndiPropertiesFile)) {
 			Properties jndiProperties = new Properties();
-			File jndiPropertiesFile = new File("config/jndi.properties");
 			if (jndiPropertiesFile.exists()) {
-				jndiProperties.load(new FileInputStream(jndiPropertiesFile));
+				jndiProperties.load(stream);
 			} else {
 				jndiProperties.load(getClass().getResourceAsStream("/config/jndi.properties"));
 			}
-			Hashtable<String, String> table = new Hashtable<String, String>();
+			HashMap<String, String> table = new HashMap<>();
 			Enumeration<Object> enm = jndiProperties.keys();
 			while (enm.hasMoreElements()) {
 				String key = (String) enm.nextElement();
@@ -135,11 +115,7 @@ public class JNDIServiceFactory {
 			jndiPRoperties.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
 			jndiPRoperties.put("jboss.naming.client.ejb.context", true);
 			this.jndiContext = new InitialContext(jndiPRoperties);
-		} catch (FileNotFoundException e) {
-			LOG.error(e.getMessage(), e);
-		} catch (IOException e) {
-			LOG.error(e.getMessage(), e);
-		} catch (NamingException e) {
+		} catch (IOException | NamingException e) {
 			LOG.error(e.getMessage(), e);
 		}
 	}

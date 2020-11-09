@@ -2,6 +2,11 @@ package de.morrigan.dev.swing;
 
 import java.awt.Insets;
 
+/**
+ * Konstanten für verschiedene Insets zur Anordnung von GUI Komponenten.
+ * 
+ * @author morrigan
+ */
 public class InsetConstants {
 
 	/** Abstand in Pixel für die Insets der einzelnen GUI-Elemente */
@@ -65,4 +70,7 @@ public class InsetConstants {
 	public static final Insets SMALL_ALL_INSETS = new Insets(DEFAULT_SMALL_DISTANCE, DEFAULT_SMALL_DISTANCE,
 			DEFAULT_SMALL_DISTANCE, DEFAULT_SMALL_DISTANCE);
 
+	private InsetConstants() {
+		super();
+	}
 }

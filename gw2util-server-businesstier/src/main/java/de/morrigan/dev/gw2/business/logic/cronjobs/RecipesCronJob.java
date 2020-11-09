@@ -41,11 +41,10 @@ public class RecipesCronJob implements Job {
 					endIndex = receivedRecipesIds.length;
 				}
 				long[] idsToLoad = Arrays.copyOfRange(receivedRecipesIds, index, endIndex);
-				LOG.info("Lade die nächsten " + steps + " Rezepte...");
+				LOG.info("Lade die nächsten {} Rezepte...", steps);
 				jobService.receiveRecipes(idsToLoad);
 			}
 		} catch (ServiceException e) {
-			LOG.error(e.getMessage(), e);
 			throw new JobExecutionException(e);
 		}
 	}

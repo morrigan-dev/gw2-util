@@ -15,9 +15,6 @@ import java.util.EventObject;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import de.morrigan.dev.gw2.client.Main;
 import de.morrigan.dev.gw2.client.gui.interfaces.IListenerAction;
 import de.morrigan.dev.gw2.client.gui.interfaces.IStructuredView;
@@ -29,10 +26,7 @@ public class GW2MenuBar extends JPanel implements IStructuredView {
 
 	/** automatisch generierte serialVersionUID */
 	private static final long serialVersionUID = -3936710675430412248L;
-	
-	/** Logger für Debugausgaben */
-	private static final Logger LOG = LoggerFactory.getLogger(GW2MenuBar.class);
-	
+
 	/** Handel auf den ImageManager */
 	private static final ImageManager IMAGE_MANAGER = ImageManager.getInstance();
 
@@ -116,7 +110,9 @@ public class GW2MenuBar extends JPanel implements IStructuredView {
 	}
 
 	@Override
-	public void handleListenerEvent(IListenerAction listenerAction, EventObject event) {}
+	public void handleListenerEvent(IListenerAction listenerAction, EventObject event) {
+		// keine Listener vorhanden
+	}
 
 	@Override
 	public void layoutGUI() {
@@ -155,7 +151,9 @@ public class GW2MenuBar extends JPanel implements IStructuredView {
 	}
 
 	@Override
-	public void updateLanguage() {}
+	public void updateLanguage() {
+		// keine GUI-Elemente vorhanden mit Beschriftung
+	}
 
 	private void switchState() {
 		boolean visible = this.pnlContent.isVisible();

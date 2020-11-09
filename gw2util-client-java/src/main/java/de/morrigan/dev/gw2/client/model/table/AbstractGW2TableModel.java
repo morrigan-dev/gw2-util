@@ -32,7 +32,7 @@ public abstract class AbstractGW2TableModel<T> extends AbstractTableModel implem
 	protected static final ResourceManager RESOURCE_MANAGER = ResourceManager.getInstance();
 
 	/** Liste mit den einzelnen Entities, wobei jeder Satz einer Zeile in der Tabelle entspricht */
-	private List<T> dataList = new ArrayList<T>();
+	private List<T> dataList = new ArrayList<>();
 
 	/** Anzahl der Spalten in der Tabelle */
 	private final int columnCount;

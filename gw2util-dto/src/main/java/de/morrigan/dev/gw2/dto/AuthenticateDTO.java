@@ -1,6 +1,7 @@
 package de.morrigan.dev.gw2.dto;
 
-import org.jboss.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.morrigan.dev.gw2.dto.common.Protocol;
 
@@ -19,8 +20,8 @@ public class AuthenticateDTO extends ResultDTO {
 
 	private static final long serialVersionUID = 1L;
 
-	/** Logger für Debug/Fehlerausgaben */
-	private static final Logger LOG = Logger.getLogger(AuthenticateDTO.class);
+	/** Logger für Debugausgaben */
+	private static final Logger LOG = LoggerFactory.getLogger(AuthenticateDTO.class);
 
 	/** Eindeutiger Schlüssel der Session, mit der der Client sich am Server meldet */
 	private String sessionKey = "";

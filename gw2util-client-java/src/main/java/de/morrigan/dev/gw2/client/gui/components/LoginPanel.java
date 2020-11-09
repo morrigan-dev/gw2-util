@@ -3,8 +3,6 @@ package de.morrigan.dev.gw2.client.gui.components;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.EventObject;
 
 import javax.swing.JButton;
@@ -34,13 +32,12 @@ import de.morrigan.dev.swing.factories.MessageDialogFactory;
 
 public class LoginPanel extends JPanel implements IStructuredView, IObserver {
 
-	private static enum ListenerAction implements IListenerAction {
+	private enum ListenerAction implements IListenerAction {
 		LOGIN_CLICKED, LOGOUT_CLICKED, STAY_LOGGED_ON
 	}
 
 	private static final long serialVersionUID = 1L;
 
-	
 	/** Logger für Debugausgaben */
 	private static final Logger LOG = LoggerFactory.getLogger(LoginPanel.class);
 
@@ -102,27 +99,9 @@ public class LoginPanel extends JPanel implements IStructuredView, IObserver {
 
 	@Override
 	public void configureListener() {
-		this.btLogin.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent event) {
-				handleListenerEvent(ListenerAction.LOGIN_CLICKED, event);
-			}
-		});
-		this.btLogout.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent event) {
-				handleListenerEvent(ListenerAction.LOGOUT_CLICKED, event);
-			}
-		});
-		this.chkStyLoggedOn.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent event) {
-				handleListenerEvent(ListenerAction.STAY_LOGGED_ON, event);
-			}
-		});
+		this.btLogin.addActionListener(event -> handleListenerEvent(ListenerAction.LOGIN_CLICKED, event));
+		this.btLogout.addActionListener(event -> handleListenerEvent(ListenerAction.LOGOUT_CLICKED, event));
+		this.chkStyLoggedOn.addActionListener(event -> handleListenerEvent(ListenerAction.STAY_LOGGED_ON, event));
 	}
 
 	@Override
@@ -149,17 +128,17 @@ public class LoginPanel extends JPanel implements IStructuredView, IObserver {
 			switch (action) {
 				case LOGIN_CLICKED:
 					doLogin();
-					break;
+				break;
 				case LOGOUT_CLICKED:
 					this.model.doLogout();
-					break;
+				break;
 				case STAY_LOGGED_ON:
 					this.prefModel.setStayLoggedOn(true);
-					break;
+				break;
 
 				default:
-					LOG.warn("Die Aktion " + action + " ist nicht gemappt!");
-					break;
+					LOG.warn("Die Aktion {} ist nicht gemappt!", action);
+				break;
 			}
 		} catch (Exception e) {
 			LOG.error(e.getMessage(), e);

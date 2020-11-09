@@ -12,6 +12,9 @@
 	<artifactId>gw2util-server-webservicetier</artifactId>
 	<packaging>war</packaging>
 
+	<name>GW2-Utility Server (webservicetier)</name>
+	<description>Enthält die Webservice Zugriffsschicht für das GW2-Utility Server Produkt</description>
+
 	<!-- Libs, die in diesem Projekt benötigt werden -->
 	<dependencies>
 		<!-- Eigene Libs -->

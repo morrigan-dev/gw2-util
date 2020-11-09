@@ -19,6 +19,9 @@ import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JRootPane;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
@@ -45,7 +48,7 @@ import de.morrigan.dev.swing.factories.MessageDialogFactory;
 // (morrigan, 28.10.2013)
 public class Main implements IObserver {
 
-	public static enum Design {
+	public enum Design {
 		NORMAL, SMALL
 	}
 
@@ -71,7 +74,9 @@ public class Main implements IObserver {
 		return MAIN;
 	}
 
-	public static void main(String[] args) {}
+	public static void main(String[] args) {
+		// Main wird statisch initialisiert
+	}
 
 	/** Frame für die Toolbar */
 	private JFrame toolbarFrame;
@@ -81,8 +86,6 @@ public class Main implements IObserver {
 
 	/** Frame für das Hauptfenster im kompakten Modus ohne Navigationsmöglichkeit */
 	private JFrame compactFrame;
-
-	private MainPanel mainPanel;
 
 	/** Aktuelle Mausposition des Cursors um das Fenstern mit der Maus bewegen zu können */
 	private Point relativeMousePos;
@@ -118,15 +121,11 @@ public class Main implements IObserver {
 			LOG.error(e.getMessage(), e);
 		}
 
-		SwingUtilities.invokeLater(new Runnable() {
-
-			@Override
-			public void run() {
-				createMainFrame();
-				createToolbarFrame();
-				createCompactFrame();
-				AuthenticationModel.getInstance().addObserver(Main.this);
-			}
+		SwingUtilities.invokeLater(() -> {
+			createMainFrame();
+			createToolbarFrame();
+			createCompactFrame();
+			AuthenticationModel.getInstance().addObserver(Main.this);
 		});
 	}
 
@@ -250,15 +249,14 @@ public class Main implements IObserver {
 		}
 		return backgroundColor;
 	}
-	
+
 	private void createMainFrame() {
 		try {
 			this.mainFrame = new JFrame();
 			this.mainFrame.setUndecorated(true);
 			this.mainFrame.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
 			this.mainFrame.setLayout(new BorderLayout());
-			this.mainPanel = new MainPanel(this.mainFrame);
-			this.mainFrame.add(this.mainPanel, BorderLayout.CENTER);
+			this.mainFrame.add(new MainPanel(this.mainFrame), BorderLayout.CENTER);
 			this.mainFrame.setBackground(getBackgroundColor());
 
 			Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -316,17 +314,17 @@ public class Main implements IObserver {
 	}
 
 	private void initUIManager() {
-//		try {
-//			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-//		} catch (final ClassNotFoundException e) {
-//			LOG.error(e.getMessage(), e);
-//		} catch (final InstantiationException e) {
-//			LOG.error(e.getMessage(), e);
-//		} catch (final IllegalAccessException e) {
-//			LOG.error(e.getMessage(), e);
-//		} catch (final UnsupportedLookAndFeelException e) {
-//			LOG.error(e.getMessage(), e);
-//		}
+		LookAndFeelInfo[] installedLookAndFeels = UIManager.getInstalledLookAndFeels();
+		for (LookAndFeelInfo lookAndFeelInfo : installedLookAndFeels) {
+			if (lookAndFeelInfo.getName().contains("WindowsLookAndFeel")) {
+				try {
+					UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+				} catch (final ClassNotFoundException | InstantiationException | IllegalAccessException
+						| UnsupportedLookAndFeelException e) {
+					LOG.error(e.getMessage(), e);
+				}
+			}
+		}
 	}
 
 	private void registrerFont() throws FontFormatException, IOException {

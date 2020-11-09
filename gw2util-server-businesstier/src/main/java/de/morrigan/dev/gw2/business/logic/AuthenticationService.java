@@ -80,7 +80,7 @@ public class AuthenticationService implements IAuthenticationService {
 				result.setSessionKey(sessionOfUser.getSessionKey());
 
 				if (LOG.isInfoEnabled()) {
-					LOG.info(sessionOfUser.getUser().getUserName() + " hat sich angemeldet.");
+					LOG.info("{} hat sich angemeldet.", sessionOfUser.getUser().getUserName());
 				}
 				return result;
 			}
@@ -91,7 +91,6 @@ public class AuthenticationService implements IAuthenticationService {
 						RESOURCE_MANAGER.getMessage("actionMustBeLogin"));
 			}
 		} catch (final PersistenceException e) {
-			LOG.error(e.getMessage(), e);
 			throw new ServiceException(e);
 		}
 	}
@@ -111,7 +110,6 @@ public class AuthenticationService implements IAuthenticationService {
 		try {
 			session = sessionDAO.findSessionBySessionKey(sessionKey);
 		} catch (final PersistenceException e) {
-			LOG.error(e.getMessage(), e);
 			throw new ServiceException(e);
 		}
 
@@ -165,7 +163,6 @@ public class AuthenticationService implements IAuthenticationService {
 		try {
 			session = sessionDAO.findSessionBySessionKey(sessionKey);
 		} catch (final PersistenceException e) {
-			LOG.error(e.getMessage(), e);
 			throw new ServiceException(e);
 		}
 
@@ -177,7 +174,7 @@ public class AuthenticationService implements IAuthenticationService {
 			LOG.info("result: {}", result);
 		}
 		if (result == null) {
-			result = new Vector<String>();
+			result = new Vector<>();
 		}
 
 		return result;
@@ -190,7 +187,6 @@ public class AuthenticationService implements IAuthenticationService {
 		try {
 			return userGroupDAO.getUserGroupsForCache(ActiveState.ACTIVE, ActiveState.NOT_ADMIN);
 		} catch (final PersistenceException e) {
-			LOG.error(e.getMessage(), e);
 			throw new ServiceException(e);
 		}
 	}
@@ -205,7 +201,7 @@ public class AuthenticationService implements IAuthenticationService {
 		Validate.notNull(user, "Der Parameter (user) darf nicht null sein!");
 		Validate.notNull(rightsToCheck, "Der Parameter (rightsToCheck) darf nicht null sein!");
 		LOG.debug("user: {}, rightsToCheck: {}", user, rightsToCheck);
-	
+
 		final UserGroupRightCache cache = UserGroupRightCache.getInstance();
 		final UserGroup groupOfUser = user.getUserGroup();
 		final Vector<String> rightKeys = cache.getRight(groupOfUser);
@@ -268,12 +264,11 @@ public class AuthenticationService implements IAuthenticationService {
 			Session activeSession = sessionDAO.findSessionBySessionKey(auth.getSessionKey());
 			if (activeSession != null) {
 				if (LOG.isInfoEnabled()) {
-					LOG.info(activeSession.getUser().getUserName() + " meldet sich ab.");
+					LOG.info("{} meldet sich ab.", activeSession.getUser().getUserName());
 				}
 				sessionDAO.delete(activeSession);
 			}
 		} catch (PersistenceException e) {
-			LOG.error(e.getMessage(), e);
 			throw new ServiceException(e);
 		}
 	}

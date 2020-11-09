@@ -1,6 +1,7 @@
 package de.morrigan.dev.gw2.dto.common.enums;
 
-import org.jboss.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public enum GameType {
 
@@ -12,8 +13,8 @@ public enum GameType {
 	PVP("Pvp", "pvp"), //
 	PVP_LOBBY("PvpLobby", "pvpLobby");
 
-	/** Logger für Debug/Fehlerausgaben */
-	private static final Logger LOG = Logger.getLogger(GameType.class);
+	/** Logger für Debugausgaben */
+	private static final Logger LOG = LoggerFactory.getLogger(GameType.class);
 
 	public static final GameType getValueOf(String value) {
 		GameType result = null;
@@ -24,7 +25,7 @@ public enum GameType {
 			}
 		}
 		if (result == null) {
-			LOG.warn(value + " konnte nicht in ein GameType umgewandelt werden!");
+			LOG.warn("{} konnte nicht in ein GameType umgewandelt werden!", value);
 			result = UNKNOWN;
 		}
 		return result;
@@ -40,9 +41,5 @@ public enum GameType {
 
 	public String getLabelKey() {
 		return this.labelKey;
-	}
-
-	public void setLabelKey(String labelKey) {
-		this.labelKey = labelKey;
 	}
 }

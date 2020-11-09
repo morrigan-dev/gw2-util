@@ -39,8 +39,7 @@ public class ItemDAO extends GenericDAOHibernate<Item, Long> implements IItemDAO
 		try {
 			result = getSingleResult(q);
 		} catch (NoResultException e) {
-			LOG.info("Item mit der externen ID " + externalItemId + " und der Sprache " + lang
-					+ " existiert noch nicht.");
+			LOG.info("Item mit der externen ID {} und der Sprache {} existiert noch nicht.", externalItemId, lang);
 		}
 
 		LOG.debug("result: {}", result);

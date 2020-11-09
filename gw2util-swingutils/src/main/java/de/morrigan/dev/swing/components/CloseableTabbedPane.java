@@ -77,7 +77,7 @@ public class CloseableTabbedPane extends JPanel {
 	/** Logger für Debugausgaben */
 	private static final Logger LOG = LoggerFactory.getLogger(CloseableTabbedPane.class);
 
-	private final static MouseListener BTN_MOUSE_LISTENER = new MouseAdapter() {
+	private static final MouseListener BTN_MOUSE_LISTENER = new MouseAdapter() {
 
 		@Override
 		public void mouseEntered(final MouseEvent e) {
@@ -105,7 +105,7 @@ public class CloseableTabbedPane extends JPanel {
 
 	public CloseableTabbedPane(final JTabbedPane tpnTabPane) {
 		super();
-  	LOG.debug("tpnTabPane: {}", tpnTabPane);
+		LOG.debug("tpnTabPane: {}", tpnTabPane);
 
 		this.tpnTabPane = tpnTabPane;
 
@@ -129,5 +129,4 @@ public class CloseableTabbedPane extends JPanel {
 
 		setOpaque(false);
 	}
-
 }

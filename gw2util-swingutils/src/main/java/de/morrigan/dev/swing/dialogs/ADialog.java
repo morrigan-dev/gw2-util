@@ -10,9 +10,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import de.morrigan.dev.gw2.resources.ResourceManager;
 import de.morrigan.dev.gw2.utils.observer.IObservable;
 import de.morrigan.dev.gw2.utils.observer.IObserver;
@@ -21,13 +18,9 @@ import de.morrigan.dev.swing.InsetConstants;
 import de.morrigan.dev.swing.constants.ColorConstants;
 import de.morrigan.dev.swing.constants.GUIConstants;
 
-
 public abstract class ADialog extends JDialog implements IObserver {
 
 	private static final long serialVersionUID = 1L;
-	
-	/** Logger für Debugausgaben */
-	private static final Logger LOG = LoggerFactory.getLogger(ADialog.class);
 
 	/** Handle auf den ResourceManager */
 	protected static final ResourceManager RESOURCE_MANAGER = ResourceManager.getInstance();
@@ -36,7 +29,6 @@ public abstract class ADialog extends JDialog implements IObserver {
 	private JLabel lblDescription;
 
 	private JPanel pnlHeader;
-
 	private JPanel pnlContent;
 
 	public ADialog(final Window window, final String title) {
@@ -115,5 +107,4 @@ public abstract class ADialog extends JDialog implements IObserver {
 		GCUtil.configGC(gbc, 0, 1, GCUtil.WEST, GCUtil.HORI, 1.0, 0.0, 1, 1, InsetConstants.ALL_INSETS);
 		this.pnlHeader.add(this.lblDescription, gbc);
 	}
-
 }

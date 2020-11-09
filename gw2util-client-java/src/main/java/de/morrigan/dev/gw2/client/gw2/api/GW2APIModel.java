@@ -25,9 +25,7 @@ import cz.zweistein.gw2.api.dto.MapRectangle;
 import cz.zweistein.gw2.api.dto.MapRegion;
 import cz.zweistein.gw2.api.dto.Point2D;
 import cz.zweistein.gw2.api.dto.PointOfInterest;
-import cz.zweistein.gw2.api.dto.Recipe;
 import cz.zweistein.gw2.api.dto.SkillChallenge;
-import cz.zweistein.gw2.api.dto.items.Item;
 import cz.zweistein.gw2.api.util.SupportedLanguage;
 import de.morrigan.dev.gw2.client.gui.map.waypoints.WPGW2Heart;
 import de.morrigan.dev.gw2.client.gui.map.waypoints.WPGW2Map;
@@ -62,24 +60,21 @@ public final class GW2APIModel extends AbstractModel {
 	private GW2API gw2API;
 	private Long build;
 	private List<GW2Color> colors = new ArrayList<>();
-	private List<GW2Continent> continents = new ArrayList<GW2Continent>();
-	private List<GW2MapName> maps = new ArrayList<GW2MapName>();
-	private List<GW2EventName> eventNames = new ArrayList<GW2EventName>();
-	private List<GW2WorldName> worldNames = new ArrayList<GW2WorldName>();
-	private List<GW2MapRegion> mapRegions = new ArrayList<GW2MapRegion>();
-	private List<WPGW2Waypoint> gw2Waypoints = new ArrayList<WPGW2Waypoint>();
-	private List<WPGW2PointOfInterest> gw2POIs = new ArrayList<WPGW2PointOfInterest>();
-	private List<WPGW2Unlock> gw2Unlock = new ArrayList<WPGW2Unlock>();
-	private List<WPGW2Vista> gw2Vista = new ArrayList<WPGW2Vista>();
-	private List<WPGW2Skill> gw2Skill = new ArrayList<WPGW2Skill>();
-	private List<WPGW2Heart> gw2Heart = new ArrayList<WPGW2Heart>();
-	private List<WPGW2Map> gw2MapInfo = new CopyOnWriteArrayList<WPGW2Map>();
-
-	private Map<Long, Item> items;
-	private Map<Long, Recipe> recipes;
+	private List<GW2Continent> continents = new ArrayList<>();
+	private List<GW2MapName> maps = new ArrayList<>();
+	private List<GW2EventName> eventNames = new ArrayList<>();
+	private List<GW2WorldName> worldNames = new ArrayList<>();
+	private List<GW2MapRegion> mapRegions = new ArrayList<>();
+	private List<WPGW2Waypoint> gw2Waypoints = new ArrayList<>();
+	private List<WPGW2PointOfInterest> gw2POIs = new ArrayList<>();
+	private List<WPGW2Unlock> gw2Unlock = new ArrayList<>();
+	private List<WPGW2Vista> gw2Vista = new ArrayList<>();
+	private List<WPGW2Skill> gw2Skill = new ArrayList<>();
+	private List<WPGW2Heart> gw2Heart = new ArrayList<>();
+	private List<WPGW2Map> gw2MapInfo = new CopyOnWriteArrayList<>();
 
 	private InfoMessageModel infoMsgModel = InfoMessageModel.getInstance();
-	private List<IThreadCallback> callbacks = new ArrayList<IThreadCallback>();
+	private List<IThreadCallback> callbacks = new ArrayList<>();
 
 	private GW2APIModel() {
 		super();
@@ -149,10 +144,11 @@ public final class GW2APIModel extends AbstractModel {
 		Map<Long, AreaMap> mapDetail = null;
 		try {
 			mapDetail = this.gw2API.getMapDetail(mapId, this.language);
+			return mapDetail.get(mapId);
 		} catch (RemoteException e) {
 			LOG.error(e.getMessage(), e);
 		}
-		return mapDetail.get(mapId);
+		return null;
 	}
 
 	public MapFloor getMapFloor(Long continentId, Long floor) {
@@ -178,19 +174,15 @@ public final class GW2APIModel extends AbstractModel {
 	}
 
 	public void loadDataFromAPI() {
-		new Thread(new Runnable() {
+		new Thread(() -> {
+			try {
+				loadData();
 
-			@Override
-			public void run() {
-				try {
-					loadData();
-
-					for (IThreadCallback callback : GW2APIModel.this.callbacks) {
-						callback.basicDataAvailable();
-					}
-				} catch (RemoteException e) {
-					LOG.error(e.getMessage(), e);
+				for (IThreadCallback callback : GW2APIModel.this.callbacks) {
+					callback.basicDataAvailable();
 				}
+			} catch (RemoteException e) {
+				LOG.error(e.getMessage(), e);
 			}
 		}).start();
 	}
@@ -199,13 +191,7 @@ public final class GW2APIModel extends AbstractModel {
 		LOG.debug("continentId: {}", continentId);
 		LOG.info("Lade Map-Regionen");
 		this.infoMsgModel.setMessage(RESOURCE_MANAGER.getMessage("load_map_areas"));
-		// List<Long> floors = new ArrayList<Long>();
-		// for (GW2Continent con : this.continents) {
-		// if (con.getId() == continentId) {
-		// floors = con.getContinent().getFloors();
-		// }
-		// }
-		this.mapRegions = new ArrayList<GW2MapRegion>();
+		this.mapRegions = new ArrayList<>();
 		MapFloor mapFloor = this.gw2API.getMapFloor(continentId, DEFAULT_FLOOR, this.language);
 		Map<Long, MapRegion> mapRegionsFromAPI = mapFloor.getRegions();
 		List<PointOfInterest> addedPOIs = new ArrayList<>();
@@ -215,9 +201,9 @@ public final class GW2APIModel extends AbstractModel {
 				// die beiden verbliebenen Maps 'Mahlstromgipfel' und 'Funkenschwärmersumpf' geladen.
 				MapRegion mapRegion = mapRegionsFromAPI.get(id);
 				Map<Long, MapAreaFloor> newMaps = new HashMap<>();
-				Map<Long, MapAreaFloor> maps = mapRegion.getMaps();
-				for (Long key : maps.keySet()) {
-					List<PointOfInterest> pois = maps.get(key).getPois();
+				Map<Long, MapAreaFloor> afMaps = mapRegion.getMaps();
+				for (Long key : afMaps.keySet()) {
+					List<PointOfInterest> pois = afMaps.get(key).getPois();
 					List<PointOfInterest> poisToAdd = new ArrayList<>();
 					for (PointOfInterest pointOfInterest : pois) {
 						boolean found = false;
@@ -231,7 +217,7 @@ public final class GW2APIModel extends AbstractModel {
 							poisToAdd.add(pointOfInterest);
 						}
 					}
-					MapAreaFloor curMAFloor = maps.get(key);
+					MapAreaFloor curMAFloor = afMaps.get(key);
 					MapAreaFloor newMAFloor = new MapAreaFloor(curMAFloor.getName(), curMAFloor.getMinLevel(),
 							curMAFloor.getMaxLevel(), curMAFloor.getMapRectangle(), curMAFloor.getContinentRectangle(),
 							curMAFloor.getDefaultFloor(), curMAFloor.getSkillChallenges(), poisToAdd,
@@ -240,8 +226,8 @@ public final class GW2APIModel extends AbstractModel {
 				}
 				mapRegionsFromAPI.get(id).setMaps(newMaps);
 			}
-			Map<Long, MapAreaFloor> maps = mapRegionsFromAPI.get(id).getMaps();
-			for (MapAreaFloor mapAreaFoor : maps.values()) {
+			Map<Long, MapAreaFloor> afMaps = mapRegionsFromAPI.get(id).getMaps();
+			for (MapAreaFloor mapAreaFoor : afMaps.values()) {
 				addedPOIs.addAll(mapAreaFoor.getPois());
 			}
 			GW2MapRegion gw2MapRegion = new GW2MapRegion(id, mapRegionsFromAPI.get(id));
@@ -256,15 +242,11 @@ public final class GW2APIModel extends AbstractModel {
 	}
 
 	public void loadWaypointsFromAPI(final JXMapViewer mapViewer) {
-		new Thread(new Runnable() {
+		new Thread(() -> {
+			loadWaypoints(mapViewer);
 
-			@Override
-			public void run() {
-				loadWaypoints(mapViewer);
-
-				for (IThreadCallback callback : GW2APIModel.this.callbacks) {
-					callback.waypointsAvailable();
-				}
+			for (IThreadCallback callback : GW2APIModel.this.callbacks) {
+				callback.waypointsAvailable();
 			}
 		}).start();
 	}
@@ -299,23 +281,6 @@ public final class GW2APIModel extends AbstractModel {
 		loadWorldNames();
 		loadMapRegions(TYRIA_ID);
 
-		// List<Long> itemIds = this.gw2API.getItems();
-		// LOG.info("itemIds = " + itemIds);
-		// this.items = new HashMap<Long, Item>();
-		// for (Long id : itemIds) {
-		// try {
-		// this.items.put(id, this.gw2API.getItemDetails(id, this.language));
-		// } catch (IllegalArgumentException e) {
-		// LOG.warn("Unbekanntes Item, id: " + id);
-		// }
-		// }
-		// LOG.info("Items geladen");
-		// List<Long> recipeIds = this.gw2API.getRecipes();
-		// this.recipes = new HashMap<Long, Recipe>();
-		// for (Long id : recipeIds) {
-		// this.recipes.put(id, this.gw2API.getRecipeDetails(id, this.language));
-		// }
-		// LOG.info("Rezepte geladen");
 		long endTime = System.currentTimeMillis();
 		if (LOG.isInfoEnabled()) {
 			LOG.info("Daten erfolgreich geladen in: {} Sekunden",
@@ -347,17 +312,17 @@ public final class GW2APIModel extends AbstractModel {
 		LOG.info("Lade Kartenmarkierungen");
 		this.infoMsgModel.setMessage(RESOURCE_MANAGER.getMessage("load_map_waypoints"));
 
-		List<String> mapNames = new ArrayList<String>();
+		List<String> mapNames = new ArrayList<>();
 		for (GW2MapName mapName : this.maps) {
 			mapNames.add(mapName.getName());
 		}
 
-		this.gw2Waypoints = new ArrayList<WPGW2Waypoint>();
-		this.gw2POIs = new ArrayList<WPGW2PointOfInterest>();
-		this.gw2Unlock = new ArrayList<WPGW2Unlock>();
-		this.gw2Vista = new ArrayList<WPGW2Vista>();
-		this.gw2Skill = new ArrayList<WPGW2Skill>();
-		this.gw2Heart = new ArrayList<WPGW2Heart>();
+		this.gw2Waypoints = new ArrayList<>();
+		this.gw2POIs = new ArrayList<>();
+		this.gw2Unlock = new ArrayList<>();
+		this.gw2Vista = new ArrayList<>();
+		this.gw2Skill = new ArrayList<>();
+		this.gw2Heart = new ArrayList<>();
 		for (GW2MapRegion region : this.mapRegions) {
 			Map<Long, MapAreaFloor> mapAreaFloors = region.getMapRegion().getMaps();
 			for (MapAreaFloor mapAreaFloor : mapAreaFloors.values()) {
@@ -397,7 +362,6 @@ public final class GW2APIModel extends AbstractModel {
 
 					List<Heart> tasks = mapAreaFloor.getTasks();
 					for (Heart heart : tasks) {
-						Long id = heart.getId();
 						Long level = heart.getLevel();
 						Point2D location = heart.getLocation();
 						StringBuilder hoverInfo = new StringBuilder(heart.getObjective());

@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import de.morrigan.dev.gw2.client.gui.interfaces.IStructuredView;
 import de.morrigan.dev.gw2.resources.ImageManager;
 import de.morrigan.dev.gw2.resources.ResourceManager;
+import de.morrigan.dev.gw2.utils.exceptions.AbstractException;
 import de.morrigan.dev.gw2.utils.observer.IObserver;
 import de.morrigan.dev.swing.GCUtil;
 import de.morrigan.dev.swing.InsetConstants;
@@ -34,7 +35,7 @@ public abstract class AbstractView<T extends AbstractModel> extends JPanel imple
 
 	/** automatisch generierte serialVersionUID */
 	private static final long serialVersionUID = 6377864728715347551L;
-	
+
 	/** Logger für Debugausgaben */
 	private static final Logger LOG = LoggerFactory.getLogger(AbstractView.class);
 
@@ -60,7 +61,7 @@ public abstract class AbstractView<T extends AbstractModel> extends JPanel imple
 	protected T model;
 
 	/**
-	 * Erzeugt ein neues Panel und setzt die �bergebenen Parameter.
+	 * Erzeugt ein neues Panel und setzt die übergebenen Parameter.
 	 * 
 	 * @param mainWindow Hauptfenster auf dem diese View liegt
 	 */
@@ -88,7 +89,7 @@ public abstract class AbstractView<T extends AbstractModel> extends JPanel imple
 	 * @param model Model für dieses Panel.
 	 * @throws Exception
 	 */
-	public void initializeSuper(final T model) throws Exception {
+	public void initializeSuper(final T model) throws AbstractException {
 		LOG.debug("model: {}", model);
 
 		this.listenerEnabled = true;

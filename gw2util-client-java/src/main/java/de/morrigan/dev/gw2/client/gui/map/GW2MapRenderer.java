@@ -7,10 +7,11 @@ import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 
-import org.jboss.logging.Logger;
 import org.jdesktop.swingx.JXMapViewer;
 import org.jdesktop.swingx.mapviewer.Waypoint;
 import org.jdesktop.swingx.mapviewer.WaypointRenderer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.morrigan.dev.gw2.client.Main;
 import de.morrigan.dev.gw2.client.gui.AbstractGW2Waypoint;
@@ -19,8 +20,8 @@ import de.morrigan.dev.gw2.dto.common.enums.WPType;
 
 public class GW2MapRenderer implements WaypointRenderer<Waypoint> {
 
-	/** Logger für Debug/Fehlerausgaben */
-	private static final Logger LOG = Logger.getLogger(GW2MapRenderer.class);
+	/** Logger für Debugausgaben */
+	private static final Logger LOG = LoggerFactory.getLogger(GW2MapRenderer.class);
 
 	private JXMapViewer mapViewer;
 
@@ -48,23 +49,21 @@ public class GW2MapRenderer implements WaypointRenderer<Waypoint> {
 				switch (zoom) {
 					case 5:
 						fontSize = 16f;
-						break;
+					break;
 					case 4:
 						fontSize = 20f;
-						break;
+					break;
 					case 3:
 						fontSize = 24f;
-						break;
+					break;
 					case 2:
 						fontSize = 26f;
-						break;
+					break;
 					default:
-						break;
+					break;
 				}
 				int width = (int) p2.getX() - (int) p1.getX();
 				int height = (int) p2.getY() - (int) p1.getY();
-				// g.setColor(new Color(100, 100, 100));
-				// g.drawRect((int) p1.getX(), (int) p1.getY(), width, height);
 
 				if (zoom > 1) {
 					Font labelFont = Main.getInstance().getCronosItalic().deriveFont(fontSize);
@@ -124,10 +123,10 @@ public class GW2MapRenderer implements WaypointRenderer<Waypoint> {
 				BufferedImage imgToDraw = wp.getIcon(zoom);
 				if (imgToDraw != null) {
 					Point2D p = this.mapViewer.getTileFactory().geoToPixel(wp.getPosition(), zoom);
-					g.drawImage(imgToDraw, (int) (p.getX() - (imgToDraw.getWidth() / 2)),
-							(int) (p.getY() - (imgToDraw.getHeight() / 2)), null);
+					g.drawImage(imgToDraw, (int) (p.getX() - (imgToDraw.getWidth() / 2.0)),
+							(int) (p.getY() - (imgToDraw.getHeight() / 2.0)), null);
 				} else {
-					LOG.warn("Bild nicht vorhanden: " + wp.getClass());
+					LOG.warn("Bild nicht vorhanden: {}", wp.getClass());
 				}
 			}
 		}

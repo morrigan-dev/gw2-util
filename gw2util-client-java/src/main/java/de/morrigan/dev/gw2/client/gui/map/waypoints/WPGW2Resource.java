@@ -7,8 +7,6 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 
-import net.coobird.thumbnailator.Thumbnailator;
-
 import org.jdesktop.swingx.mapviewer.GeoPosition;
 
 import de.morrigan.dev.gw2.client.gui.AbstractGW2Waypoint;
@@ -16,6 +14,7 @@ import de.morrigan.dev.gw2.dto.common.enums.WPSubType;
 import de.morrigan.dev.gw2.dto.common.enums.WPType;
 import de.morrigan.dev.gw2.resources.ImageManager;
 import de.morrigan.dev.gw2.resources.ResourceManager;
+import net.coobird.thumbnailator.Thumbnailator;
 
 public class WPGW2Resource extends AbstractGW2Waypoint {
 
@@ -29,147 +28,97 @@ public class WPGW2Resource extends AbstractGW2Waypoint {
 		String gatheringLabelKey = null;
 
 		switch (wpSubType) {
-		// Erze
+			// Erze
 			case ORICHALCUM:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.ORICHALCUM_ICON));
 				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PICK_ICON);
 				resourceLabelKey.add("orichalcum");
 				gatheringLabelKey = "orichalcumPick";
-				break;
+			break;
 			case MITHRIL:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.MITHRIL_ICON));
 				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PICK_ICON);
 				resourceLabelKey.add("mithril");
 				gatheringLabelKey = "mithrilPick";
-				break;
+			break;
 			case PLATINUM:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLATINUM_ICON));
 				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PICK_ICON);
 				resourceLabelKey.add("platinum");
 				gatheringLabelKey = "darksteelPick";
-				break;
+			break;
 			case GOLD:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.GOLD_ICON));
 				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PICK_ICON);
 				resourceLabelKey.add("gold");
 				gatheringLabelKey = "steelPick";
-				break;
+			break;
 			case SILVER:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.SILVER_ICON));
 				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PICK_ICON);
 				resourceLabelKey.add("silver");
 				gatheringLabelKey = "ironPick";
-				break;
+			break;
 			case IRON:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.IRON_ICON));
 				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PICK_ICON);
 				resourceLabelKey.add("iron");
 				gatheringLabelKey = "ironPick";
-				break;
+			break;
 			case COPPER:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.COPPER_ICON));
 				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PICK_ICON);
 				resourceLabelKey.add("copper");
 				gatheringLabelKey = "copperPick";
-				break;
+			break;
 
 			// Hölzer
 			case ASPEN:
-				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.GREEN_WOOD_ICON));
-				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.AXE_ICON);
-				resourceLabelKey.add("greenWoodLog");
-				gatheringLabelKey = "copperAxe";
-				break;
 			case EKKU:
-				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.GREEN_WOOD_ICON));
-				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.AXE_ICON);
-				resourceLabelKey.add("greenWoodLog");
-				gatheringLabelKey = "copperAxe";
-				break;
 			case KERTCH:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.GREEN_WOOD_ICON));
 				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.AXE_ICON);
 				resourceLabelKey.add("greenWoodLog");
 				gatheringLabelKey = "copperAxe";
-				break;
+			break;
 			case GUMMO:
-				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.SOFT_WOOD_ICON));
-				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.AXE_ICON);
-				resourceLabelKey.add("softWoodLog");
-				gatheringLabelKey = "ironAxe";
-				break;
 			case MIMOSA:
-				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.SOFT_WOOD_ICON));
-				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.AXE_ICON);
-				resourceLabelKey.add("softWoodLog");
-				gatheringLabelKey = "ironAxe";
-				break;
 			case SNOWCHERRY:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.SOFT_WOOD_ICON));
 				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.AXE_ICON);
 				resourceLabelKey.add("softWoodLog");
 				gatheringLabelKey = "ironAxe";
-				break;
+			break;
 			case FIR:
-				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.SEASONED_WOOD_ICON));
-				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.AXE_ICON);
-				resourceLabelKey.add("seasonedWoodLog");
-				gatheringLabelKey = "steelAxe";
-				break;
 			case TUKAWA:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.SEASONED_WOOD_ICON));
 				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.AXE_ICON);
 				resourceLabelKey.add("seasonedWoodLog");
 				gatheringLabelKey = "steelAxe";
-				break;
+			break;
 			case BANYAN:
-				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.HARD_WOOD_ICON));
-				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.AXE_ICON);
-				resourceLabelKey.add("hardWoodLog");
-				gatheringLabelKey = "darksteelAxe";
-				break;
 			case INGLEWOOD:
-				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.HARD_WOOD_ICON));
-				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.AXE_ICON);
-				resourceLabelKey.add("hardWoodLog");
-				gatheringLabelKey = "darksteelAxe";
-				break;
 			case PINE:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.HARD_WOOD_ICON));
 				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.AXE_ICON);
 				resourceLabelKey.add("hardWoodLog");
 				gatheringLabelKey = "darksteelAxe";
-				break;
+			break;
 			case BAOBA:
-				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.ELDER_WOOD_ICON));
-				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.AXE_ICON);
-				resourceLabelKey.add("elderWoodLog");
-				gatheringLabelKey = "mithrilAxe";
-				break;
 			case CYPRESS:
-				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.ELDER_WOOD_ICON));
-				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.AXE_ICON);
-				resourceLabelKey.add("elderWoodLog");
-				gatheringLabelKey = "mithrilAxe";
-				break;
 			case REDOAK:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.ELDER_WOOD_ICON));
 				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.AXE_ICON);
 				resourceLabelKey.add("elderWoodLog");
 				gatheringLabelKey = "mithrilAxe";
-				break;
+			break;
 			case ANCIENT:
-				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.ANCIENT_WOOD_ICON));
-				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.AXE_ICON);
-				resourceLabelKey.add("ancientWoodLog");
-				gatheringLabelKey = "orichalcumAxe";
-				break;
 			case ORRIAN:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.ANCIENT_WOOD_ICON));
 				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.AXE_ICON);
 				resourceLabelKey.add("ancientWoodLog");
 				gatheringLabelKey = "orichalcumAxe";
-				break;
+			break;
 
 			// Planzen
 			case BLACK_CROCUS:
@@ -177,75 +126,76 @@ public class WPGW2Resource extends AbstractGW2Waypoint {
 				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.SICKLES_ICON);
 				resourceLabelKey.add("saffronThread");
 				gatheringLabelKey = "orichalcumHarvestingSickle";
-				break;
+			break;
 			case GHOST_PEPPER:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_GHOST_PEPPER_ICON));
 				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.SICKLES_ICON);
 				resourceLabelKey.add("ghostPepper");
 				gatheringLabelKey = "orichalcumHarvestingSickle";
-				break;
+			break;
 			case LOTUS:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_LOTUS_ROOT_ICON));
 				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.SICKLES_ICON);
 				resourceLabelKey.add("lotusRoot");
 				gatheringLabelKey = "orichalcumHarvestingSickle";
-				break;
+			break;
 			case OMNOMBERRIES:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_OMNOMBERRY_ICON));
 				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.SICKLES_ICON);
 				resourceLabelKey.add("omnomberry");
 				gatheringLabelKey = "orichalcumHarvestingSickle";
-				break;
+			break;
 			case ORRIAN_TRUFFLE:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_ORRIAN_TRUFFLE_ICON));
 				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.SICKLES_ICON);
 				resourceLabelKey.add("orrianTruffle");
 				gatheringLabelKey = "orichalcumHarvestingSickle";
-				break;
+			break;
 			case SEAWEED:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_SEAWEED_ICON));
 				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.SICKLES_ICON);
 				resourceLabelKey.add("seaweed");
 				gatheringLabelKey = "orichalcumHarvestingSickle";
-				break;
+			break;
 			case SNOW_TRUFFLE:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_SNOW_TRUFFLE_ICON));
 				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.SICKLES_ICON);
 				resourceLabelKey.add("snowTruffle");
 				gatheringLabelKey = "orichalcumHarvestingSickle";
-				break;
+			break;
 			case ARTICHOKE:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_ARTICHOKE_ICON));
 				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.SICKLES_ICON);
 				resourceLabelKey.add("artichoke");
 				gatheringLabelKey = "mithrilHarvestingSickle";
-				break;
+			break;
 			case ASPARAGUS:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_ASPARAGUS_SPEAR_ICON));
 				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.SICKLES_ICON);
 				resourceLabelKey.add("asparagusSpear");
 				gatheringLabelKey = "mithrilHarvestingSickle";
-				break;
+			break;
 			case BLOOMING_PASSIFLORA:
+			case PASSIFLORA:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_PASSION_FRUIT_ICON));
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_PASSION_FLOWER_ICON));
 				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.SICKLES_ICON);
 				resourceLabelKey.add("passionFruit");
 				resourceLabelKey.add("passionFlower");
 				gatheringLabelKey = "mithrilHarvestingSickle";
-				break;
+			break;
 			case BUTTERNUT_SQUASH:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_BUTTERNUT_SQUASH_ICON));
 				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.SICKLES_ICON);
 				resourceLabelKey.add("butternutSquash");
 				gatheringLabelKey = "mithrilHarvestingSickle";
-				break;
+			break;
 			case CAYENNE_PEPPER:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_CAYENNE_PEPPER_ICON));
 				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.SICKLES_ICON);
 				resourceLabelKey.add("cayennePepper");
 				gatheringLabelKey = "mithrilHarvestingSickle";
-				break;
+			break;
 			case HERB_PATCH:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_HEAD_OF_GARLIC_ICON));
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_LEMONGRASS_ICON));
@@ -257,7 +207,7 @@ public class WPGW2Resource extends AbstractGW2Waypoint {
 				resourceLabelKey.add("corianderSeed");
 				resourceLabelKey.add("tarragonLeaves");
 				gatheringLabelKey = "mithrilHarvestingSickle";
-				break;
+			break;
 			case LEEKS:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_GREEN_ONION_ICON));
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_LEEK_ICON));
@@ -265,21 +215,13 @@ public class WPGW2Resource extends AbstractGW2Waypoint {
 				resourceLabelKey.add("greenOnion");
 				resourceLabelKey.add("leek");
 				gatheringLabelKey = "mithrilHarvestingSickle";
-				break;
-			case PASSIFLORA:
-				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_PASSION_FRUIT_ICON));
-				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_PASSION_FLOWER_ICON));
-				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.SICKLES_ICON);
-				resourceLabelKey.add("passionFruit");
-				resourceLabelKey.add("passionFlower");
-				gatheringLabelKey = "mithrilHarvestingSickle";
-				break;
+			break;
 			case RASPBERRIES:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_RASPBERRY_ICON));
 				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.SICKLES_ICON);
 				resourceLabelKey.add("raspberry");
 				gatheringLabelKey = "mithrilHarvestingSickle";
-				break;
+			break;
 			case VERDANT_HERBS:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_CLOVE_ICON));
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_HEAD_OF_GARLIC_ICON));
@@ -297,7 +239,7 @@ public class WPGW2Resource extends AbstractGW2Waypoint {
 				resourceLabelKey.add("thymeLeaf");
 				resourceLabelKey.add("vanillaBean");
 				gatheringLabelKey = "mithrilHarvestingSickle";
-				break;
+			break;
 			case WINTER_ROOT_VEGETABLES:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_BEET_ICON));
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_PARSNIP_ICON));
@@ -309,19 +251,19 @@ public class WPGW2Resource extends AbstractGW2Waypoint {
 				resourceLabelKey.add("rutabaga");
 				resourceLabelKey.add("turnip");
 				gatheringLabelKey = "mithrilHarvestingSickle";
-				break;
+			break;
 			case BLACKBERRIES:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_BLACKBERRY_ICON));
 				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.SICKLES_ICON);
 				resourceLabelKey.add("blackberry");
 				gatheringLabelKey = "darksteelHarvestingSickle";
-				break;
+			break;
 			case CAULIFLOWER:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_HEAD_OF_CAULIFLOWER_ICON));
 				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.SICKLES_ICON);
 				resourceLabelKey.add("headOfCauliflower");
 				gatheringLabelKey = "darksteelHarvestingSickle";
-				break;
+			break;
 			case CORAL:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_CORAL_CHUNK_ICON));
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_CORAL_ORB_ICON));
@@ -331,7 +273,7 @@ public class WPGW2Resource extends AbstractGW2Waypoint {
 				resourceLabelKey.add("coralOrb");
 				resourceLabelKey.add("coralTentacle");
 				gatheringLabelKey = "darksteelHarvestingSickle";
-				break;
+			break;
 			case MATURE_HERBS:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_BAY_LEAF_ICON));
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_CHILI_PEPPER_ICON));
@@ -355,13 +297,13 @@ public class WPGW2Resource extends AbstractGW2Waypoint {
 				resourceLabelKey.add("thymeLeaf");
 				resourceLabelKey.add("vanillaBean");
 				gatheringLabelKey = "darksteelHarvestingSickle";
-				break;
+			break;
 			case PORTOBELLO_MUSHROOMS:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_PORTOBELLO_MUSHROOM_ICON));
 				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.SICKLES_ICON);
 				resourceLabelKey.add("portobelloMushroom");
 				gatheringLabelKey = "darksteelHarvestingSickle";
-				break;
+			break;
 			case SCALLIONS:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_GREEN_ONION_ICON));
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_ONION_ICON));
@@ -369,13 +311,13 @@ public class WPGW2Resource extends AbstractGW2Waypoint {
 				resourceLabelKey.add("greenOnion");
 				resourceLabelKey.add("onion");
 				gatheringLabelKey = "darksteelHarvestingSickle";
-				break;
+			break;
 			case SUGAR_PUMPKIN:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_SUGAR_PUMPKIN_ICON));
 				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.SICKLES_ICON);
 				resourceLabelKey.add("sugarPumpkin");
 				gatheringLabelKey = "darksteelHarvestingSickle";
-				break;
+			break;
 			case VARIEGATED_TAPROOTS:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_CARROT_ICON));
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_RUTABAGA_ICON));
@@ -385,25 +327,25 @@ public class WPGW2Resource extends AbstractGW2Waypoint {
 				resourceLabelKey.add("rutabaga");
 				resourceLabelKey.add("turnip");
 				gatheringLabelKey = "darksteelHarvestingSickle";
-				break;
+			break;
 			case CABBAGE:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_HEAD_OF_CABBAGE_ICON));
 				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.SICKLES_ICON);
 				resourceLabelKey.add("headOfCabbage");
 				gatheringLabelKey = "steelHarvestingSickle";
-				break;
+			break;
 			case GRAPES:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_GRAPE_ICON));
 				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.SICKLES_ICON);
 				resourceLabelKey.add("grape");
 				gatheringLabelKey = "steelHarvestingSickle";
-				break;
+			break;
 			case KALE:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_KALE_LEAF_ICON));
 				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.SICKLES_ICON);
 				resourceLabelKey.add("kaleLeaf");
 				gatheringLabelKey = "steelHarvestingSickle";
-				break;
+			break;
 			case ROOT_VEGETABLES:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_BEET_ICON));
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_CARROT_ICON));
@@ -415,7 +357,7 @@ public class WPGW2Resource extends AbstractGW2Waypoint {
 				resourceLabelKey.add("turnip");
 				resourceLabelKey.add("yam");
 				gatheringLabelKey = "steelHarvestingSickle";
-				break;
+			break;
 			case VARIED_MUSHROOMS:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_MUSHROOM_ICON));
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_PORTOBELLO_MUSHROOM_ICON));
@@ -423,7 +365,7 @@ public class WPGW2Resource extends AbstractGW2Waypoint {
 				resourceLabelKey.add("mushroom");
 				resourceLabelKey.add("portobelloMushroom");
 				gatheringLabelKey = "steelHarvestingSickle";
-				break;
+			break;
 			case YOUNG_HERBS:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_BAY_LEAF_ICON));
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_BLACK_PEPPERCORN_ICON));
@@ -447,13 +389,13 @@ public class WPGW2Resource extends AbstractGW2Waypoint {
 				resourceLabelKey.add("sesameSeed");
 				resourceLabelKey.add("thymeLeaf");
 				gatheringLabelKey = "steelHarvestingSickle";
-				break;
+			break;
 			case ZUCCHINI:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_ZUCCHINI_ICON));
 				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.SICKLES_ICON);
 				resourceLabelKey.add("zucchini");
 				gatheringLabelKey = "steelHarvestingSickle";
-				break;
+			break;
 			case CLAM:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_CLAM_ICON));
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_PEARL_ICON));
@@ -461,7 +403,7 @@ public class WPGW2Resource extends AbstractGW2Waypoint {
 				resourceLabelKey.add("clam");
 				resourceLabelKey.add("pearl");
 				gatheringLabelKey = "ironHarvestingSickle";
-				break;
+			break;
 			case HERB_SPROUTS:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_BAY_LEAF_ICON));
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_BLACK_PEPPERCORN_ICON));
@@ -481,19 +423,19 @@ public class WPGW2Resource extends AbstractGW2Waypoint {
 				resourceLabelKey.add("sageLeaf");
 				resourceLabelKey.add("thymeLeaf");
 				gatheringLabelKey = "ironHarvestingSickle";
-				break;
+			break;
 			case SPINACH:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_SPINACH_LEAF_ICON));
 				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.SICKLES_ICON);
 				resourceLabelKey.add("spinachLeaf");
 				gatheringLabelKey = "ironHarvestingSickle";
-				break;
+			break;
 			case STRAWBERRY_PATCH:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_STRAWBERRY_ICON));
 				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.SICKLES_ICON);
 				resourceLabelKey.add("strawberry");
 				gatheringLabelKey = "ironHarvestingSickle";
-				break;
+			break;
 			case TAPROOTS:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_BEET_ICON));
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_CARROT_ICON));
@@ -505,25 +447,25 @@ public class WPGW2Resource extends AbstractGW2Waypoint {
 				resourceLabelKey.add("sageLeaf");
 				resourceLabelKey.add("turnip");
 				gatheringLabelKey = "ironHarvestingSickle";
-				break;
+			break;
 			case BLUEBERRY_BUSH:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_BLUEBERRY_ICON));
 				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.SICKLES_ICON);
 				resourceLabelKey.add("blueberry");
 				gatheringLabelKey = "copperHarvestingSickle";
-				break;
+			break;
 			case BUTTON_MUSHROOMS:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_MUSHROOM_ICON));
 				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.SICKLES_ICON);
 				resourceLabelKey.add("mushroom");
 				gatheringLabelKey = "copperHarvestingSickle";
-				break;
+			break;
 			case CARROTS:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_CARROT_ICON));
 				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.SICKLES_ICON);
 				resourceLabelKey.add("carrot");
 				gatheringLabelKey = "copperHarvestingSickle";
-				break;
+			break;
 			case HERB_PATCH_LOW:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_BLACK_PEPPERCORN_ICON));
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_PARSLEY_LEAF_ICON));
@@ -533,7 +475,7 @@ public class WPGW2Resource extends AbstractGW2Waypoint {
 				resourceLabelKey.add("parsleyLeaf");
 				resourceLabelKey.add("thymeLeaf");
 				gatheringLabelKey = "copperHarvestingSickle";
-				break;
+			break;
 			case HERB_SEEDLINGS:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_BLACK_PEPPERCORN_ICON));
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_HEAD_OF_GARLIC_ICON));
@@ -547,30 +489,30 @@ public class WPGW2Resource extends AbstractGW2Waypoint {
 				resourceLabelKey.add("thymeLeaf");
 				resourceLabelKey.add("vanillaBean");
 				gatheringLabelKey = "copperHarvestingSickle";
-				break;
+			break;
 			case LETTUCE:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_HEAD_OF_LETTUCE_ICON));
 				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.SICKLES_ICON);
 				resourceLabelKey.add("headOfLettuce");
 				gatheringLabelKey = "copperHarvestingSickle";
-				break;
+			break;
 			case ONIONS:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_ONION_ICON));
 				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.SICKLES_ICON);
 				resourceLabelKey.add("onion");
 				gatheringLabelKey = "copperHarvestingSickle";
-				break;
+			break;
 			case POTATO:
 				resourceIcon.add((BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_POTATO_ICON));
 				gatheringIcon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.SICKLES_ICON);
 				resourceLabelKey.add("potato");
 				gatheringLabelKey = "copperHarvestingSickle";
-				break;
+			break;
 
 			default:
 				resourceIcon = null;
 				gatheringIcon = null;
-				break;
+			break;
 		}
 		if ((iconWidth > 0) && (iconHeight > 0)) {
 			List<BufferedImage> images = new ArrayList<>();
@@ -644,9 +586,9 @@ public class WPGW2Resource extends AbstractGW2Waypoint {
 			hoverInfo.append(", ");
 			hoverInfo.append(RESOURCE_MANAGER.getLabel("permanent"));
 			hoverInfo.append(")");
-		} else if (this.rich && !this.permanent) {
+		} else if (this.rich) {
 			hoverInfo.append(" (").append(RESOURCE_MANAGER.getLabel("rich")).append(")");
-		} else if (!this.rich && this.permanent) {
+		} else if (this.permanent) {
 			hoverInfo.append(" (").append(RESOURCE_MANAGER.getLabel("permanent")).append(")");
 		}
 		return hoverInfo.toString();

@@ -40,7 +40,7 @@ public class SessionDAO extends GenericDAOHibernate<Session, Long> implements IS
 			result = getSingleResult(q);
 		} catch (final NoResultException e) {
 			// Erwartete Fehlermeldung, falls es noch keine Session mit der SessionId gibt
-			LOG.debug("Kein Session mit dem SessionKey " + sessionKey + " gefunden.");
+			LOG.debug("Kein Session mit dem SessionKey {} gefunden.", sessionKey);
 		}
 
 		LOG.debug("result: {}", result);
@@ -63,7 +63,7 @@ public class SessionDAO extends GenericDAOHibernate<Session, Long> implements IS
 			result = getSingleResult(q);
 		} catch (final NoResultException e) {
 			// Erwartete Fehlermeldung, falls es noch keine Session mit dem User gibt
-			LOG.debug("Kein Session mit dem User " + user + " gefunden.");
+			LOG.debug("Kein Session mit dem User {} gefunden.", user);
 		}
 
 		LOG.debug("result: {}", result);

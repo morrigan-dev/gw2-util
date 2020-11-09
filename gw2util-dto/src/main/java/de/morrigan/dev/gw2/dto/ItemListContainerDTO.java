@@ -9,7 +9,7 @@ public class ItemListContainerDTO extends ResultDTO {
 
 	private static final long serialVersionUID = 1L;
 
-	private List<ItemDTO> items = new ArrayList<ItemDTO>();
+	private List<ItemDTO> items = new ArrayList<>();
 
 	public ItemListContainerDTO() {
 		super(new Protocol());

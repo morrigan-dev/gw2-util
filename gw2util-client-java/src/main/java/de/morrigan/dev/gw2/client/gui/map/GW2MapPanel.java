@@ -3,7 +3,6 @@ package de.morrigan.dev.gw2.client.gui.map;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.KeyEventDispatcher;
 import java.awt.KeyboardFocusManager;
 import java.awt.Point;
 import java.awt.Toolkit;
@@ -14,7 +13,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
 import java.awt.geom.Point2D;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -51,8 +49,8 @@ import de.morrigan.dev.gw2.client.gui.map.waypoints.WPGW2Resource;
 import de.morrigan.dev.gw2.client.gw2.api.GW2APIModel;
 import de.morrigan.dev.gw2.client.gw2.api.IThreadCallback;
 import de.morrigan.dev.gw2.client.model.GW2MapModel;
-import de.morrigan.dev.gw2.client.model.RightsModel;
 import de.morrigan.dev.gw2.client.model.GW2MapModel.MapActionMode;
+import de.morrigan.dev.gw2.client.model.RightsModel;
 import de.morrigan.dev.gw2.dto.MapInfoDTO;
 import de.morrigan.dev.gw2.dto.common.enums.WPSubType;
 import de.morrigan.dev.gw2.dto.common.enums.WPType;
@@ -65,9 +63,15 @@ import de.morrigan.dev.swing.factories.MessageDialogFactory;
 
 public class GW2MapPanel extends JXMapKit implements IObserver, IStructuredView, ActionListener {
 
-	private static enum ListenerAction implements IListenerAction {
-		KEY_PRESSED, //
-		MOUSE_WHEEL_MOVED, MOUSE_MOVED, MOUSE_DRAGGED, MOUSE_PRESSED, MOUSE_RELEASED, MOUSE_CLICKED, MOUSE_ENTERED, //
+	private enum ListenerAction implements IListenerAction {
+		KEY_PRESSED,
+		MOUSE_WHEEL_MOVED,
+		MOUSE_MOVED,
+		MOUSE_DRAGGED,
+		MOUSE_PRESSED,
+		MOUSE_RELEASED,
+		MOUSE_CLICKED,
+		MOUSE_ENTERED,
 		MENU_ITEM_SELECTED;
 	}
 
@@ -170,23 +174,13 @@ public class GW2MapPanel extends JXMapKit implements IObserver, IStructuredView,
 
 	@Override
 	public void configureListener() {
-		KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
-
-			@Override
-			public boolean dispatchKeyEvent(KeyEvent event) {
-				if (event.getID() == KeyEvent.KEY_PRESSED) {
-					handleListenerEvent(ListenerAction.KEY_PRESSED, event);
-				}
-				return false;
+		KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(event -> {
+			if (event.getID() == KeyEvent.KEY_PRESSED) {
+				handleListenerEvent(ListenerAction.KEY_PRESSED, event);
 			}
+			return false;
 		});
-		addMouseWheelListener(new MouseWheelListener() {
-
-			@Override
-			public void mouseWheelMoved(MouseWheelEvent event) {
-				handleListenerEvent(ListenerAction.MOUSE_WHEEL_MOVED, event);
-			}
-		});
+		addMouseWheelListener(event -> handleListenerEvent(ListenerAction.MOUSE_WHEEL_MOVED, event));
 		this.mapViewer.addMouseListener(new MouseAdapter() {
 
 			@Override
@@ -337,7 +331,7 @@ public class GW2MapPanel extends JXMapKit implements IObserver, IStructuredView,
 					}
 				break;
 				default:
-					LOG.warn("Die Aktion " + action + " ist nicht gemappt!");
+					LOG.warn("Die Aktion {} ist nicht gemappt!", action);
 				break;
 			}
 		} catch (Exception e) {
@@ -357,7 +351,9 @@ public class GW2MapPanel extends JXMapKit implements IObserver, IStructuredView,
 	}
 
 	@Override
-	public void layoutGUI() {}
+	public void layoutGUI() {
+		// keine GUI-Elemente für ein Layout vorhanden
+	}
 
 	@Override
 	public void update(IObservable obs, long updateFlag) {
@@ -389,7 +385,9 @@ public class GW2MapPanel extends JXMapKit implements IObserver, IStructuredView,
 	}
 
 	@Override
-	public void updateLanguage() {}
+	public void updateLanguage() {
+		// keine GUI-Elemente mit Beschriftung vorhanden
+	}
 
 	private void checkRollover(MouseEvent mouseMoveEvent) {
 		boolean shownHover = false;
@@ -417,7 +415,9 @@ public class GW2MapPanel extends JXMapKit implements IObserver, IStructuredView,
 							}
 
 							@Override
-							public void waypointsAvailable() {}
+							public void waypointsAvailable() {
+								// nicht benötigt
+							}
 						});
 
 				if (absoluteMousePoint.y < 360) {
@@ -432,7 +432,7 @@ public class GW2MapPanel extends JXMapKit implements IObserver, IStructuredView,
 			}
 
 		} else {
-			List<Waypoint> wps = new ArrayList<Waypoint>(this.painter.getWaypoints());
+			List<Waypoint> wps = new ArrayList<>(this.painter.getWaypoints());
 			for (int i = 0; i < wps.size(); i++) {
 				final Waypoint waypoint = wps.get(i);
 				if (waypoint instanceof AbstractGW2Waypoint) {
@@ -441,12 +441,12 @@ public class GW2MapPanel extends JXMapKit implements IObserver, IStructuredView,
 						// location of Java
 						GeoPosition gp = waypoint.getPosition();
 						// convert to world bitmap
-						Point2D gp_pt = this.mapViewer.convertGeoPositionToPoint(gp);
+						Point2D gpPT = this.mapViewer.convertGeoPositionToPoint(gp);
 						// convert to screen
-						Point converted_gp_pt = new Point((int) gp_pt.getX(), (int) gp_pt.getY());
+						Point convertedGpPT = new Point((int) gpPT.getX(), (int) gpPT.getY());
 						// check if near the mouse
 						Point mousePoint = mouseMoveEvent.getPoint();
-						if (converted_gp_pt.distance(mousePoint) < ROLLOVER_ACTION_SIZE) {
+						if (convertedGpPT.distance(mousePoint) < ROLLOVER_ACTION_SIZE) {
 							if ((gw2Waypoint.getWpType() == WPType.POI) //
 									|| (gw2Waypoint.getWpType() == WPType.UNLOCK)
 									|| (gw2Waypoint.getWpType() == WPType.WAYPOINT)
@@ -548,17 +548,13 @@ public class GW2MapPanel extends JXMapKit implements IObserver, IStructuredView,
 			menuItem.setSelected(false);
 			menuItem.setText(RESOURCE_MANAGER.getLabel("showMiniMap"));
 		}
-		menuItem.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent event) {
-				if (main.isMiniMapShown()) {
-					main.hideMiniMap();
-				} else {
-					main.showMiniMap();
-				}
-
+		menuItem.addActionListener(event -> {
+			if (main.isMiniMapShown()) {
+				main.hideMiniMap();
+			} else {
+				main.showMiniMap();
 			}
+
 		});
 		return menuItem;
 	}
@@ -729,25 +725,21 @@ public class GW2MapPanel extends JXMapKit implements IObserver, IStructuredView,
 		JMenuItem itemDelete = new JMenuItem(RESOURCE_MANAGER.getLabel("resetSpots"), IMAGE_MANAGER.getImageIcon(
 				ImageManager.DELETE_ICON, 10, 10));
 		itemDelete.setActionCommand(GW2MapModel.AC_DELETE_WP);
-		itemDelete.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent aEvent) {
-				WPGW2Map wpgw2Map = getMapByMousePosition(event);
-				if (wpgw2Map != null) {
-					GeoPosition topLeft = wpgw2Map.getTopLeft();
-					GeoPosition bottomRight = wpgw2Map.getBottomRight();
-					double fromLatitude = topLeft.getLatitude();
-					double fromLongitude = topLeft.getLongitude();
-					double toLatitude = bottomRight.getLatitude();
-					double toLongitude = bottomRight.getLongitude();
-					try {
-						GW2MapModel.getInstance().deleteWaypoints(wpgw2Map.getMapName(), fromLatitude, fromLongitude,
-								toLatitude, toLongitude);
-					} catch (ServiceException e) {
-						LOG.error(e.getMessage(), e);
-						MessageDialogFactory.handleExcpetion(Main.getInstance().getMainFrame(), e, null);
-					}
+		itemDelete.addActionListener(aEvent -> {
+			WPGW2Map wpgw2Map = getMapByMousePosition(event);
+			if (wpgw2Map != null) {
+				GeoPosition topLeft = wpgw2Map.getTopLeft();
+				GeoPosition bottomRight = wpgw2Map.getBottomRight();
+				double fromLatitude = topLeft.getLatitude();
+				double fromLongitude = topLeft.getLongitude();
+				double toLatitude = bottomRight.getLatitude();
+				double toLongitude = bottomRight.getLongitude();
+				try {
+					GW2MapModel.getInstance().deleteWaypoints(wpgw2Map.getMapName(), fromLatitude, fromLongitude,
+							toLatitude, toLongitude);
+				} catch (ServiceException e) {
+					LOG.error(e.getMessage(), e);
+					MessageDialogFactory.handleExcpetion(Main.getInstance().getMainFrame(), e, null);
 				}
 			}
 		});

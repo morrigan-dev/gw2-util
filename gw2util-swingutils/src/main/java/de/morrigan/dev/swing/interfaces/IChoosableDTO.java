@@ -16,7 +16,7 @@ public interface IChoosableDTO<T> extends Comparable<T> {
 	public boolean isRemoved();
 
 	/**
-	 * Setzt das änderungsflag
+	 * Setzt das Änderungsflag
 	 * 
 	 * @param choosable
 	 */

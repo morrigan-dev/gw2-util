@@ -13,4 +13,8 @@ public class HTTPConstants {
 	public static final String GW2_API_PARAM_ITEM_ID = "item_id";
 	public static final String GW2_API_PARAM_RECIPE_ID = "recipe_id";
 	public static final String GW2_API_PARAM_LANG = "lang";
+
+	private HTTPConstants() {
+		super();
+	}
 }

@@ -19,10 +19,10 @@ package de.morrigan.dev.gw2.utils.enums;
  */
 public enum ActiveState {
 
-	ACTIVE("active"), //
-	INACTIVE("inactive"), //
-	NOT_ADMIN("notAmdin"), //
-	HISTORICIZED("historicized"), //
+	ACTIVE("active"),
+	INACTIVE("inactive"),
+	NOT_ADMIN("notAmdin"),
+	HISTORICIZED("historicized"),
 	DELETED("deleted");
 
 	private String labelKey;

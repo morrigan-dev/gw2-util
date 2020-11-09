@@ -21,13 +21,16 @@ import de.morrigan.dev.gw2.dao.interfaces.IWaypointDAO;
 public abstract class DBDAOFactory {
 
 	/** Einzige Instanz der Factory Klasse für den Zugriff auf eine Datenbank */
-	private static final DBDAOFactory INSTANCE = new MSSQLDAOFactory();
+	private static DBDAOFactory instance;
 
 	/**
 	 * @return die Instanz der Factory für den Zugriff auf die DAOs.
 	 */
 	public static DBDAOFactory getInstance() {
-		return INSTANCE;
+		if (instance == null) {
+			instance = new MySQLDAOFactory();
+		}
+		return instance;
 	}
 
 	/** @return das DAO für den Zugriff auf die ClientData */

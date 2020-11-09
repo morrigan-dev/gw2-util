@@ -17,13 +17,13 @@ import de.morrigan.dev.swing.models.AbstractModel;
 
 public class AdminModel extends AbstractModel {
 
-	private static enum Field {
+	private enum Field {
 		ACTIVE_STATE, FIRST_NAME, LAST_NAME, USER_NAME, CREATE_DATE, UPDATE_DATE, USER_GROUP, CLIENT_DATA;
 	}
-	
+
 	/** Logger für Debugausgaben */
 	private static final Logger LOG = LoggerFactory.getLogger(AdminModel.class);
-	
+
 	public static final long USERS_CHANGED = BitUtils.setLongBit(0);
 
 	public static final long SELECTED_USER_CHANGED = BitUtils.setLongBit(1);
@@ -34,7 +34,7 @@ public class AdminModel extends AbstractModel {
 	public static final long USER_GROUP_CHANGED = BitUtils.setLongBit(6);
 
 	private AuthenticationModel authModel = AuthenticationModel.getInstance();
-	private List<UserDTO> users = new ArrayList<UserDTO>();
+	private List<UserDTO> users = new ArrayList<>();
 	private UserDTO selectedUserDTO;
 
 	private UserDetailDTO selectedUserDetailDTO;
@@ -92,32 +92,32 @@ public class AdminModel extends AbstractModel {
 				switch (field) {
 					case ACTIVE_STATE:
 						result = (T) this.selectedUserDetailDTO.getActiveState();
-						break;
+					break;
 					case FIRST_NAME:
 						result = (T) this.selectedUserDetailDTO.getFirstName();
-						break;
+					break;
 					case LAST_NAME:
 						result = (T) this.selectedUserDetailDTO.getLastName();
-						break;
+					break;
 					case USER_NAME:
 						result = (T) this.selectedUserDetailDTO.getUserName();
-						break;
+					break;
 					case CREATE_DATE:
 						result = (T) this.selectedUserDetailDTO.getCreateDate();
-						break;
+					break;
 					case UPDATE_DATE:
 						result = (T) this.selectedUserDetailDTO.getUpdateDate();
-						break;
+					break;
 					case USER_GROUP:
 						result = (T) this.selectedUserDetailDTO.getUserGroup();
-						break;
+					break;
 					case CLIENT_DATA:
 						result = (T) this.selectedUserDetailDTO.getClientData();
-						break;
+					break;
 
 					default:
 						LOG.warn("Für das Field " + field + " fehlt das Mapping!");
-						break;
+					break;
 				}
 			}
 		} catch (ClassCastException e) {

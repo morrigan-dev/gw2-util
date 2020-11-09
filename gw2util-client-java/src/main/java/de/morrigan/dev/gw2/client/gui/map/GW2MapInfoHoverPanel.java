@@ -80,7 +80,7 @@ public class GW2MapInfoHoverPanel extends GW2HoverPanel {
 	}
 
 	private static final long serialVersionUID = 1L;
-	
+
 	/** Logger für Debugausgaben */
 	private static final Logger LOG = LoggerFactory.getLogger(GW2MapInfoHoverPanel.class);
 
@@ -129,10 +129,10 @@ public class GW2MapInfoHoverPanel extends GW2HoverPanel {
 		setInfo(RESOURCE_MANAGER.getLabel("resourceOverview") + " (" + mapName + ")");
 
 		GridBagConstraints gbc = new GridBagConstraints();
-		List<WPSubType> wpSubTypes = new ArrayList<WPSubType>(resourceAmount.keySet());
+		List<WPSubType> wpSubTypes = new ArrayList<>(resourceAmount.keySet());
 		Collections.sort(wpSubTypes);
 
-		List<ResRow> resRows = new ArrayList<GW2MapInfoHoverPanel.ResRow>();
+		List<ResRow> resRows = new ArrayList<>();
 		for (WPSubType wpSubType : wpSubTypes) {
 			int amount = resourceAmount.get(wpSubType);
 			if (amount > 0) {
@@ -175,7 +175,7 @@ public class GW2MapInfoHoverPanel extends GW2HoverPanel {
 							InsetConstants.LEFT_INSETS);
 					this.pnlOre.add(resInfo, gbc);
 					oreY++;
-					break;
+				break;
 				case WOOD:
 					GCUtil.configGC(gbc, 0, 0 + woodY, GCUtil.NORTHWEST, GCUtil.NONE, 0.0, 0.0, 1, 1,
 							InsetConstants.NO_INSETS);
@@ -184,7 +184,7 @@ public class GW2MapInfoHoverPanel extends GW2HoverPanel {
 							InsetConstants.LEFT_INSETS);
 					this.pnlWood.add(resInfo, gbc);
 					woodY++;
-					break;
+				break;
 				case PLANT:
 					GCUtil.configGC(gbc, 0, 0 + plantY, GCUtil.NORTHWEST, GCUtil.NONE, 0.0, 0.0, 1, 1,
 							InsetConstants.NO_INSETS);
@@ -193,10 +193,10 @@ public class GW2MapInfoHoverPanel extends GW2HoverPanel {
 							InsetConstants.LEFT_INSETS);
 					this.pnlPlant.add(resInfo, gbc);
 					plantY++;
-					break;
+				break;
 
 				default:
-					break;
+				break;
 			}
 		}
 

@@ -12,6 +12,9 @@
 	<artifactId>gw2util-server-daotier</artifactId>
 	<packaging>ejb</packaging>
 
+	<name>GW2-Utility Server (daotier)</name>
+	<description>Enthält Persistence für das GW2-Utility Server Produkt</description>
+
 	<properties>
 		<sqlite-jdbc.version>3.7.2</sqlite-jdbc.version>
 		<!-- <jboss-javaee-6.0.version>1.0.0.Final</jboss-javaee-6.0.version> -->

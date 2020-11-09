@@ -61,11 +61,9 @@ public class AuthenticationModel extends AbstractModel {
 		try {
 			this.mac = searchForMac();
 			this.ip = getExternalIp();
-			
+
 			this.authService = JNDIServiceFactory.getInstance().getRemoteAuthenticationService();
-		} catch (SocketException e) {
-			LOG.error(e.getMessage(), e);
-		} catch (ServiceException e) {
+		} catch (ServiceException | SocketException e) {
 			LOG.error(e.getMessage(), e);
 		}
 	}
@@ -85,13 +83,11 @@ public class AuthenticationModel extends AbstractModel {
 					sb.append(String.format("%02X%s", bmac[i], (i < bmac.length - 1) ? "-" : ""));
 				}
 
-				if (sb.toString().isEmpty() == false) {
+				if (!sb.toString().isEmpty()) {
 					addressByNetwork.put(network.getName(), sb.toString());
-					System.out
-							.println("Address = " + sb.toString() + " @ [" + network.getName() + "] " + network.getDisplayName());
 				}
 
-				if (sb.toString().isEmpty() == false && firstInterface == null) {
+				if (!sb.toString().isEmpty() && firstInterface == null) {
 					firstInterface = network.getName();
 				}
 			}
@@ -125,7 +121,7 @@ public class AuthenticationModel extends AbstractModel {
 			MessageDialogFactory.showInformationDialog(Main.getInstance().getMainFrame(), null, messageHeader, message,
 					messageDetail);
 			this.sessionKey = "";
-			username = "";
+			this.username = "";
 		}
 		long syncFlag = SESSION_KEY_CHANGED;
 		syncFlag |= USERNAME_KEY_CHANGED;
@@ -202,8 +198,7 @@ public class AuthenticationModel extends AbstractModel {
 		try {
 			URL whatismyip = new URL("http://checkip.amazonaws.com");
 			in = new BufferedReader(new InputStreamReader(whatismyip.openStream()));
-			String ip = in.readLine();
-			return ip;
+			return in.readLine();
 		} catch (IOException e) {
 			LOG.error(e.getMessage(), e);
 			return "";

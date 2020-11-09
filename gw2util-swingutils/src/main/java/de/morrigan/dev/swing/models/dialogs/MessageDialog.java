@@ -7,8 +7,6 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.Rectangle;
 import java.awt.Window;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
@@ -35,10 +33,10 @@ import de.morrigan.dev.swing.wrapper.ListenerWrapper;
 public abstract class MessageDialog extends ADialog<Object> {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	/** Logger für Debugausgaben */
 	private static final Logger LOG = LoggerFactory.getLogger(MessageDialog.class);
-	
+
 	private static final int WIDTH_ADDITION = 150;
 	private static final int HEIGHT_ADDITION = 200;
 	private static final Dimension LINE_SEPARATOR_SIZE = new Dimension(1, 1);
@@ -87,45 +85,29 @@ public abstract class MessageDialog extends ADialog<Object> {
 	protected void configureListener(final Object listener) {
 		final IDefaultDialogResult dialogListener = (IDefaultDialogResult) listener;
 
-		this.btnOk.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(final ActionEvent event) {
-				if (dialogListener != null) {
-					dialogListener.actionPerformed(DialogMessage.OK);
-				}
-				dispose();
+		this.btnOk.addActionListener(event -> {
+			if (dialogListener != null) {
+				dialogListener.actionPerformed(DialogMessage.OK);
 			}
+			dispose();
 		});
-		this.btnYes.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(final ActionEvent event) {
-				if (dialogListener != null) {
-					dialogListener.actionPerformed(DialogMessage.YES);
-				}
-				dispose();
+		this.btnYes.addActionListener(event -> {
+			if (dialogListener != null) {
+				dialogListener.actionPerformed(DialogMessage.YES);
 			}
+			dispose();
 		});
-		this.btnNo.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(final ActionEvent event) {
-				if (dialogListener != null) {
-					dialogListener.actionPerformed(DialogMessage.NO);
-				}
-				dispose();
+		this.btnNo.addActionListener(event -> {
+			if (dialogListener != null) {
+				dialogListener.actionPerformed(DialogMessage.NO);
 			}
+			dispose();
 		});
-		this.btnCancel.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(final ActionEvent event) {
-				if (dialogListener != null) {
-					dialogListener.actionPerformed(DialogMessage.CANCEL);
-				}
-				dispose();
+		this.btnCancel.addActionListener(event -> {
+			if (dialogListener != null) {
+				dialogListener.actionPerformed(DialogMessage.CANCEL);
 			}
+			dispose();
 		});
 
 		addWindowFocusListener(new WindowAdapter() {
@@ -208,7 +190,6 @@ public abstract class MessageDialog extends ADialog<Object> {
 
 		}
 
-		// this.setSize(width + WIDTH_ADDITION, height + HEIGHT_ADDITION);
 		final int newWidth = width + WIDTH_ADDITION;
 		final int newHeight = height + HEIGHT_ADDITION;
 		final Rectangle bounds = this.getBounds();
@@ -236,15 +217,15 @@ public abstract class MessageDialog extends ADialog<Object> {
 			detailMessage = "<html>" + detailMessage + "</html>";
 			final BufferedReader reader = new BufferedReader(new StringReader(detailMessage));
 			String line = null;
-			String newMsg = "";
+			StringBuilder newMsg = new StringBuilder();
 			try {
 				while ((line = reader.readLine()) != null) {
-					newMsg += line + "<br>";
+					newMsg.append(line + "<br>");
 				}
 			} catch (final IOException e) {
 				LOG.error(e.getMessage(), e);
 			}
-			detailMessage = newMsg;
+			detailMessage = newMsg.toString();
 		}
 		this.taDetailMessage.setText(detailMessage);
 		this.btnOk.setText(RESOURCE_MANAGER.getButtonLabel("ok"));

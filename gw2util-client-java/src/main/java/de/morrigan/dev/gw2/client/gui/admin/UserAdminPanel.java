@@ -3,8 +3,6 @@ package de.morrigan.dev.gw2.client.gui.admin;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.EventObject;
 
@@ -17,8 +15,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +26,6 @@ import de.morrigan.dev.gw2.client.model.AdminModel;
 import de.morrigan.dev.gw2.client.model.UserDTOTableModel;
 import de.morrigan.dev.gw2.dto.admin.UserDTO;
 import de.morrigan.dev.gw2.dto.admin.UserGroupDTO;
-import de.morrigan.dev.gw2.resources.ImageManager;
 import de.morrigan.dev.gw2.resources.ResourceManager;
 import de.morrigan.dev.gw2.utils.enums.ActiveState;
 import de.morrigan.dev.gw2.utils.observer.IObservable;
@@ -42,20 +37,17 @@ import de.morrigan.dev.swing.factories.MessageDialogFactory;
 
 public class UserAdminPanel extends JPanel implements IObserver {
 
-	private static enum ListenerAction implements IListenerAction {
+	private enum ListenerAction implements IListenerAction {
 		USER_SELECTED, UPDATE_ITEMS
 	}
 
 	private static final long serialVersionUID = 1L;
-	
+
 	/** Logger für Debugausgaben */
 	private static final Logger LOG = LoggerFactory.getLogger(UserAdminPanel.class);
 
 	/** Handel auf den LabelManager */
 	private static final ResourceManager RESOURCE_MANAGER = ResourceManager.getInstance();
-
-	/** Handel auf den ImageManager */
-	private static final ImageManager IMAGE_MANAGER = ImageManager.getInstance();
 
 	private static final int LIST_WIDTH = 250;
 
@@ -112,13 +104,13 @@ public class UserAdminPanel extends JPanel implements IObserver {
 					final int selectedRow = this.tblUsers.getSelectedRow();
 					final UserDTO selectedElement = this.tblUsersModel.getElementAt(selectedRow);
 					this.model.setSelectedUserDTO(selectedElement);
-					break;
+				break;
 				case UPDATE_ITEMS:
 					this.model.updateItems();
-					break;
+				break;
 				default:
-					LOG.warn("Die Aktion " + action + " ist nicht gemappt!");
-					break;
+					LOG.warn("Die Aktion {} ist nicht gemappt!", action);
+				break;
 			}
 		} catch (Exception e) {
 			LOG.error(e.getMessage(), e);
@@ -144,7 +136,7 @@ public class UserAdminPanel extends JPanel implements IObserver {
 	private void configureGUI() {
 		setOpaque(false);
 
-		this.tblUsersModel = new UserDTOTableModel(new ArrayList<UserDTO>());
+		this.tblUsersModel = new UserDTOTableModel(new ArrayList<>());
 		this.tblUsers.setModel(this.tblUsersModel);
 
 		this.scUsers.setViewportView(this.tblUsers);
@@ -157,22 +149,12 @@ public class UserAdminPanel extends JPanel implements IObserver {
 	}
 
 	private void configureListener() {
-		this.tblUsers.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-
-			@Override
-			public void valueChanged(final ListSelectionEvent event) {
-				if (!event.getValueIsAdjusting()) {
-					handleListenerEvent(ListenerAction.USER_SELECTED, event);
-				}
+		this.tblUsers.getSelectionModel().addListSelectionListener(event -> {
+			if (!event.getValueIsAdjusting()) {
+				handleListenerEvent(ListenerAction.USER_SELECTED, event);
 			}
 		});
-		this.btUpdateItems.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent event) {
-				handleListenerEvent(ListenerAction.UPDATE_ITEMS, event);
-			}
-		});
+		this.btUpdateItems.addActionListener(event -> handleListenerEvent(ListenerAction.UPDATE_ITEMS, event));
 	}
 
 	private void createGUI() {

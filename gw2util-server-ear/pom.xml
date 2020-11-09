@@ -12,6 +12,9 @@
 	<artifactId>gw2util-server-ear</artifactId>
 	<packaging>ear</packaging>
 
+	<name>GW2-Utility Server (ear)</name>
+	<description>Modul zur Erzeugung eines EAR für das GW2-Utility Server Produkt</description>
+
 	<!-- Libs, die in diesem Projekt benötigt werden -->
 	<dependencies>
 		<!-- Eigene Libs -->

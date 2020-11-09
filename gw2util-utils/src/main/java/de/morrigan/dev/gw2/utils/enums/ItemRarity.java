@@ -7,7 +7,14 @@ package de.morrigan.dev.gw2.utils.enums;
  */
 public enum ItemRarity {
 
-	UNKNOWN, JUNK, BASIC, COMMON, UNCOMMON, RARE, EXOTIC, LEGENDARY;
+	UNKNOWN,
+	JUNK,
+	BASIC,
+	COMMON,
+	UNCOMMON,
+	RARE,
+	EXOTIC,
+	LEGENDARY;
 
 	public static ItemRarity getEnumOfOrdinal(int ordinal) {
 		ItemRarity[] values = ItemRarity.values();

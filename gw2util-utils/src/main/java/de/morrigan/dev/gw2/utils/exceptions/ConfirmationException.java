@@ -15,12 +15,10 @@ public class ConfirmationException extends AbstractException {
 
 	private static final long serialVersionUID = 1L;
 
-	/** siehe {@link AbstractException#LossyException(int)  */
 	public ConfirmationException(final int notificationCode) {
 		super(notificationCode);
 	}
 
-	/** siehe {@link AbstractException#LossyException(int, String)  */
 	public ConfirmationException(final int notificationCode, final String detailMessage) {
 		super(notificationCode, detailMessage);
 	}

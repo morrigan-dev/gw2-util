@@ -1,6 +1,7 @@
 package de.morrigan.dev.gw2.dto.common.enums;
 
-import org.jboss.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public enum Flag {
 
@@ -20,8 +21,8 @@ public enum Flag {
 	LEARNED_FROM_ITEM("LearnedFromItem", "learnedFromItem"), //
 	AUTO_LEARNED("AutoLearned", "autoLearned");
 
-	/** Logger für Debug/Fehlerausgaben */
-	private static final Logger LOG = Logger.getLogger(Flag.class);
+	/** Logger für Debugausgaben */
+	private static final Logger LOG = LoggerFactory.getLogger(Flag.class);
 
 	public static final Flag getValueOf(String value) {
 		Flag result = null;
@@ -32,7 +33,7 @@ public enum Flag {
 			}
 		}
 		if (result == null) {
-			LOG.warn(value + " konnte nicht in ein Flag umgewandelt werden!");
+			LOG.warn("{} konnte nicht in ein Flag umgewandelt werden!", value);
 			result = UNKNOWN;
 		}
 		return result;
@@ -48,9 +49,5 @@ public enum Flag {
 
 	public String getLabelKey() {
 		return this.labelKey;
-	}
-
-	public void setLabelKey(String labelKey) {
-		this.labelKey = labelKey;
 	}
 }

@@ -53,7 +53,6 @@ public class WaypointBuilder implements IWaypointBuilder {
 		Validate.notNull(executingUser, "Der Parameter (executingUser) darf nicht null sein!");
 		LOG.debug("newWaypoint: {}, executingUser: {}", waypointDTO, executingUser);
 
-		long id = 0;
 		ActiveState activeState = ActiveState.ACTIVE;
 		Date currentDate = new Date();
 		WPType wpType = waypointDTO.getWpType();
@@ -61,7 +60,7 @@ public class WaypointBuilder implements IWaypointBuilder {
 		double longitude = waypointDTO.getLongitude();
 		double latitude = waypointDTO.getLatitude();
 		String informationKey = "";
-		Waypoint newWaypoint = new Waypoint(id, activeState, currentDate, executingUser, currentDate, executingUser,
+		Waypoint newWaypoint = new Waypoint(activeState, currentDate, executingUser, currentDate, executingUser,
 				wpType, wpSubType, longitude, latitude, informationKey, false, false);
 		LOG.debug("newWaypoint: {}", newWaypoint);
 		assert newWaypoint != null : "newWaypoint darf nicht null sein!";

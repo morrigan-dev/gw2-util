@@ -7,6 +7,11 @@ package de.morrigan.dev.gw2.utils.exceptions;
  * 
  * @author morrigan
  */
+// TODO: Fehlercodes sollten nicht hier stehen, sondern in einer eigenen error-codes.properies, sodass über diese
+// dann die Fehlertexte geladen werden können. Diese bilden dann den Fehlertext Header mit einer kurzen Fehler
+// Überschrift. Eine ausführliche Beschreibung des Fehlers kann dann ebenfalls über einen weiteren Property Eintrag
+// geladen werden.
+// Erstellt von morrigan am 09.11.2020
 public abstract class AbstractException extends Exception {
 
 	private static final long serialVersionUID = 1L;
@@ -61,8 +66,8 @@ public abstract class AbstractException extends Exception {
 	}
 
 	/**
-	 * Erzeugt eine Exception mit einem Fehlercode, einer detaillierten Fehlermeldung und einer vorangegangenen
-	 * Exception, die nun als Cause angehangen wird.
+	 * Erzeugt eine Exception mit einem Fehlercode, einer detaillierten Fehlermeldung und einer vorangegangenen Exception,
+	 * die nun als Cause angehangen wird.
 	 * 
 	 * @param errorCode Ein Fehlercode für diese Exception.
 	 * @param errorMessage Eine ausführliche Beschreibung des aufgetretenen Fehlers.
