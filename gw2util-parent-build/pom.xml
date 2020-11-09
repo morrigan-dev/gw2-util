@@ -45,6 +45,7 @@
 		<!-- Lösung für ein StackOverflowError Problem (siehe: https://community.sonarsource.com/t/stackoverflowerror-at-defaultinputcomponent-equals/20324) -->
 		<sonar.moduleKey>${project.artifactId}</sonar.moduleKey>
 
+		<maven.deploy.skip>false</maven.deploy.skip>
 		<deployAtEnd>true</deployAtEnd>
 		<installAtEnd>true</installAtEnd>
 	</properties>
@@ -74,6 +75,9 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-deploy-plugin</artifactId>
 					<version>3.0.0-M1</version>
+					<configuration>
+					<skip>${maven.deploy.skip}</skip>
+					</configuration>
 				</plugin>
 			</plugins>
 		</pluginManagement>
@@ -81,7 +85,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-deploy-plugin</artifactId>
-				<version>3.0.0-M1</version>
 			</plugin>
 		</plugins>
 	</build>
