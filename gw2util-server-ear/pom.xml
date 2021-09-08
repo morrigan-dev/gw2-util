@@ -94,7 +94,7 @@
 									<pluginExecutionFilter>
 										<groupId>org.apache.maven.plugins</groupId>
 										<artifactId>maven-ear-plugin</artifactId>
-										<versionRange>[2.8,)</versionRange>
+										<versionRange>[${maven-ear-plugin.version},)</versionRange>
 										<goals>
 											<goal>generate-application-xml</goal>
 										</goals>

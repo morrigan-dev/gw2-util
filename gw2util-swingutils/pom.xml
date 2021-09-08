@@ -11,7 +11,7 @@
 
 	<artifactId>gw2util-swingutils</artifactId>
 	<packaging>jar</packaging>
-	
+
 	<name>GW2-Utility (swingutils)</name>
 	<description>Stellt verschiedene Hilfsklassen im Swing Kontext für das GW2-Utility Produkt bereit.</description>
 
@@ -32,6 +32,12 @@
 			<groupId>de.morrigan.dev.gw2</groupId>
 			<artifactId>gw2util-resources</artifactId>
 			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>de.morrigan.dev.util</groupId>
+			<artifactId>java-utils</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
 		<!-- Fremde Libs -->

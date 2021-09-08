@@ -28,6 +28,8 @@
 
 	<properties>
 		<version.server.bom>21.0.0.Final</version.server.bom>
+		<maven-ejb-plugin.version>3.1.0</maven-ejb-plugin.version>
+		<maven-ear-plugin.version>3.2.0</maven-ear-plugin.version>
 	</properties>
 
 	<dependencyManagement>

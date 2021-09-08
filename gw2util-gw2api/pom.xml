@@ -1,0 +1,41 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>de.morrigan.dev.gw2</groupId>
+		<artifactId>gw2util-parent-build</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../gw2util-parent-build/pom.xml</relativePath>
+	</parent>
+
+	<artifactId>gw2util-gw2api</artifactId>
+	<packaging>jar</packaging>
+
+	<name>GW2-API</name>
+	<description>Stellt verschiedene Hilfsklassen den Zugriff auf die GW2 API bereit.</description>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.clerezza.ext</groupId>
+			<artifactId>org.json.simple</artifactId>
+			<version>0.4</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.simpleframework</groupId> -->
+<!-- 			<artifactId>simple-http</artifactId> -->
+<!-- 			<version>6.0.1</version> -->
+<!-- 		</dependency> -->
+		<!-- https://mvnrepository.com/artifact/org.simpleframework/simple -->
+		<dependency>
+			<groupId>org.simpleframework</groupId>
+			<artifactId>simple</artifactId>
+			<version>5.1.6</version>
+		</dependency>
+
+	</dependencies>
+</project>

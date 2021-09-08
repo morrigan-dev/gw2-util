@@ -17,6 +17,7 @@
 
 	<properties>
 		<gson.version>2.3.1</gson.version>
+		<resteasy.version>3.0.12.Final</resteasy.version>
 	</properties>
 
 	<!-- Libs, die in diesem Projekt benötigt werden -->

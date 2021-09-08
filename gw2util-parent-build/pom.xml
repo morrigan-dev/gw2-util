@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>de.morrigan.dev.common</groupId>
 		<artifactId>parent-pom</artifactId>
-		<version>1.0.9</version>
+		<version>1.0.11-SNAPSHOT</version>
 	</parent>
 
 	<groupId>de.morrigan.dev.gw2</groupId>
@@ -50,45 +50,4 @@
 		<deployAtEnd>true</deployAtEnd>
 		<installAtEnd>true</installAtEnd>
 	</properties>
-
-	<!-- Release-Repo benötigt, um Parent-POM zu ziehen -->
-	<repositories>
-		<repository>
-			<name>morrigan-dev releases</name>
-			<id>releases-repo</id>
-			<url>https://morrigandev.jfrog.io/artifactory/libs-release-local</url>
-			<layout>default</layout>
-			<releases>
-				<enabled>true</enabled>
-				<updatePolicy>never</updatePolicy>
-				<checksumPolicy>fail</checksumPolicy>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
-
-	<build>
-		<pluginManagement>
-			<plugins>
-				<!-- TODO Sobald Parent-Pom v1.0.10 zur Verfügung steht, hier löschen -->
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-deploy-plugin</artifactId>
-					<version>3.0.0-M1</version>
-					<configuration>
-						<skip>${maven.deploy.skip}</skip>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
-		<plugins>
-			<!-- TODO Sobald Parent-Pom v1.0.10 zur Verfügung steht, hier löschen -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-deploy-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
 </project>

@@ -59,17 +59,40 @@
 		<!-- ACHTUNG! Diese Dependency ist nicht im offiziellen central maven repo verfügbar! -->
 		<!-- Sie wurde manuell in das eigene Artefact Repository deployt. -->
 		<!-- TODO Prüfen, ob diese Dependency durch eine im central maven repo verfügbare Depenendcy ersetzt werden kann -->
+		<!-- <dependency> -->
+		<!-- <groupId>cz.zweistein.gw2.api</groupId> -->
+		<!-- <artifactId>gw2api</artifactId> -->
+		<!-- <version>1.0.0</version> -->
+		<!-- </dependency> -->
 		<dependency>
-			<groupId>cz.zweistein.gw2.api</groupId>
-			<artifactId>gw2api</artifactId>
-			<version>1.0.0</version>
+			<groupId>de.morrigan.dev.gw2</groupId>
+			<artifactId>gw2util-gw2api</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<!-- Alternative? -->
-		<dependency>
-			<groupId>me.nithanim.gw2api</groupId>
-			<artifactId>gw2api</artifactId>
-			<version>0.0.7</version>
-		</dependency>
+		<!-- https://github.com/Nithanim/gw2api -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>me.nithanim.gw2api</groupId> -->
+<!-- 			<artifactId>gw2api</artifactId> -->
+<!-- 			<version>0.0.6</version> -->
+<!-- 		</dependency> -->
+		<!-- https://github.com/GW2ToolBelt/GW2APIClient -->
+		<!-- <dependency> -->
+		<!-- <groupId>com.gw2tb.gw2api</groupId> -->
+		<!-- <artifactId>api-types</artifactId> -->
+		<!-- <version>0.3.0</version> -->
+		<!-- </dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>com.gw2tb.gw2api</groupId> -->
+		<!-- <artifactId>api-client-jvm</artifactId> -->
+		<!-- <version>0.3.0</version> -->
+		<!-- </dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>com.gw2tb.gw2api</groupId> -->
+		<!-- <artifactId>api-client-jdk11</artifactId> -->
+		<!-- <version>0.3.0</version> -->
+		<!-- </dependency> -->
+
 
 		<dependency>
 			<groupId>com.googlecode.json-simple</groupId>

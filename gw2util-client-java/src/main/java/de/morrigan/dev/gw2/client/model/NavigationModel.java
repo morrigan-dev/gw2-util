@@ -4,38 +4,38 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.morrigan.dev.gw2.client.gui.interfaces.INavigation;
-import de.morrigan.dev.gw2.utils.BitUtils;
 import de.morrigan.dev.swing.models.AbstractModel;
+import de.morrigan.dev.utils.BitUtil;
 
 public class NavigationModel extends AbstractModel {
 
-	/** Logger für Debugausgaben */
-	private static final Logger LOG = LoggerFactory.getLogger(NavigationModel.class);
+  /** Logger für Debugausgaben */
+  private static final Logger LOG = LoggerFactory.getLogger(NavigationModel.class);
 
-	public static final long CARD_CHANGED = BitUtils.setLongBit(0);
+  public static final long CARD_CHANGED = BitUtil.setLongBit(0);
 
-	private static final NavigationModel INSTANCE = new NavigationModel();
+  private static final NavigationModel INSTANCE = new NavigationModel();
 
-	public static NavigationModel getInstance() {
-		return INSTANCE;
-	}
+  public static NavigationModel getInstance() {
+    return INSTANCE;
+  }
 
-	private int selectedCard;
+  private int selectedCard;
 
-	private NavigationModel() {
-		super();
-		this.selectedCard = INavigation.CARD_TOP_MENU_BAR;
-	}
+  private NavigationModel() {
+    super();
+    this.selectedCard = INavigation.CARD_TOP_MENU_BAR;
+  }
 
-	public int getSelectedCard() {
-		return this.selectedCard;
-	}
+  public int getSelectedCard() {
+    return this.selectedCard;
+  }
 
-	public void setSelectedCard(int selectedCard) {
-		LOG.debug("this.selectedCard: {}, selectedCard: {}", this.selectedCard, selectedCard);
-		this.selectedCard = selectedCard;
-		if (!isChanging()) {
-			syncViews(CARD_CHANGED);
-		}
-	}
+  public void setSelectedCard(int selectedCard) {
+    LOG.debug("this.selectedCard: {}, selectedCard: {}", this.selectedCard, selectedCard);
+    this.selectedCard = selectedCard;
+    if (!isChanging()) {
+      syncViews(CARD_CHANGED);
+    }
+  }
 }
