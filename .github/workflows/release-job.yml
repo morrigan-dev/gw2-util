@@ -42,23 +42,24 @@ jobs:
         uses: whelk-io/maven-settings-xml-action@v11
         with:
           servers: '[{ "id": "releases-repo", "username": "${{ secrets.ARTIFACTORY_USERNAME }}", "password": "${{ secrets.ARTIFACTORY_TOKEN }}" }, { "id": "snapshots-repo", "username": "${{ secrets.ARTIFACTORY_USERNAME }}", "password": "${{ secrets.ARTIFACTORY_TOKEN }}" }]'
+          repositories: '[{ "id": "releases-repo", "name": "morrigan-libs-release-local", "url": "https://morrigan.jfrog.io/artifactory/morrigan-libs-release-local/", "releases.enabled": "true", "snapshots.enabled": "false" }, { "id": "snapshots-repo", "name": "morrigan-libs-snapshot-local", "url": "https://morrigan.jfrog.io/artifactory/morrigan-libs-snapshot-local/", "releases.enabled": "false", "snapshots.enabled": "true" }]'
       - name: Build with Maven
         run: |
-          cd gw2util-parent-build
-          mvn -B package --file pom.xml    
+          mvn -B package --file client/pom.xml
+          mvn -B package --file server/pom.xml
       - name: Prepare the release
         run: |
-          cd gw2util-parent-build
-          mvn -B release:prepare
+          mvn -B release:prepare --file client/pom.xml
+          mvn -B release:prepare --file server/pom.xml
       - name: Push the release
         env:
           ARTIFACTORY_USERNAME: ${{ secrets.ARTIFACTORY_USERNAME }}
           ARTIFACTORY_TOKEN: ${{ secrets.ARTIFACTORY_TOKEN }}
         run: |
-          cd gw2util-parent-build
-          mvn -B release:perform
+          mvn -B release:perform --file client/pom.xml
+          mvn -B release:perform --file server/pom.xml
       - name: Rollback if failure
         if: ${{ failure() }}
         run: |
-          cd gw2util-parent-build
-          mvn -B release:rollback
+          mvn -B release:rollback --file client/pom.xml
+          mvn -B release:rollback --file server/pom.xml

@@ -33,10 +33,11 @@ jobs:
         uses: whelk-io/maven-settings-xml-action@v11
         with:
           servers: '[{ "id": "releases-repo", "username": "${{ secrets.ARTIFACTORY_USERNAME }}", "password": "${{ secrets.ARTIFACTORY_TOKEN }}" }, { "id": "snapshots-repo", "username": "${{ secrets.ARTIFACTORY_USERNAME }}", "password": "${{ secrets.ARTIFACTORY_TOKEN }}" }]'
+          repositories: '[{ "id": "releases-repo", "name": "morrigan-libs-release-local", "url": "https://morrigan.jfrog.io/artifactory/morrigan-libs-release-local/", "releases.enabled": "true", "snapshots.enabled": "false" }, { "id": "snapshots-repo", "name": "morrigan-libs-snapshot-local", "url": "https://morrigan.jfrog.io/artifactory/morrigan-libs-snapshot-local/", "releases.enabled": "false", "snapshots.enabled": "true" }]'
       - name: Build with Maven
         env:
           ARTIFACTORY_USERNAME: ${{ secrets.ARTIFACTORY_USERNAME }}
           ARTIFACTORY_TOKEN: ${{ secrets.ARTIFACTORY_TOKEN }}
         run: |
-          mvn -B deploy --file gw2util-server-build/pom.xml
-          mvn -B deploy --file gw2util-client-build/pom.xml
+          mvn -B deploy --file server/pom.xml
+          mvn -B deploy --file client/pom.xml
