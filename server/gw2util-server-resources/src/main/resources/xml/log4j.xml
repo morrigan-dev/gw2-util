@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<!-- ===================================================================== -->
+<!-- -->
+<!-- Log4j Configuration -->
+<!-- -->
+<!-- ===================================================================== -->
+
+<!-- $Id: jboss-log4j.xml 87678 2009-04-22 16:47:08Z bstansberry@jboss.com 
+	$ -->
+
+<!-- | For more configuration information and examples see the Jakarta Log4j 
+	| owebsite: http://jakarta.apache.org/log4j -->
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/"
+	debug="false">
+
+	<!-- ================================= -->
+	<!-- Preserve messages in a local file -->
+	<!-- ================================= -->
+
+	<!-- A time/date based rolling appender -->
+	<appender name="FILE" class="org.apache.log4j.DailyRollingFileAppender">
+		<errorHandler class="org.apache.log4j.helpers.OnlyOnceErrorHandler" />
+		<param name="file" value="logs/client.log" />
+		<param name="Append" value="true" />
+
+		<!-- Rollover at midnight each day -->
+		<param name="DatePattern" value="'.'yyyy-MM-dd" />
+
+		<layout class="org.apache.log4j.PatternLayout">
+			<!-- The default pattern: Date Priority [Category] (Thread) Message\n -->
+			<param name="ConversionPattern" value="%d{ABSOLUTE} %-5p %C.%M(%L) %m%n" />
+
+			<!-- The full pattern: Date MS Priority [Category] (Thread:NDC) Message\n 
+				<param name="ConversionPattern" value="%d %-5r %-5p [%c] (%t:%x) %m%n"/> -->
+		</layout>
+	</appender>
+
+	<!-- ============================== -->
+	<!-- Append messages to the console -->
+	<!-- ============================== -->
+
+	<appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+		<errorHandler class="org.apache.log4j.helpers.OnlyOnceErrorHandler" />
+		<param name="Target" value="System.out" />
+		<param name="Threshold" value="DEBUG" />
+
+		<layout class="org.apache.log4j.PatternLayout">
+			<!-- The default pattern: Date Priority [Category] Message\n -->
+			<param name="ConversionPattern" value="%d{ABSOLUTE} %-5p %C.%M(%L) %m%n" />
+		</layout>
+	</appender>
+
+	<!-- ================ -->
+	<!-- Limit categories -->
+	<!-- ================ -->
+
+	<!-- Reduziere serverseitige Logausgaben auf mind. WARN Level, damit die 
+		Logdatei nicht zugemüllt wird. -->
+	<category name="org.jboss">
+		<priority value="WARN"></priority>
+	</category>
+	<category name="org.hibernate">
+		<priority value="WARN"></priority>
+	</category>
+	<category name="org.jboss.ejb3.interceptors">
+		<priority value="ERROR" />
+	</category>
+
+	<!-- Konfiguriere Lossy-relevante Log Level -->
+	<category name="dso">
+		<priority value="INFO"></priority>
+	</category>
+	<category name="sd">
+		<priority value="INFO"></priority>
+	</category>
+	<category name="sd.model.RightsModel">
+		<priority value="DEBUG"></priority>
+	</category>
+	<category name="sd.gui.components.FilterPanel">
+		<priority value="DEBUG"></priority>
+	</category>
+
+	<!-- ======================= -->
+	<!-- Setup the Root category -->
+	<!-- ======================= -->
+
+	<root>
+		<priority value="INFO" />
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="FILE" />
+	</root>
+
+</log4j:configuration>

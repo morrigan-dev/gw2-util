@@ -1,0 +1,85 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>de.morrigan.dev.gw2</groupId>
+		<artifactId>gw2util-server-build</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>gw2util-server-daotier</artifactId>
+	<packaging>ejb</packaging>
+
+	<name>GW2-Utility Server (daotier)</name>
+	<description>Enthält Persistence für das GW2-Utility Server Produkt</description>
+
+	<properties>
+		<sqlite-jdbc.version>3.7.2</sqlite-jdbc.version>
+		<!-- <jboss-javaee-6.0.version>1.0.0.Final</jboss-javaee-6.0.version> -->
+	</properties>
+
+	<!-- Libs, die in diesem Projekt benötigt werden -->
+	<dependencies>
+		<!-- Eigene Libs -->
+		<dependency>
+			<groupId>de.morrigan.dev.gw2</groupId>
+			<artifactId>gw2util-utils</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>de.morrigan.dev.gw2</groupId>
+			<artifactId>gw2util-server-resources-sd</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>de.morrigan.dev.gw2</groupId>
+			<artifactId>gw2util-server-dto</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<!-- Fremde Libs -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-annotations</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.spec.javax.annotation</groupId>
+			<artifactId>jboss-annotations-api_1.3_spec</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.spec.javax.ejb</groupId>
+			<artifactId>jboss-ejb-api_3.2_spec</artifactId>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-ejb-plugin</artifactId>
+				<version>${maven-ejb-plugin.version}</version>
+				<configuration>
+					<ejbVersion>${ejb.version}</ejbVersion>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

@@ -1,0 +1,58 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>de.morrigan.dev.gw2</groupId>
+		<artifactId>gw2util-server-build</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>gw2util-server-dto</artifactId>
+	<packaging>jar</packaging>
+
+	<name>GW2-Utility (dto)</name>
+	<description>Enthält alle DTOs für das GW2-Utility Produkt</description>
+
+	<properties>
+		<gson.version>2.3.1</gson.version>
+		<resteasy.version>3.0.12.Final</resteasy.version>
+	</properties>
+
+	<!-- Libs, die in diesem Projekt benötigt werden -->
+	<dependencies>
+		<!-- Eigene Libs -->
+		<dependency>
+			<groupId>de.morrigan.dev.gw2</groupId>
+			<artifactId>gw2util-server-resources</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>de.morrigan.dev.gw2</groupId>
+			<artifactId>gw2util-server-resources</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<!-- Fremde Libs -->
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>jaxrs-api</artifactId>
+			<version>${resteasy.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jackson-provider</artifactId>
+			<version>${resteasy.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>${gson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.logging</groupId>
+			<artifactId>jboss-logging</artifactId>
+			<version>3.1.0.GA</version>
+		</dependency>
+	</dependencies>
+</project>

@@ -1,0 +1,16 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>de.morrigan.dev.gw2</groupId>
+		<artifactId>gw2util-server-build</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>gw2util-utils</artifactId>
+	<packaging>jar</packaging>
+
+	<name>GW2-Utility (utils)</name>
+	<description>Stellt verschiedene Hilfsklassen für das GW2-Utility Produkt bereit.</description>
+</project>

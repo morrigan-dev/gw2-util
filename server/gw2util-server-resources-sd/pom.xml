@@ -1,0 +1,29 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>de.morrigan.dev.gw2</groupId>
+		<artifactId>gw2util-server-build</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>gw2util-server-resources-sd</artifactId>
+	<packaging>jar</packaging>
+
+	<name>GW2-Utility (resources-sd)</name>
+	<description>Enthält Hilfsklassen für den Zugriff auf Resourcen für das GW2-Utility Produkt</description>
+
+	<!-- Libs, die in diesem Projekt benötigt werden -->
+	<dependencies>
+		<!-- Eigene Libs -->
+		<dependency>
+			<groupId>de.morrigan.dev.gw2</groupId>
+			<artifactId>gw2util-server-resources</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<!-- Fremde Libs -->
+	</dependencies>
+
+</project>
