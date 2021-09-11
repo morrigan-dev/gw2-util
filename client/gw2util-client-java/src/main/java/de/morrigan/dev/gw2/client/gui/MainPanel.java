@@ -30,6 +30,7 @@ import de.morrigan.dev.gw2.client.model.GW2MapModel;
 import de.morrigan.dev.gw2.client.model.MainPanelModel;
 import de.morrigan.dev.gw2.client.model.NavigationModel;
 import de.morrigan.dev.gw2.client.model.RightsModel;
+import de.morrigan.dev.gw2.resources.FontConstants;
 import de.morrigan.dev.gw2.resources.ImageManager;
 import de.morrigan.dev.gw2.resources.ResourceManager;
 import de.morrigan.dev.gw2.utils.annotations.RightCheck;
@@ -38,6 +39,7 @@ import de.morrigan.dev.gw2.utils.observer.IObservable;
 import de.morrigan.dev.gw2.utils.observer.IObserver;
 import de.morrigan.dev.swing.components.MessageDialog;
 import de.morrigan.dev.swing.factories.MessageDialogFactory;
+import de.morrigan.dev.utils.resources.FontManager;
 
 public class MainPanel extends JPanel implements IObserver, INavigation, IThreadCallback {
 
@@ -51,6 +53,9 @@ public class MainPanel extends JPanel implements IObserver, INavigation, IThread
 
   /** Logger für Debugausgaben */
   private static final Logger LOG = LoggerFactory.getLogger(MainPanel.class);
+
+  /** FontManager der verschiedene Schriftarten OS unabhängig bereitstellt */
+  private static final FontManager FONT_MANAGER = FontManager.getInstance();
 
   /** Handle auf den ResourceManager */
   private static final ResourceManager RESOURCE_MANAGER = ResourceManager.getInstance();
@@ -85,18 +90,18 @@ public class MainPanel extends JPanel implements IObserver, INavigation, IThread
   private Window mainWindow;
 
   /** Schriftart für den Titel des Fensters */
-  private static final Font TITLE_FONT = Main.getInstance().getMenomonia().deriveFont(26f).deriveFont(Font.BOLD);
+  private static final Font TITLE_FONT = FONT_MANAGER.getFont(FontConstants.MENOMONIA, 26f, Font.BOLD).get();
 
   /** Schriftfarbe für den Titel des Fensters */
   private static final Color TITLE_COLOR = new Color(255, 238, 187);
 
-  public MainPanel(Window mainWindow) {
+  public MainPanel(Window mainWindow, MainPanelModel model) {
     super();
 
     try {
 
       this.mainWindow = mainWindow;
-      this.model = new MainPanelModel();
+      this.model = model;
 
       createGUI();
       configureGUI();
@@ -107,9 +112,9 @@ public class MainPanel extends JPanel implements IObserver, INavigation, IThread
       //      this.model.getNavModel().setSelectedCard(INavigation.CARD_INFORMATION);
 
       this.model.addObserver(this);
-      this.model.getAuthModel().addObserver(this);
-      this.model.getNavModel().addObserver(this);
-      this.model.getRightsModel().addObserver(this);
+      //      this.model.getAuthModel().addObserver(this);
+      //      this.model.getNavModel().addObserver(this);
+      //      this.model.getRightsModel().addObserver(this);
 
       //      this.gw2APIModel.addCallback(this);
       //      this.gw2APIModel.loadDataFromAPI();
@@ -261,9 +266,9 @@ public class MainPanel extends JPanel implements IObserver, INavigation, IThread
     this.menuPanel = new JPanel();
     this.buttonPanel = new JPanel();
 
-    this.informationCard = new InformationCard(this.mainWindow);
-    this.dynamicMapCard = new DynamicMapCard(this.mainWindow, true);
-    this.adminCard = new AdminCard(this.mainWindow);
+    this.informationCard = new InformationCard(this.mainWindow, this.model);
+    //    this.dynamicMapCard = new DynamicMapCard(this.mainWindow, this.model, true);
+    //    this.adminCard = new AdminCard(this.mainWindow, this.model);
   }
 
   private void handleListenerEvent(IListenerAction listenerAction, EventObject event) {
@@ -307,8 +312,8 @@ public class MainPanel extends JPanel implements IObserver, INavigation, IThread
     add(this.buttonPanel);
     add(this.menuPanel);
     add(this.informationCard);
-    add(this.dynamicMapCard);
-    add(this.adminCard);
+    //    add(this.dynamicMapCard);
+    //    add(this.adminCard);
 
     this.lblTitle.setBounds(100, 30, 400, 30);
 
@@ -325,8 +330,8 @@ public class MainPanel extends JPanel implements IObserver, INavigation, IThread
     this.menuPanel.add(this.lblAdministration, 2);
 
     this.informationCard.setBounds(96, 76, 890, 640);
-    this.dynamicMapCard.setBounds(96, 76, 890, 640);
-    this.adminCard.setBounds(96, 76, 890, 640);
+    //    this.dynamicMapCard.setBounds(96, 76, 890, 640);
+    //    this.adminCard.setBounds(96, 76, 890, 640);
   }
 
   private void updateLanguage() {

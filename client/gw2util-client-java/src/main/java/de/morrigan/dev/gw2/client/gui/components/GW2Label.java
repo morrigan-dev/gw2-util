@@ -15,145 +15,150 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.morrigan.dev.gw2.client.Main;
+import de.morrigan.dev.gw2.resources.FontConstants;
+import de.morrigan.dev.utils.resources.FontManager;
 
 public class GW2Label extends JLabel {
 
-	/** automatisch generierte serialVersionUID */
-	private static final long serialVersionUID = 7349437811760158363L;
+  /** automatisch generierte serialVersionUID */
+  private static final long serialVersionUID = 7349437811760158363L;
 
-	/** Logger für Debugausgaben */
-	private static final Logger LOG = LoggerFactory.getLogger(GW2Label.class);
+  /** FontManager der verschiedene Schriftarten OS unabhängig bereitstellt */
+  private static final FontManager FONT_MANAGER = FontManager.getInstance();
 
-	private int tracking;
-	private int leftX;
-	private int leftY;
-	private int rightX;
-	private int rightY;
+  /** Logger für Debugausgaben */
+  private static final Logger LOG = LoggerFactory.getLogger(GW2Label.class);
 
-	private Color leftColor;
-	private Color rightColor;
+  private int tracking;
+  private int leftX;
+  private int leftY;
+  private int rightX;
+  private int rightY;
 
-	private Insets margin;
+  private Color leftColor;
+  private Color rightColor;
 
-	public GW2Label() {
-		super();
-		this.tracking = 0;
-		setRightShadow(1, 1, Color.BLACK);
-		setFont(Main.getInstance().getMenomonia().deriveFont(14f));
-		setForeground(Color.WHITE);
-	}
+  private Insets margin;
 
-	@Override
-	public Dimension getPreferredSize() {
-		String text = getText();
-		FontMetrics fm = this.getFontMetrics(getFont());
+  public GW2Label() {
+    super();
+    this.tracking = 0;
+    setRightShadow(1, 1, Color.BLACK);
+    setFont(FONT_MANAGER.getFont(FontConstants.MENOMONIA, 14f).get());
+    setForeground(Color.WHITE);
+  }
 
-		Icon icon = getIcon();
-		int iconWidth = 0;
-		if (icon != null) {
-			iconWidth = icon.getIconWidth() + 2;
-		}
+  @Override
+  public Dimension getPreferredSize() {
+    String text = getText();
+    FontMetrics fm = this.getFontMetrics(getFont());
 
-		int w = fm.stringWidth(text);
-		w += (text.length() - 1) * this.tracking;
-		w += this.leftX + this.rightX;
-		w += iconWidth;
+    Icon icon = getIcon();
+    int iconWidth = 0;
+    if (icon != null) {
+      iconWidth = icon.getIconWidth() + 2;
+    }
 
-		int h = fm.getHeight();
-		h += this.leftY + this.rightY;
+    int w = fm.stringWidth(text);
+    w += (text.length() - 1) * this.tracking;
+    w += this.leftX + this.rightX;
+    w += iconWidth;
 
-		if (this.margin != null) {
-			w += this.margin.left + this.margin.right;
-			h += this.margin.top + this.margin.bottom;
-		}
-		return new Dimension(w, h);
-	}
+    int h = fm.getHeight();
+    h += this.leftY + this.rightY;
 
-	@Override
-	public void paintComponent(Graphics g) {
-		((Graphics2D) g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+    if (this.margin != null) {
+      w += this.margin.left + this.margin.right;
+      h += this.margin.top + this.margin.bottom;
+    }
+    return new Dimension(w, h);
+  }
 
-		char[] chars = getText().toCharArray();
+  @Override
+  public void paintComponent(Graphics g) {
+    ((Graphics2D) g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
-		FontMetrics fm = this.getFontMetrics(getFont());
-		int h = fm.getAscent();
-		g.setFont(getFont());
+    char[] chars = getText().toCharArray();
 
-		if (isOpaque()) {
-			Color background = getBackground();
-			g.setColor(background);
-			g.fillRect(0, 0, getWidth(), getHeight());
-		}
+    FontMetrics fm = this.getFontMetrics(getFont());
+    int h = fm.getAscent();
+    g.setFont(getFont());
 
-		Icon icon = getIcon();
-		int iconWidth = 0;
-		if (icon != null) {
-			icon.paintIcon(this, g, 0, 0);
-			iconWidth = icon.getIconWidth() + 2;
-		}
+    if (isOpaque()) {
+      Color background = getBackground();
+      g.setColor(background);
+      g.fillRect(0, 0, getWidth(), getHeight());
+    }
 
-		Color foreground = getForeground();
-		if (this.rightColor != null) {
-			this.rightColor = new Color(this.rightColor.getRed(), this.rightColor.getGreen(),
-					this.rightColor.getBlue(), foreground.getAlpha());
-		}
-		if (this.leftColor != null) {
-			this.leftColor = new Color(this.leftColor.getRed(), this.leftColor.getGreen(),
-					this.leftColor.getBlue(), foreground.getAlpha());
-		}
+    Icon icon = getIcon();
+    int iconWidth = 0;
+    if (icon != null) {
+      icon.paintIcon(this, g, 0, 0);
+      iconWidth = icon.getIconWidth() + 2;
+    }
 
-		int x = iconWidth;
-		if (this.margin != null) {
-			x += this.margin.left;
-			h += this.margin.top;
-		}
+    Color foreground = getForeground();
+    if (this.rightColor != null) {
+      this.rightColor = new Color(this.rightColor.getRed(), this.rightColor.getGreen(),
+          this.rightColor.getBlue(), foreground.getAlpha());
+    }
+    if (this.leftColor != null) {
+      this.leftColor = new Color(this.leftColor.getRed(), this.leftColor.getGreen(),
+          this.leftColor.getBlue(), foreground.getAlpha());
+    }
 
-		for (int i = 0; i < chars.length; i++) {
-			char ch = chars[i];
-			int w = fm.charWidth(ch) + this.tracking;
+    int x = iconWidth;
+    if (this.margin != null) {
+      x += this.margin.left;
+      h += this.margin.top;
+    }
 
-			g.setColor(this.leftColor);
-			g.drawString("" + chars[i], x - this.leftX, h - this.leftY);
+    for (int i = 0; i < chars.length; i++) {
+      char ch = chars[i];
+      int w = fm.charWidth(ch) + this.tracking;
 
-			g.setColor(this.rightColor);
-			g.drawString("" + chars[i], x + this.rightX, h + this.rightY);
+      g.setColor(this.leftColor);
+      g.drawString("" + chars[i], x - this.leftX, h - this.leftY);
 
-			g.setColor(foreground);
-			g.drawString("" + chars[i], x, h);
+      g.setColor(this.rightColor);
+      g.drawString("" + chars[i], x + this.rightX, h + this.rightY);
 
-			x += w;
-		}
-	}
+      g.setColor(foreground);
+      g.drawString("" + chars[i], x, h);
 
-	@Override
-	public void setForeground(Color fg) {
-		LOG.debug("fg: {}", fg);
-		super.setForeground(fg);
-		Main.getInstance().repaint();
-	}
+      x += w;
+    }
+  }
 
-	public void setLeftShadow(int x, int y, Color color) {
-		LOG.debug("x: {}, y: {}, color: {}", x, y, color);
-		this.leftX = x;
-		this.leftY = y;
-		this.leftColor = color;
-	}
+  @Override
+  public void setForeground(Color fg) {
+    LOG.debug("fg: {}", fg);
+    super.setForeground(fg);
+    Main.getInstance().repaint();
+  }
 
-	public void setMargin(Insets margin) {
-		this.margin = margin;
-	}
+  public void setLeftShadow(int x, int y, Color color) {
+    LOG.debug("x: {}, y: {}, color: {}", x, y, color);
+    this.leftX = x;
+    this.leftY = y;
+    this.leftColor = color;
+  }
 
-	public void setRightShadow(int x, int y, Color color) {
-		LOG.debug("x: {}, y: {}, color: {}", x, y, color);
-		this.rightX = x;
-		this.rightY = y;
-		this.rightColor = color;
-	}
+  public void setMargin(Insets margin) {
+    this.margin = margin;
+  }
 
-	@Override
-	public void setText(String text) {
-		LOG.debug("text: {}", text);
-		super.setText(text);
-		Main.getInstance().repaint();
-	}
+  public void setRightShadow(int x, int y, Color color) {
+    LOG.debug("x: {}, y: {}, color: {}", x, y, color);
+    this.rightX = x;
+    this.rightY = y;
+    this.rightColor = color;
+  }
+
+  @Override
+  public void setText(String text) {
+    LOG.debug("text: {}", text);
+    super.setText(text);
+    Main.getInstance().repaint();
+  }
 }

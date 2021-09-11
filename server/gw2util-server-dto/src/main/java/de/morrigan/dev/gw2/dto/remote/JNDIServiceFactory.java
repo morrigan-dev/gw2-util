@@ -64,6 +64,7 @@ public class JNDIServiceFactory {
       try {
         // Original
         this.remoteAuthService = (IRemoteAuthenticationService) this.jndiContext.lookup(JNDI_REMOTE_AUTH_SERVICE);
+        this.remoteAuthService.echo("test");
       } catch (NamingException e) {
         throw new ServiceException(e);
       }

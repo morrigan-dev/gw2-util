@@ -27,7 +27,6 @@ import javax.swing.text.StyledDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.morrigan.dev.gw2.client.Main;
 import de.morrigan.dev.gw2.client.Version;
 import de.morrigan.dev.gw2.client.gui.AbstractView;
 import de.morrigan.dev.gw2.client.gui.components.GW2Label;
@@ -38,8 +37,8 @@ import de.morrigan.dev.gw2.client.gui.interfaces.IListenerAction;
 import de.morrigan.dev.gw2.client.gw2.api.GW2APIModel;
 import de.morrigan.dev.gw2.client.gw2.api.IThreadCallback;
 import de.morrigan.dev.gw2.client.model.InformationModel;
-import de.morrigan.dev.gw2.dto.remote.JNDIServiceFactory;
-import de.morrigan.dev.gw2.dto.remote.interfaces.IRemoteAuthenticationService;
+import de.morrigan.dev.gw2.client.model.MainPanelModel;
+import de.morrigan.dev.gw2.resources.FontConstants;
 import de.morrigan.dev.gw2.resources.ImageManager;
 import de.morrigan.dev.gw2.utils.observer.IObservable;
 import de.morrigan.dev.swing.GCUtil;
@@ -85,13 +84,10 @@ public class InformationCard extends AbstractView<InformationModel> implements I
   private JPanel pnlCopyright;
   private JTextPane taCopyright;
 
-  private IRemoteAuthenticationService authService;
-
-  public InformationCard(Window mainWindow) {
-    super(mainWindow);
+  public InformationCard(Window mainWindow, MainPanelModel mainModel) {
+    super(mainWindow, mainModel);
 
     try {
-      this.authService = JNDIServiceFactory.getInstance().getRemoteAuthenticationService();
 
       this.model = new InformationModel();
 
@@ -99,8 +95,8 @@ public class InformationCard extends AbstractView<InformationModel> implements I
       configureGUI();
       layoutGUI();
       configureListener();
-      updateLanguage();
 
+      mainModel.addObserver(this);
       this.model.addObserver(this);
       GW2_API_MODEL.addCallback(this);
 
@@ -125,21 +121,21 @@ public class InformationCard extends AbstractView<InformationModel> implements I
     this.scContent.setBorder(null);
     this.scContent.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
     this.scContent.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
-    this.lblApplicationName.setFont(Main.getInstance().getMenomonia().deriveFont(30f).deriveFont(Font.BOLD));
+    this.lblApplicationName.setFont(FONT_MANAGER.getFont(FontConstants.MENOMONIA, 30f, Font.BOLD).get());
     this.lblApplicationName.setForeground(APP_COLOR);
-    this.lblApplicationVersion.setFont(Main.getInstance().getMenomonia().deriveFont(24f));
+    this.lblApplicationVersion.setFont(FONT_MANAGER.getFont(FontConstants.MENOMONIA, 24f).get());
     this.lblApplicationVersion.setForeground(APP_COLOR);
-    this.lblGW2APIBuilt.setFont(Main.getInstance().getMenomonia().deriveFont(18f));
+    this.lblGW2APIBuilt.setFont(FONT_MANAGER.getFont(FontConstants.MENOMONIA, 18f).get());
     this.lblGW2APIBuilt.setForeground(APP_COLOR);
-    this.lblNewVersion.setFont(Main.getInstance().getMenomonia().deriveFont(18f));
+    this.lblNewVersion.setFont(FONT_MANAGER.getFont(FontConstants.MENOMONIA, 18f).get());
     this.lblNewVersion.setForeground(Color.RED);
-    this.lblDeveloperName.setFont(Main.getInstance().getMenomonia().deriveFont(16f));
+    this.lblDeveloperName.setFont(FONT_MANAGER.getFont(FontConstants.MENOMONIA, 16f).get());
     this.lblFacebook.setIcon(IMAGE_MANAGER.getImageIcon(ImageManager.FACEBOOK_ICON, 24, 24));
     this.lblGooglePlus.setIcon(IMAGE_MANAGER.getImageIcon(ImageManager.GOOGLE_PLUS_ICON, 24, 24));
     this.lblTwitter.setIcon(IMAGE_MANAGER.getImageIcon(ImageManager.TWITTER_ICON, 24, 24));
 
     this.pnlCopyright.setOpaque(false);
-    this.taCopyright.setFont(Main.getInstance().getMenomoniaItalic().deriveFont(12f));
+    this.taCopyright.setFont(FONT_MANAGER.getFont(FontConstants.MENOMONIA_ITALIC, 12f).get());
     this.taCopyright.setBorder(new EmptyBorder(0, 0, 0, 0));
     this.taCopyright.setEditable(false);
     this.taCopyright.setOpaque(false);
@@ -149,7 +145,7 @@ public class InformationCard extends AbstractView<InformationModel> implements I
     StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
     doc.setParagraphAttributes(0, doc.getLength(), center, false);
 
-    this.taSDNote.setFont(Main.getInstance().getMenomonia().deriveFont(16f));
+    this.taSDNote.setFont(FONT_MANAGER.getFont(FontConstants.MENOMONIA, 16f).get());
     this.taSDNote.setBorder(new EmptyBorder(0, 0, 0, 0));
     this.taSDNote.setForeground(Color.WHITE);
 
@@ -257,7 +253,9 @@ public class InformationCard extends AbstractView<InformationModel> implements I
   }
 
   @Override
-  public void update(IObservable obs, long updateFlag) {}
+  public void update(IObservable obs, long updateFlag) {
+    updateLanguage();
+  }
 
   @Override
   public void updateLanguage() {
@@ -274,7 +272,7 @@ public class InformationCard extends AbstractView<InformationModel> implements I
     // FIXME: Serveroperation für Überprüfung ob neue Version vorhanden. Nimmt Client Version entgegen und liefert boolean.
     // Version als String behandeln.
     // Erstellt von morrigan am 08.11.2020
-    BigDecimal newVersion = this.authService.getVersion();
+    BigDecimal newVersion = this.getMainModel().getVersion();
     if (newVersion.doubleValue() > Double.parseDouble(Version.NUMBER)) {
       String formattedVersion = "Version " + NumberFormat.getCurrencyInstance(Locale.US).format(newVersion);
       this.lblNewVersion.setText(RESOURCE_MANAGER

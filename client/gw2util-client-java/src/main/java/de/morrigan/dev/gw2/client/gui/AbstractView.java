@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.morrigan.dev.gw2.client.gui.interfaces.IStructuredView;
+import de.morrigan.dev.gw2.client.model.MainPanelModel;
 import de.morrigan.dev.gw2.resources.ImageManager;
 import de.morrigan.dev.gw2.resources.ResourceManager;
 import de.morrigan.dev.gw2.utils.exceptions.AbstractException;
@@ -20,6 +21,7 @@ import de.morrigan.dev.gw2.utils.observer.IObserver;
 import de.morrigan.dev.swing.GCUtil;
 import de.morrigan.dev.swing.InsetConstants;
 import de.morrigan.dev.swing.models.AbstractModel;
+import de.morrigan.dev.utils.resources.FontManager;
 
 /**
  * Diese Klasse stellt verschiedene Daten und Methoden bereit, die von allen Swing-Views verwendet werden können. Jede
@@ -33,123 +35,135 @@ import de.morrigan.dev.swing.models.AbstractModel;
  */
 public abstract class AbstractView<T extends AbstractModel> extends JPanel implements IObserver, IStructuredView {
 
-	/** automatisch generierte serialVersionUID */
-	private static final long serialVersionUID = 6377864728715347551L;
+  /** automatisch generierte serialVersionUID */
+  private static final long serialVersionUID = 6377864728715347551L;
 
-	/** Logger für Debugausgaben */
-	private static final Logger LOG = LoggerFactory.getLogger(AbstractView.class);
+  /** Logger für Debugausgaben */
+  private static final Logger LOG = LoggerFactory.getLogger(AbstractView.class);
 
-	/** Handel auf den LabelManager */
-	protected static final ResourceManager RESOURCE_MANAGER = ResourceManager.getInstance();
+  /** FontManager der verschiedene Schriftarten OS unabhängig bereitstellt */
+  protected static final FontManager FONT_MANAGER = FontManager.getInstance();
 
-	/** Handel auf den ImageManager */
-	protected static final ImageManager IMAGE_MANAGER = ImageManager.getInstance();
+  /** Handel auf den LabelManager */
+  protected static final ResourceManager RESOURCE_MANAGER = ResourceManager.getInstance();
 
-	/** Hauptfenster auf dem diese View liegt */
-	private final Window mainWindow;
+  /** Handel auf den ImageManager */
+  protected static final ImageManager IMAGE_MANAGER = ImageManager.getInstance();
 
-	/** Panel mit dem eigentlichen Inhalt dieser View */
-	private JPanel pnlContent;
+  /** Hauptfenster auf dem diese View liegt */
+  private final Window mainWindow;
 
-	/** Gibt an, ob alle Listener aktiv sind */
-	private boolean listenerEnabled;
+  /** Hauptmodel, welches alle anderen Models zur Verfügung stellt */
+  private final MainPanelModel mainModel;
 
-	/** Gibt an, ob die View initialisiert wurde */
-	private boolean initialized;
+  /** Panel mit dem eigentlichen Inhalt dieser View */
+  private JPanel pnlContent;
 
-	/** Model dieser View */
-	protected T model;
+  /** Gibt an, ob alle Listener aktiv sind */
+  private boolean listenerEnabled;
 
-	/**
-	 * Erzeugt ein neues Panel und setzt die übergebenen Parameter.
-	 * 
-	 * @param mainWindow Hauptfenster auf dem diese View liegt
-	 */
-	public AbstractView(final Window mainWindow) {
-		super();
+  /** Gibt an, ob die View initialisiert wurde */
+  private boolean initialized;
 
-		this.mainWindow = mainWindow;
+  /** Model dieser View */
+  protected T model;
 
-		this.initialized = false;
-	}
+  /**
+   * Erzeugt ein neues Panel und setzt die übergebenen Parameter.
+   * 
+   * @param mainWindow Hauptfenster auf dem diese View liegt
+   * @param mainModel Hauptmodel, in dem alle anderen bereitsgestellt werden
+   */
+  public AbstractView(final Window mainWindow, MainPanelModel mainModel) {
+    super();
 
-	public Window getMainWindow() {
-		return this.mainWindow;
-	}
+    this.mainWindow = mainWindow;
+    this.mainModel = mainModel;
 
-	public T getModel() {
-		return this.model;
-	}
+    this.initialized = false;
+  }
 
-	/**
-	 * Diese Methode erzeugt die GUI, die Listener und konfiguriert diese für die Oberklasse. Die Erzeugung und die
-	 * Konfiguration in den Unterklassen wird über entsprechende Methoden geregelt. Diese Methode behandelt keine
-	 * Exceptions. Diese müssen in der Unterklasse behandelt werden.
-	 * 
-	 * @param model Model für dieses Panel.
-	 * @throws Exception
-	 */
-	public void initializeSuper(final T model) throws AbstractException {
-		LOG.debug("model: {}", model);
+  public Window getMainWindow() {
+    return this.mainWindow;
+  }
 
-		this.listenerEnabled = true;
-		this.model = model;
+  public MainPanelModel getMainModel() {
+    return mainModel;
+  }
 
-		createSuperGUI();
-		createGUI();
+  public T getModel() {
+    return this.model;
+  }
 
-		configureSuperGUI();
-		configureGUI();
+  /**
+   * Diese Methode erzeugt die GUI, die Listener und konfiguriert diese für die Oberklasse. Die Erzeugung und die
+   * Konfiguration in den Unterklassen wird über entsprechende Methoden geregelt. Diese Methode behandelt keine
+   * Exceptions. Diese müssen in der Unterklasse behandelt werden.
+   * 
+   * @param model Model für dieses Panel.
+   * @throws Exception
+   */
+  public void initializeSuper(final T model) throws AbstractException {
+    LOG.debug("model: {}", model);
 
-		layoutSuperGUI();
-		layoutGUI();
+    this.listenerEnabled = true;
+    this.model = model;
 
-		configureSuperListener();
-		configureListener();
+    createSuperGUI();
+    createGUI();
 
-		updateSuperLanguage();
-		updateLanguage();
+    configureSuperGUI();
+    configureGUI();
 
-		setLayout(new BorderLayout());
-		add(this.pnlContent, BorderLayout.CENTER);
+    layoutSuperGUI();
+    layoutGUI();
 
-		this.model.addObserver(this);
-		this.model.initialize();
+    configureSuperListener();
+    configureListener();
 
-		this.initialized = true;
-	}
+    updateSuperLanguage();
+    updateLanguage();
 
-	public boolean isInitialized() {
-		return this.initialized;
-	}
+    setLayout(new BorderLayout());
+    add(this.pnlContent, BorderLayout.CENTER);
 
-	public boolean isListenerEnabled() {
-		return this.listenerEnabled;
-	}
+    this.model.addObserver(this);
+    this.model.initialize();
 
-	public void setListenerEnabled(final boolean listenerEnabled) {
-		this.listenerEnabled = listenerEnabled;
-	}
+    this.initialized = true;
+  }
 
-	protected void setContent(final JPanel content) {
-		final GridBagConstraints gbc = new GridBagConstraints();
+  public boolean isInitialized() {
+    return this.initialized;
+  }
 
-		GCUtil.configGC(gbc, 0, 0, GCUtil.WEST, GCUtil.BOTH, 1.0, 1.0, 1, 1, InsetConstants.NO_INSETS);
-		this.pnlContent.add(content, gbc);
-	}
+  public boolean isListenerEnabled() {
+    return this.listenerEnabled;
+  }
 
-	private void configureSuperGUI() {
-		this.pnlContent.setLayout(new GridBagLayout());
-		this.pnlContent.setBorder(new LineBorder(Color.BLACK));
-	}
+  public void setListenerEnabled(final boolean listenerEnabled) {
+    this.listenerEnabled = listenerEnabled;
+  }
 
-	private void configureSuperListener() {}
+  protected void setContent(final JPanel content) {
+    final GridBagConstraints gbc = new GridBagConstraints();
 
-	private void createSuperGUI() {
-		this.pnlContent = new JPanel();
-	}
+    GCUtil.configGC(gbc, 0, 0, GCUtil.WEST, GCUtil.BOTH, 1.0, 1.0, 1, 1, InsetConstants.NO_INSETS);
+    this.pnlContent.add(content, gbc);
+  }
 
-	private void layoutSuperGUI() {}
+  private void configureSuperGUI() {
+    this.pnlContent.setLayout(new GridBagLayout());
+    this.pnlContent.setBorder(new LineBorder(Color.BLACK));
+  }
 
-	private void updateSuperLanguage() {}
+  private void configureSuperListener() {}
+
+  private void createSuperGUI() {
+    this.pnlContent = new JPanel();
+  }
+
+  private void layoutSuperGUI() {}
+
+  private void updateSuperLanguage() {}
 }

@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import de.morrigan.dev.gw2.client.Main;
 import de.morrigan.dev.gw2.client.gui.interfaces.INavigation;
 import de.morrigan.dev.gw2.client.model.AuthenticationModel;
+import de.morrigan.dev.gw2.client.model.MainPanelModel;
 import de.morrigan.dev.gw2.client.model.NavigationModel;
 import de.morrigan.dev.gw2.utils.observer.IObservable;
 import de.morrigan.dev.gw2.utils.observer.IObserver;
@@ -22,90 +23,92 @@ import de.morrigan.dev.swing.factories.MessageDialogFactory;
 
 public class CompactPanel extends JPanel implements IObserver, INavigation {
 
-	/** automatisch generierte serialVersionUID */
-	private static final long serialVersionUID = -3852890672413276158L;
+  /** automatisch generierte serialVersionUID */
+  private static final long serialVersionUID = -3852890672413276158L;
 
-	/** Logger für Debugausgaben */
-	private static final Logger LOG = LoggerFactory.getLogger(CompactPanel.class);
+  /** Logger für Debugausgaben */
+  private static final Logger LOG = LoggerFactory.getLogger(CompactPanel.class);
 
-	private DynamicMapCard dynamicMapCard;
+  private DynamicMapCard dynamicMapCard;
 
-	private NavigationModel navModel = NavigationModel.getInstance();
-	private AuthenticationModel authModel = AuthenticationModel.getInstance();
+  private NavigationModel navModel = NavigationModel.getInstance();
+  private AuthenticationModel authModel = AuthenticationModel.getInstance();
 
-	private Window mainWindow;
+  private Window mainWindow;
+  private MainPanelModel mainModel;
 
-	public CompactPanel(Window mainWindow) {
-		super();
+  public CompactPanel(Window mainWindow, MainPanelModel mainModel) {
+    super();
 
-		try {
+    try {
 
-			this.mainWindow = mainWindow;
+      this.mainWindow = mainWindow;
+      this.mainModel = mainModel;
 
-			createGUI();
-			configureGUI();
-			layoutGUI();
-			configureListener();
+      createGUI();
+      configureGUI();
+      layoutGUI();
+      configureListener();
 
-			this.authModel.addObserver(this);
-			this.navModel.addObserver(this);
+      this.authModel.addObserver(this);
+      this.navModel.addObserver(this);
 
-		} catch (final Exception e) {
-			LOG.error(e.getMessage(), e);
-			MessageDialog.handleExcpetion(this, e);
-		}
-	}
+    } catch (final Exception e) {
+      LOG.error(e.getMessage(), e);
+      MessageDialog.handleExcpetion(this, e);
+    }
+  }
 
-	@Override
-	public void showCard() {
-		int cardIndex = this.navModel.getSelectedCard();
+  @Override
+  public void showCard() {
+    int cardIndex = this.navModel.getSelectedCard();
 
-		this.dynamicMapCard.setVisible(false);
+    this.dynamicMapCard.setVisible(false);
 
-		try {
-			switch (cardIndex) {
-				case CARD_MAP:
-					layoutGUI();
-					this.dynamicMapCard.initialize();
-					this.dynamicMapCard.setVisible(true);
-				break;
+    try {
+      switch (cardIndex) {
+        case CARD_MAP:
+          layoutGUI();
+          this.dynamicMapCard.initialize();
+          this.dynamicMapCard.setVisible(true);
+        break;
 
-				default:
-					LOG.warn("Der Kartenindex " + cardIndex + " ist nicht gemappt!");
-				break;
-			}
-		} catch (Exception e) {
-			MessageDialogFactory.handleExcpetion(Main.getInstance().getMainFrame(), e, null);
-		}
-		Main.getInstance().getMainFrame().setVisible(true);
+        default:
+          LOG.warn("Der Kartenindex " + cardIndex + " ist nicht gemappt!");
+        break;
+      }
+    } catch (Exception e) {
+      MessageDialogFactory.handleExcpetion(Main.getInstance().getMainFrame(), e, null);
+    }
+    Main.getInstance().getMainFrame().setVisible(true);
 
-		Container parent = getParent();
-		if (parent != null) {
-			parent.repaint();
-		}
-	}
+    Container parent = getParent();
+    if (parent != null) {
+      parent.repaint();
+    }
+  }
 
-	@Override
-	public void update(IObservable obs, long updateFlag) {
-		LOG.debug("obs: {}, updateFlag: {}", obs, updateFlag);
-	}
+  @Override
+  public void update(IObservable obs, long updateFlag) {
+    LOG.debug("obs: {}, updateFlag: {}", obs, updateFlag);
+  }
 
-	private void configureGUI() {
-		setOpaque(false);
-		setBorder(new LineBorder(Color.BLACK));
-	}
+  private void configureGUI() {
+    setOpaque(false);
+    setBorder(new LineBorder(Color.BLACK));
+  }
 
-	private void configureListener() {
-		// keine Listener vorhanden
-	}
+  private void configureListener() {
+    // keine Listener vorhanden
+  }
 
-	private void createGUI() {
-		this.dynamicMapCard = new DynamicMapCard(this.mainWindow, false);
-	}
+  private void createGUI() {
+    this.dynamicMapCard = new DynamicMapCard(this.mainWindow, this.mainModel, false);
+  }
 
-	private void layoutGUI() {
-		setLayout(new BorderLayout());
+  private void layoutGUI() {
+    setLayout(new BorderLayout());
 
-		add(this.dynamicMapCard, BorderLayout.CENTER);
-	}
+    add(this.dynamicMapCard, BorderLayout.CENTER);
+  }
 }

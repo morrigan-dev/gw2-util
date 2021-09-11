@@ -21,7 +21,6 @@ import de.morrigan.dev.gw2.dto.AuthenticateDTO.ACTION;
 import de.morrigan.dev.gw2.dto.common.Protocol;
 import de.morrigan.dev.gw2.dto.common.Protocol.SEVERITY;
 import de.morrigan.dev.gw2.dto.exceptions.ServiceException;
-import de.morrigan.dev.gw2.dto.remote.JNDIServiceFactory;
 import de.morrigan.dev.gw2.dto.remote.interfaces.IRemoteAuthenticationService;
 import de.morrigan.dev.gw2.resources.ResourceManager;
 import de.morrigan.dev.swing.factories.MessageDialogFactory;
@@ -62,8 +61,8 @@ public class AuthenticationModel extends AbstractModel {
       this.mac = searchForMac();
       this.ip = getExternalIp();
 
-      this.authService = JNDIServiceFactory.getInstance().getRemoteAuthenticationService();
-    } catch (ServiceException | SocketException e) {
+      //      this.authService = JNDIServiceFactory.getInstance().getRemoteAuthenticationService();
+    } catch (SocketException e) {
       LOG.error(e.getMessage(), e);
     }
   }

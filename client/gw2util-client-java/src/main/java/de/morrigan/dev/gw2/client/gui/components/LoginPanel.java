@@ -5,7 +5,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.EventObject;
 
-import javax.ejb.NoSuchEJBException;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -18,11 +17,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.morrigan.dev.gw2.client.Main;
-import de.morrigan.dev.gw2.client.PreferencesModel;
 import de.morrigan.dev.gw2.client.gui.interfaces.IListenerAction;
 import de.morrigan.dev.gw2.client.gui.interfaces.IStructuredView;
-import de.morrigan.dev.gw2.client.model.AuthenticationModel;
 import de.morrigan.dev.gw2.dto.exceptions.ServiceException;
+import de.morrigan.dev.gw2.resources.FontConstants;
 import de.morrigan.dev.gw2.resources.ResourceManager;
 import de.morrigan.dev.gw2.utils.observer.IObservable;
 import de.morrigan.dev.gw2.utils.observer.IObserver;
@@ -30,6 +28,7 @@ import de.morrigan.dev.swing.GCUtil;
 import de.morrigan.dev.swing.InsetConstants;
 import de.morrigan.dev.swing.factories.ComponentFactory;
 import de.morrigan.dev.swing.factories.MessageDialogFactory;
+import de.morrigan.dev.utils.resources.FontManager;
 
 public class LoginPanel extends JPanel implements IStructuredView, IObserver {
 
@@ -41,6 +40,9 @@ public class LoginPanel extends JPanel implements IStructuredView, IObserver {
 
   /** Logger für Debugausgaben */
   private static final Logger LOG = LoggerFactory.getLogger(LoginPanel.class);
+
+  /** FontManager der verschiedene Schriftarten OS unabhängig bereitstellt */
+  private static final FontManager FONT_MANAGER = FontManager.getInstance();
 
   /** Handle auf den ResourceManager */
   private static final ResourceManager RESOURCE_MANAGER = ResourceManager.getInstance();
@@ -58,25 +60,17 @@ public class LoginPanel extends JPanel implements IStructuredView, IObserver {
 
   private JCheckBox chkStyLoggedOn;
 
-  private AuthenticationModel model = AuthenticationModel.getInstance();
-  private PreferencesModel prefModel = PreferencesModel.getInstance();
-
   public LoginPanel() {
     super();
 
-    try {
-      createGUI();
-      configureGUI();
-      layoutGUI();
-      configureListener();
-      updateLanguage();
+    createGUI();
+    configureGUI();
+    layoutGUI();
+    configureListener();
+    updateLanguage();
 
-      this.model.addObserver(this);
-      this.model.loadDataFromPreferences();
-    } catch (ServiceException | NoSuchEJBException e) {
-      LOG.error(e.getMessage(), e);
-      MessageDialogFactory.handleExcpetion(Main.getInstance().getMainFrame(), e, null);
-    }
+    //      this.model.addObserver(this);
+    //      this.model.loadDataFromPreferences();
   }
 
   @Override
@@ -94,7 +88,7 @@ public class LoginPanel extends JPanel implements IStructuredView, IObserver {
     this.pfPassword.setBackground(new Color(29, 28, 24, 150));
     this.pfPassword.setBorder(new LineBorder(Color.BLACK, 2));
     this.chkStyLoggedOn.setOpaque(false);
-    this.chkStyLoggedOn.setFont(Main.getInstance().getMenomonia().deriveFont(14f));
+    this.chkStyLoggedOn.setFont(FONT_MANAGER.getFont(FontConstants.MENOMONIA, 14f).get());
     this.chkStyLoggedOn.setForeground(Color.WHITE);
   }
 
@@ -131,10 +125,10 @@ public class LoginPanel extends JPanel implements IStructuredView, IObserver {
           doLogin();
         break;
         case LOGOUT_CLICKED:
-          this.model.doLogout();
+        //          this.model.doLogout();
         break;
         case STAY_LOGGED_ON:
-          this.prefModel.setStayLoggedOn(true);
+        //          this.prefModel.setStayLoggedOn(true);
         break;
 
         default:
@@ -180,19 +174,19 @@ public class LoginPanel extends JPanel implements IStructuredView, IObserver {
   public void update(IObservable obs, long updateFlag) {
     LOG.debug("obs: {}, updateFlag: {}", obs, updateFlag);
 
-    if (obs instanceof AuthenticationModel) {
-      if ((updateFlag & AuthenticationModel.SESSION_KEY_CHANGED) != 0) {
-        if (this.model.isAuthenticated()) {
-          showLogoutMask();
-        } else {
-          showLoginMask();
-        }
-      }
-      if ((updateFlag & AuthenticationModel.USERNAME_KEY_CHANGED) != 0) {
-        this.lblLoggedInAs.setText(RESOURCE_MANAGER.getLabelWithSeparator("loggedInAs") + " "
-            + this.model.getUsername());
-      }
-    }
+    //    if (obs instanceof AuthenticationModel) {
+    //      if ((updateFlag & AuthenticationModel.SESSION_KEY_CHANGED) != 0) {
+    //        if (this.model.isAuthenticated()) {
+    //          showLogoutMask();
+    //        } else {
+    //          showLoginMask();
+    //        }
+    //      }
+    //      if ((updateFlag & AuthenticationModel.USERNAME_KEY_CHANGED) != 0) {
+    //        this.lblLoggedInAs.setText(RESOURCE_MANAGER.getLabelWithSeparator("loggedInAs") + " "
+    //            + this.model.getUsername());
+    //      }
+    //    }
   }
 
   @Override
@@ -207,7 +201,7 @@ public class LoginPanel extends JPanel implements IStructuredView, IObserver {
   private void doLogin() throws ServiceException {
     String username = this.tfUsername.getText();
     String password = new String(this.pfPassword.getPassword());
-    this.model.authenticate(username, password);
+    //    this.model.authenticate(username, password);
   }
 
   private void showLoginMask() {

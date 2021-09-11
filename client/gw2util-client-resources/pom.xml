@@ -6,7 +6,7 @@
 		<groupId>de.morrigan.dev.gw2</groupId>
 		<artifactId>gw2util-client-build</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-    </parent>
+	</parent>
 
 	<artifactId>gw2util-client-resources</artifactId>
 	<packaging>jar</packaging>
@@ -24,36 +24,42 @@
 		</dependency>
 
 		<!-- Fremde Libs -->
+		<dependency>
+			<groupId>de.morrigan.dev.util</groupId>
+			<artifactId>java-utils-resources</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
-<!-- TODO Prüfen warum so ein Murks im target Verzeichnis gemacht wird, ob es überhaupt noch benötigt wird und falls nicht dann löschen. Falls doch benötigt besser realisieren! -->
-<!-- 	<build> -->
-<!-- 		<plugins> -->
-<!-- 			<plugin> -->
-<!-- 				<artifactId>maven-clean-plugin</artifactId> -->
-<!-- 				<version>${maven-clean-plugin.version}</version> -->
-<!-- 				<executions> -->
-<!-- 					<execution> -->
-<!-- 						<id>default-clean</id> -->
-<!-- 						<configuration> -->
-<!-- 							<excludeDefaultDirectories>true</excludeDefaultDirectories> -->
-<!-- 							<filesets> -->
-<!-- 								<fileset> -->
-<!-- 									<directory>target</directory> -->
-<!-- 									<excludes> -->
-<!-- 										<exclude>properties/**</exclude> -->
-<!-- 									</excludes> -->
-<!-- 									<followSymlinks>false</followSymlinks> -->
-<!-- 								</fileset> -->
-<!-- 							</filesets> -->
-<!-- 						</configuration> -->
-<!-- 						<phase>clean</phase> -->
-<!-- 						<goals> -->
-<!-- 							<goal>clean</goal> -->
-<!-- 						</goals> -->
-<!-- 					</execution> -->
-<!-- 				</executions> -->
-<!-- 			</plugin> -->
-<!-- 		</plugins> -->
-<!-- 	</build> -->
+	<!-- TODO Prüfen warum so ein Murks im target Verzeichnis gemacht wird, ob es überhaupt noch benötigt wird und falls nicht 
+		dann löschen. Falls doch benötigt besser realisieren! -->
+	<!-- <build> -->
+	<!-- <plugins> -->
+	<!-- <plugin> -->
+	<!-- <artifactId>maven-clean-plugin</artifactId> -->
+	<!-- <version>${maven-clean-plugin.version}</version> -->
+	<!-- <executions> -->
+	<!-- <execution> -->
+	<!-- <id>default-clean</id> -->
+	<!-- <configuration> -->
+	<!-- <excludeDefaultDirectories>true</excludeDefaultDirectories> -->
+	<!-- <filesets> -->
+	<!-- <fileset> -->
+	<!-- <directory>target</directory> -->
+	<!-- <excludes> -->
+	<!-- <exclude>properties/**</exclude> -->
+	<!-- </excludes> -->
+	<!-- <followSymlinks>false</followSymlinks> -->
+	<!-- </fileset> -->
+	<!-- </filesets> -->
+	<!-- </configuration> -->
+	<!-- <phase>clean</phase> -->
+	<!-- <goals> -->
+	<!-- <goal>clean</goal> -->
+	<!-- </goals> -->
+	<!-- </execution> -->
+	<!-- </executions> -->
+	<!-- </plugin> -->
+	<!-- </plugins> -->
+	<!-- </build> -->
 </project>
