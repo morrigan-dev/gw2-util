@@ -10,7 +10,6 @@ import de.morrigan.dev.gw2.client.PreferencesModel;
 import de.morrigan.dev.gw2.client.gw2.api.GW2APIModel;
 import de.morrigan.dev.gw2.dto.AuthenticateDTO;
 import de.morrigan.dev.gw2.dto.exceptions.ServiceException;
-import de.morrigan.dev.gw2.dto.remote.JNDIServiceFactory;
 import de.morrigan.dev.gw2.dto.remote.interfaces.IRemoteAuthenticationService;
 import de.morrigan.dev.gw2.utils.exceptions.ErrorException;
 import de.morrigan.dev.swing.models.AbstractModel;
@@ -40,12 +39,12 @@ public class MainPanelModel extends AbstractModel {
 
   @Override
   public void initialize() throws ErrorException {
-    try {
-      this.authService = JNDIServiceFactory.getInstance().getRemoteAuthenticationService();
-    } catch (ServiceException e) {
-      LOG.error(e.getMessage(), e);
-      authService = createLocalPermissionDeniedAuthService();
-    }
+    //    try {
+    //      this.authService = JNDIServiceFactory.getInstance().getRemoteAuthenticationService();
+    //    } catch (ServiceException e) {
+    //      LOG.error(e.getMessage(), e);
+    //      authService = createLocalPermissionDeniedAuthService();
+    //    }
 
     if (!isChanging()) {
       syncViews(MODEL_INITIALIZED);

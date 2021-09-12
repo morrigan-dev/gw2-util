@@ -5,7 +5,7 @@ import java.awt.Window;
 import javax.swing.Icon;
 import javax.swing.JOptionPane;
 
-import de.morrigan.dev.gw2.resources.ImageManager;
+import de.morrigan.dev.gw2.resources.ImageConstants;
 import de.morrigan.dev.gw2.resources.ResourceManager;
 import de.morrigan.dev.gw2.utils.exceptions.AbstractException;
 import de.morrigan.dev.gw2.utils.exceptions.ConfirmationException;
@@ -27,7 +27,7 @@ public class MessageDialogFactory extends JOptionPane {
 	private static final long serialVersionUID = 1L;
 
 	/** Handel auf den ImageManager */
-	private static final ImageManager IMAGE_MANAGER = ImageManager.getInstance();
+	private static final ImageConstants IMAGE_MANAGER = ImageConstants.getInstance();
 
 	/** Handle auf den ResourceManager */
 	private static final ResourceManager RESOURCE_MANAGER = ResourceManager.getInstance();
@@ -83,7 +83,7 @@ public class MessageDialogFactory extends JOptionPane {
 	 */
 	public static void showConfirmationDialog(final Window mainWindow, final ListenerWrapper<Object> listenerWrapper,
 			final String messageHeader, final String message, final String messageDetail) {
-		final Icon icon = IMAGE_MANAGER.getImageIcon(ImageManager.CONFIRMATION_ICON);
+		final Icon icon = IMAGE_MANAGER.getImageIcon(ImageConstants.CONFIRMATION_ICON);
 		final String title = RESOURCE_MANAGER.getLabel("confirmation");
 		final MessageDialogModel dialogModel = new MessageDialogModel(icon, title, messageHeader, message,
 				messageDetail);
@@ -100,7 +100,7 @@ public class MessageDialogFactory extends JOptionPane {
 	 */
 	public static void showInformationDialog(final Window mainWindow, final ListenerWrapper<Object> listenerWrapper,
 			final String messageHeader, final String message, final String messageDetail) {
-		final Icon icon = IMAGE_MANAGER.getImageIcon(ImageManager.NOTIFICATION_ICON);
+		final Icon icon = IMAGE_MANAGER.getImageIcon(ImageConstants.NOTIFICATION_ICON);
 		final String title = RESOURCE_MANAGER.getLabel("notification");
 		final MessageDialogModel dialogModel = new MessageDialogModel(icon, title, messageHeader, message,
 				messageDetail);
@@ -123,7 +123,7 @@ public class MessageDialogFactory extends JOptionPane {
 
 	private static void showAbstractExceptionDialog(final Window mainWindow, final AbstractException exception,
 			final ListenerWrapper<Object> listenerWrapper) {
-		final Icon icon = IMAGE_MANAGER.getImageIcon(ImageManager.ERROR_ICON);
+		final Icon icon = IMAGE_MANAGER.getImageIcon(ImageConstants.ERROR_ICON);
 		final String title = RESOURCE_MANAGER.getLabel("error");
 		final String errorCodeMsg = getErrMsg(exception.getErrorCode());
 		String detailMsg = exception.getMessage();
@@ -136,7 +136,7 @@ public class MessageDialogFactory extends JOptionPane {
 
 	private static void showConfirmationDialog(final Window mainWindow, final ConfirmationException exception,
 			final ListenerWrapper<Object> listenerWrapper) {
-		final Icon icon = IMAGE_MANAGER.getImageIcon(ImageManager.CONFIRMATION_ICON);
+		final Icon icon = IMAGE_MANAGER.getImageIcon(ImageConstants.CONFIRMATION_ICON);
 		final String title = RESOURCE_MANAGER.getLabel("confirmation");
 		final String errorCodeMsg = getErrMsg(exception.getNotificationCode());
 		String detailMsg = exception.getMessage();
@@ -149,7 +149,7 @@ public class MessageDialogFactory extends JOptionPane {
 
 	private static void showErrorDialog(final Window mainWindow, final Throwable exception,
 			final ListenerWrapper<Object> listenerWrapper) {
-		final Icon icon = IMAGE_MANAGER.getImageIcon(ImageManager.ERROR_ICON);
+		final Icon icon = IMAGE_MANAGER.getImageIcon(ImageConstants.ERROR_ICON);
 		final String title = RESOURCE_MANAGER.getLabel("error");
 		final String errorCodeMsg = getErrMsg(AbstractException.UNEXPECTED_EXCEPTION);
 		String detailMsg = exception.getMessage();
@@ -162,7 +162,7 @@ public class MessageDialogFactory extends JOptionPane {
 
 	private static void showNotificationDialog(final Window mainWindow, final NotifyException exception,
 			final ListenerWrapper<Object> listenerWrapper) {
-		final Icon icon = IMAGE_MANAGER.getImageIcon(ImageManager.NOTIFICATION_ICON);
+		final Icon icon = IMAGE_MANAGER.getImageIcon(ImageConstants.NOTIFICATION_ICON);
 		final String title = RESOURCE_MANAGER.getLabel("notification");
 		final String errorCodeMsg = getErrMsg(exception.getNotificationCode());
 		String detailMsg = exception.getMessage();

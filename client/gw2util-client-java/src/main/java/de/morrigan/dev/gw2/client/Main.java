@@ -1,5 +1,16 @@
 package de.morrigan.dev.gw2.client;
 
+import static de.morrigan.dev.gw2.resources.ImageConstants.BASE_URL;
+import static de.morrigan.dev.gw2.resources.ImageConstants.POI_FILE_ID;
+import static de.morrigan.dev.gw2.resources.ImageConstants.POI_ICON;
+import static de.morrigan.dev.gw2.resources.ImageConstants.POI_SIGNATURE;
+import static de.morrigan.dev.gw2.resources.ImageConstants.UNLOCK_FILE_ID;
+import static de.morrigan.dev.gw2.resources.ImageConstants.UNLOCK_ICON;
+import static de.morrigan.dev.gw2.resources.ImageConstants.UNLOCK_SIGNATURE;
+import static de.morrigan.dev.gw2.resources.ImageConstants.WAYPOINT_FILE_ID;
+import static de.morrigan.dev.gw2.resources.ImageConstants.WAYPOINT_ICON;
+import static de.morrigan.dev.gw2.resources.ImageConstants.WAYPOINT_SIGNATURE;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -12,6 +23,8 @@ import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import javax.swing.JFrame;
 import javax.swing.JRootPane;
@@ -20,6 +33,7 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,18 +48,15 @@ import de.morrigan.dev.gw2.utils.observer.IObservable;
 import de.morrigan.dev.gw2.utils.observer.IObserver;
 import de.morrigan.dev.swing.factories.MessageDialogFactory;
 import de.morrigan.dev.utils.resources.FontManager;
+import de.morrigan.dev.utils.resources.ImageManager;
 
 /**
  * Diese Klasse beinhaltet den Programmeinstieg und verwaltet die Toolbar, sowie das Hauptfenster. Sie ist als Singleton
  * implementiert, damit auf das Hauptfenster jederzeit zugegriffen werden kann. Ferner kümmert sich diese Klasse um das
  * Design des Hauptfensters und passt Größe und Position entsprechend des ausgewählten Designs an.
- * 
+ *
  * @author morrigan
  */
-// TODO
-// - FontCash erstellen, mit Font Konstanten (String) über die für die einzelnen Bereiche Überschrift, Default Schrift,
-// Hover Info, etc. aus dem Cash geladen werden können. Cash wird hier in der Main befüllt.
-// (morrigan, 28.10.2013)
 public class Main implements IObserver {
 
   public enum Design {
@@ -96,7 +107,6 @@ public class Main implements IObserver {
   /**
    * Startet das SD Utilities Programm und setzt verschiedene Konfigurationen.
    * <ul>
-   * <li>Konfiguriert Log4j</li>
    * <li>Konfiguriert GW2 Fonts</li>
    * <li>Konfiguriert UI Manager</li>
    * </ul>
@@ -104,6 +114,7 @@ public class Main implements IObserver {
   private Main() {
     try {
       FontManager.getInstance().loadAllFontsFromResources("font");
+      loadImages();
       initUIManager();
       this.mainModel = new MainPanelModel();
     } catch (Exception e) {
@@ -116,12 +127,30 @@ public class Main implements IObserver {
       createCompactFrame();
       //      AuthenticationModel.getInstance().addObserver(Main.this);
       try {
-        mainModel.initialize();
+        this.mainModel.initialize();
       } catch (ErrorException e) {
         LOG.error(e.getMessage(), e);
         MessageDialogFactory.handleExcpetion(this.mainFrame, e, null);
       }
     });
+  }
+
+  private void loadImages() {
+    ImageManager imageManager = ImageManager.getInstance();
+    imageManager.loadAllImagesFromResources("images");
+
+    try {
+      URL urlPoi = new URL(StringUtils.join(BASE_URL, POI_SIGNATURE, "/", POI_FILE_ID, ".png"));
+      imageManager.loadImageFromUrl(POI_ICON, urlPoi);
+
+      URL urlUnlock = new URL(StringUtils.join(BASE_URL, UNLOCK_SIGNATURE, "/", UNLOCK_FILE_ID, ".png"));
+      imageManager.loadImageFromUrl(UNLOCK_ICON, urlUnlock);
+
+      URL urlWaipoint = new URL(StringUtils.join(BASE_URL, WAYPOINT_SIGNATURE, "/", WAYPOINT_FILE_ID, ".png"));
+      imageManager.loadImageFromUrl(WAYPOINT_ICON, urlWaipoint);
+    } catch (MalformedURLException e) {
+      LOG.error(e.getMessage(), e);
+    }
   }
 
   public Rectangle getBounds() {
@@ -161,12 +190,10 @@ public class Main implements IObserver {
 
   @Override
   public void update(IObservable obs, long updateFlag) {
-    if (obs instanceof AuthenticationModel) {
-      if ((updateFlag & AuthenticationModel.SESSION_KEY_CHANGED) != 0) {
-        boolean auth = AuthenticationModel.getInstance().isAuthenticated();
-        if (!auth) {
-          hideMiniMap();
-        }
+    if ((obs instanceof AuthenticationModel) && ((updateFlag & AuthenticationModel.SESSION_KEY_CHANGED) != 0)) {
+      boolean auth = AuthenticationModel.getInstance().isAuthenticated();
+      if (!auth) {
+        hideMiniMap();
       }
     }
   }

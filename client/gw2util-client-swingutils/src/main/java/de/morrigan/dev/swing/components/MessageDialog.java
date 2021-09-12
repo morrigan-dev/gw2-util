@@ -4,7 +4,7 @@ import java.awt.Component;
 
 import javax.swing.JOptionPane;
 
-import de.morrigan.dev.gw2.resources.ImageManager;
+import de.morrigan.dev.gw2.resources.ImageConstants;
 import de.morrigan.dev.gw2.resources.ResourceManager;
 import de.morrigan.dev.gw2.utils.exceptions.AbstractException;
 import de.morrigan.dev.gw2.utils.exceptions.ConfirmationException;
@@ -21,7 +21,7 @@ public class MessageDialog extends JOptionPane {
 	private static final long serialVersionUID = 1L;
 
 	/** Handel auf den ImageManager */
-	private static final ImageManager IMAGE_MANAGER = ImageManager.getInstance();
+	private static final ImageConstants IMAGE_MANAGER = ImageConstants.getInstance();
 
 	/** Handle auf den ResourceManager */
 	private static final ResourceManager RESOURCE_MANAGER = ResourceManager.getInstance();
@@ -84,7 +84,7 @@ public class MessageDialog extends JOptionPane {
 		final String detailMsg = exception.getMessage();
 		return showConfirmDialog(parent, new Object[] { errorCodeMsg, detailMsg }, title,
 				JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
-				IMAGE_MANAGER.getImageIcon(ImageManager.CONFIRMATION_ICON));
+				IMAGE_MANAGER.getImageIcon(ImageConstants.CONFIRMATION_ICON));
 	}
 
 	private static int showErrorDialog(final Component parent, final Throwable exception) {
@@ -92,7 +92,7 @@ public class MessageDialog extends JOptionPane {
 		final String errorCodeMsg = getErrMsg(AbstractException.UNEXPECTED_EXCEPTION);
 		final String detailMsg = exception.getMessage();
 		showMessageDialog(parent, new Object[] { errorCodeMsg, detailMsg }, title, JOptionPane.ERROR_MESSAGE,
-				IMAGE_MANAGER.getImageIcon(ImageManager.ERROR_ICON));
+				IMAGE_MANAGER.getImageIcon(ImageConstants.ERROR_ICON));
 		return JOptionPane.OK_OPTION;
 	}
 
@@ -101,7 +101,7 @@ public class MessageDialog extends JOptionPane {
 		final String errorCodeMsg = getErrMsg(exception.getNotificationCode());
 		final String detailMsg = exception.getMessage();
 		showMessageDialog(parent, new Object[] { errorCodeMsg, detailMsg }, title, JOptionPane.INFORMATION_MESSAGE,
-				IMAGE_MANAGER.getImageIcon(ImageManager.NOTIFICATION_ICON));
+				IMAGE_MANAGER.getImageIcon(ImageConstants.NOTIFICATION_ICON));
 		return JOptionPane.OK_OPTION;
 	}
 
@@ -110,7 +110,7 @@ public class MessageDialog extends JOptionPane {
 		final String errorCodeMsg = getErrMsg(exception.getErrorCode());
 		final String detailMsg = exception.getMessage();
 		showMessageDialog(parent, new Object[] { errorCodeMsg, detailMsg }, title, JOptionPane.ERROR_MESSAGE,
-				IMAGE_MANAGER.getImageIcon(ImageManager.ERROR_ICON));
+				IMAGE_MANAGER.getImageIcon(ImageConstants.ERROR_ICON));
 		return JOptionPane.OK_OPTION;
 	}
 }

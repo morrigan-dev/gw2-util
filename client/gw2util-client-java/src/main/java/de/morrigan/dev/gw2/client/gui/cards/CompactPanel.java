@@ -13,9 +13,7 @@ import org.slf4j.LoggerFactory;
 
 import de.morrigan.dev.gw2.client.Main;
 import de.morrigan.dev.gw2.client.gui.interfaces.INavigation;
-import de.morrigan.dev.gw2.client.model.AuthenticationModel;
 import de.morrigan.dev.gw2.client.model.MainPanelModel;
-import de.morrigan.dev.gw2.client.model.NavigationModel;
 import de.morrigan.dev.gw2.utils.observer.IObservable;
 import de.morrigan.dev.gw2.utils.observer.IObserver;
 import de.morrigan.dev.swing.components.MessageDialog;
@@ -31,8 +29,8 @@ public class CompactPanel extends JPanel implements IObserver, INavigation {
 
   private DynamicMapCard dynamicMapCard;
 
-  private NavigationModel navModel = NavigationModel.getInstance();
-  private AuthenticationModel authModel = AuthenticationModel.getInstance();
+  //  private NavigationModel navModel = NavigationModel.getInstance();
+  //  private AuthenticationModel authModel = AuthenticationModel.getInstance();
 
   private Window mainWindow;
   private MainPanelModel mainModel;
@@ -50,8 +48,8 @@ public class CompactPanel extends JPanel implements IObserver, INavigation {
       layoutGUI();
       configureListener();
 
-      this.authModel.addObserver(this);
-      this.navModel.addObserver(this);
+      //      this.authModel.addObserver(this);
+      //      this.navModel.addObserver(this);
 
     } catch (final Exception e) {
       LOG.error(e.getMessage(), e);
@@ -61,7 +59,7 @@ public class CompactPanel extends JPanel implements IObserver, INavigation {
 
   @Override
   public void showCard() {
-    int cardIndex = this.navModel.getSelectedCard();
+    int cardIndex = this.mainModel.getNavModel().getSelectedCard();
 
     this.dynamicMapCard.setVisible(false);
 

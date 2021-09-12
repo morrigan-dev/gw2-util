@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 
 import de.morrigan.dev.gw2.client.gui.interfaces.IStructuredView;
 import de.morrigan.dev.gw2.client.model.MainPanelModel;
-import de.morrigan.dev.gw2.resources.ImageManager;
+import de.morrigan.dev.gw2.resources.ImageConstants;
 import de.morrigan.dev.gw2.resources.ResourceManager;
 import de.morrigan.dev.gw2.utils.exceptions.AbstractException;
 import de.morrigan.dev.gw2.utils.observer.IObserver;
@@ -48,7 +48,7 @@ public abstract class AbstractView<T extends AbstractModel> extends JPanel imple
   protected static final ResourceManager RESOURCE_MANAGER = ResourceManager.getInstance();
 
   /** Handel auf den ImageManager */
-  protected static final ImageManager IMAGE_MANAGER = ImageManager.getInstance();
+  protected static final ImageConstants IMAGE_MANAGER = ImageConstants.getInstance();
 
   /** Hauptfenster auf dem diese View liegt */
   private final Window mainWindow;

@@ -9,7 +9,7 @@ import org.jdesktop.swingx.mapviewer.Waypoint;
 
 import de.morrigan.dev.gw2.dto.common.enums.WPSubType;
 import de.morrigan.dev.gw2.dto.common.enums.WPType;
-import de.morrigan.dev.gw2.resources.ImageManager;
+import de.morrigan.dev.gw2.resources.ImageConstants;
 import net.coobird.thumbnailator.Thumbnailator;
 
 public abstract class AbstractGW2Waypoint implements Waypoint {
@@ -35,7 +35,7 @@ public abstract class AbstractGW2Waypoint implements Waypoint {
 	}
 
 	/** Handel auf den ImageManager */
-	protected static final ImageManager IMAGE_MANAGER = ImageManager.getInstance();
+	protected static final ImageConstants IMAGE_MANAGER = ImageConstants.getInstance();
 
 	/** Basis URL zur ArenaNet GW2 Tile API */
 	protected static final String BASE_URL = "https://render.guildwars2.com/file/";
@@ -45,65 +45,65 @@ public abstract class AbstractGW2Waypoint implements Waypoint {
 		switch (wpType) {
 			case ORE:
 				if (rich && permanent) {
-					icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.ORE_RICH_PERMANENT_ICON);
+					icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageConstants.ORE_RICH_PERMANENT_ICON);
 				} else if (rich) {
-					icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.ORE_RICH_ICON);
+					icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageConstants.ORE_RICH_ICON);
 				} else if (permanent) {
-					icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.ORE_PERMANENT_ICON);
+					icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageConstants.ORE_PERMANENT_ICON);
 				} else {
-					icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.ORE_ICON);
+					icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageConstants.ORE_ICON);
 				}
 			break;
 			case WOOD:
 				if (rich && permanent) {
-					icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.WOOD_RICH_PERMANENT_ICON);
+					icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageConstants.WOOD_RICH_PERMANENT_ICON);
 				} else if (rich) {
-					icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.WOOD_RICH_ICON);
+					icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageConstants.WOOD_RICH_ICON);
 				} else if (permanent) {
-					icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.WOOD_PERMANENT_ICON);
+					icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageConstants.WOOD_PERMANENT_ICON);
 				} else {
-					icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.WOOD_ICON);
+					icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageConstants.WOOD_ICON);
 				}
 			break;
 			case PLANT:
 				if (rich && permanent) {
-					icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_RICH_PERMANENT_ICON);
+					icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageConstants.PLANT_RICH_PERMANENT_ICON);
 				} else if (rich) {
-					icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_RICH_ICON);
+					icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageConstants.PLANT_RICH_ICON);
 				} else if (permanent) {
-					icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_PERMANENT_ICON);
+					icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageConstants.PLANT_PERMANENT_ICON);
 				} else {
-					icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.PLANT_ICON);
+					icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageConstants.PLANT_ICON);
 				}
 			break;
 			case POI:
-				icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.POI_ICON);
+				icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageConstants.POI_ICON);
 			break;
 			case UNLOCK:
-				icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.UNLOCK_ICON);
+				icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageConstants.UNLOCK_ICON);
 			break;
 			case VISTA:
-				icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.VISTA_ICON);
+				icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageConstants.VISTA_ICON);
 			break;
 			case SKILL_CHALLENGE:
-				icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.SKILL_CHALLEGENE_ICON);
+				icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageConstants.SKILL_CHALLEGENE_ICON);
 			break;
 			case HEART:
-				icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.HEART_ICON);
+				icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageConstants.HEART_ICON);
 			break;
 			case WAYPOINT:
-				icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.WAYPOINT_ICON);
+				icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageConstants.WAYPOINT_ICON);
 			break;
 			case OTHER:
 				switch (wpSubType) {
 					case GUILD_BOUNTY:
-						icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.GUILD_BOUNTY_ICON);
+						icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageConstants.GUILD_BOUNTY_ICON);
 					break;
 					case CHEST:
 						if (permanent) {
-							icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.CHEST_PERMANENT_ICON);
+							icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageConstants.CHEST_PERMANENT_ICON);
 						} else {
-							icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageManager.CHEST_ICON);
+							icon = (BufferedImage) IMAGE_MANAGER.getImage(ImageConstants.CHEST_ICON);
 						}
 					break;
 

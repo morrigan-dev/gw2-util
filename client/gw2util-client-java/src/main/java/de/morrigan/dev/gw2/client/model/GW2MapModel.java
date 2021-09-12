@@ -36,7 +36,7 @@ import de.morrigan.dev.gw2.dto.map.WaypointDTO;
 import de.morrigan.dev.gw2.dto.map.WaypointListWrapperDTO;
 import de.morrigan.dev.gw2.dto.remote.JNDIServiceFactory;
 import de.morrigan.dev.gw2.dto.remote.interfaces.IRemoteMapService;
-import de.morrigan.dev.gw2.resources.ImageManager;
+import de.morrigan.dev.gw2.resources.ImageConstants;
 import de.morrigan.dev.swing.factories.MessageDialogFactory;
 import de.morrigan.dev.swing.models.AbstractModel;
 import de.morrigan.dev.utils.BitUtil;
@@ -55,7 +55,7 @@ public class GW2MapModel extends AbstractModel {
   private static final Logger LOG = LoggerFactory.getLogger(GW2MapModel.class);
 
   /** Handel auf den ImageManager */
-  private static final ImageManager IMAGE_MANAGER = ImageManager.getInstance();
+  private static final ImageConstants IMAGE_MANAGER = ImageConstants.getInstance();
 
   private static final String AC_ORE_PREFIX = "add ore";
   private static final String AC_WOOD_PREFIX = "add wood";
@@ -701,31 +701,31 @@ public class GW2MapModel extends AbstractModel {
 
     // Planzen
     int order = 1;
-    icon = IMAGE_MANAGER.getImageIcon(ImageManager.PLANT_SAFFRON_THREAD_ICON, ICON_SIZE, ICON_SIZE);
+    icon = IMAGE_MANAGER.getImageIcon(ImageConstants.PLANT_SAFFRON_THREAD_ICON, ICON_SIZE, ICON_SIZE);
     ac = AC_PLANT_PREFIX + " blackCrocus";
     entry = new MenuEntry("blackCrocus", icon, WPType.PLANT, WPSubType.BLACK_CROCUS, ac, order++);
     this.plantOriMenuEntries.put(ac, entry);
-    icon = IMAGE_MANAGER.getImageIcon(ImageManager.PLANT_GHOST_PEPPER_ICON, ICON_SIZE, ICON_SIZE);
+    icon = IMAGE_MANAGER.getImageIcon(ImageConstants.PLANT_GHOST_PEPPER_ICON, ICON_SIZE, ICON_SIZE);
     ac = AC_PLANT_PREFIX + " ghostPepper";
     entry = new MenuEntry("ghostPepper", icon, WPType.PLANT, WPSubType.GHOST_PEPPER, ac, order++);
     this.plantOriMenuEntries.put(ac, entry);
-    icon = IMAGE_MANAGER.getImageIcon(ImageManager.PLANT_LOTUS_ROOT_ICON, ICON_SIZE, ICON_SIZE);
+    icon = IMAGE_MANAGER.getImageIcon(ImageConstants.PLANT_LOTUS_ROOT_ICON, ICON_SIZE, ICON_SIZE);
     ac = AC_PLANT_PREFIX + " lotus";
     entry = new MenuEntry("lotus", icon, WPType.PLANT, WPSubType.LOTUS, ac, order++);
     this.plantOriMenuEntries.put(ac, entry);
-    icon = IMAGE_MANAGER.getImageIcon(ImageManager.PLANT_OMNOMBERRY_ICON, ICON_SIZE, ICON_SIZE);
+    icon = IMAGE_MANAGER.getImageIcon(ImageConstants.PLANT_OMNOMBERRY_ICON, ICON_SIZE, ICON_SIZE);
     ac = AC_PLANT_PREFIX + " omnomberries";
     entry = new MenuEntry("omnomberries", icon, WPType.PLANT, WPSubType.OMNOMBERRIES, ac, order++);
     this.plantOriMenuEntries.put(ac, entry);
-    icon = IMAGE_MANAGER.getImageIcon(ImageManager.PLANT_ORRIAN_TRUFFLE_ICON, ICON_SIZE, ICON_SIZE);
+    icon = IMAGE_MANAGER.getImageIcon(ImageConstants.PLANT_ORRIAN_TRUFFLE_ICON, ICON_SIZE, ICON_SIZE);
     ac = AC_PLANT_PREFIX + " orrianTruffle";
     entry = new MenuEntry("orrianTruffle", icon, WPType.PLANT, WPSubType.ORRIAN_TRUFFLE, ac, order++);
     this.plantOriMenuEntries.put(ac, entry);
-    icon = IMAGE_MANAGER.getImageIcon(ImageManager.PLANT_SEAWEED_ICON, ICON_SIZE, ICON_SIZE);
+    icon = IMAGE_MANAGER.getImageIcon(ImageConstants.PLANT_SEAWEED_ICON, ICON_SIZE, ICON_SIZE);
     ac = AC_PLANT_PREFIX + " seaweed";
     entry = new MenuEntry("seaweed", icon, WPType.PLANT, WPSubType.SEAWEED, ac, order++);
     this.plantOriMenuEntries.put(ac, entry);
-    icon = IMAGE_MANAGER.getImageIcon(ImageManager.PLANT_SNOW_TRUFFLE_ICON, ICON_SIZE, ICON_SIZE);
+    icon = IMAGE_MANAGER.getImageIcon(ImageConstants.PLANT_SNOW_TRUFFLE_ICON, ICON_SIZE, ICON_SIZE);
     ac = AC_PLANT_PREFIX + " snowTruffle";
     entry = new MenuEntry("snowTruffle", icon, WPType.PLANT, WPSubType.SNOW_TRUFFLE, ac, order++);
     this.plantOriMenuEntries.put(ac, entry);
@@ -855,11 +855,11 @@ public class GW2MapModel extends AbstractModel {
     this.plantCopperMenuEntries.put(ac, entry);
 
     // Sonstige
-    icon = IMAGE_MANAGER.getImageIcon(ImageManager.GUILD_BOUNTY_ICON, ICON_SIZE, ICON_SIZE);
+    icon = IMAGE_MANAGER.getImageIcon(ImageConstants.GUILD_BOUNTY_ICON, ICON_SIZE, ICON_SIZE);
     ac = AC_OTHER_PREFIX + " guildBounty";
     entry = new MenuEntry("guildBounty", icon, WPType.OTHER, WPSubType.GUILD_BOUNTY, ac, 1);
     this.otherMenuEntries.put(ac, entry);
-    icon = IMAGE_MANAGER.getImageIcon(ImageManager.CHEST_ICON, ICON_SIZE, ICON_SIZE);
+    icon = IMAGE_MANAGER.getImageIcon(ImageConstants.CHEST_ICON, ICON_SIZE, ICON_SIZE);
     ac = AC_OTHER_PREFIX + " chest";
     entry = new MenuEntry("chest", icon, WPType.OTHER, WPSubType.CHEST, ac, 1);
     this.otherMenuEntries.put(ac, entry);

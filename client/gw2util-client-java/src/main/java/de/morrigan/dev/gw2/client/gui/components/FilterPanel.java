@@ -34,7 +34,7 @@ import org.slf4j.LoggerFactory;
 
 import de.morrigan.dev.gw2.client.gui.components.FilterModel.TreeObject;
 import de.morrigan.dev.gw2.resources.FontConstants;
-import de.morrigan.dev.gw2.resources.ImageManager;
+import de.morrigan.dev.gw2.resources.ImageConstants;
 import de.morrigan.dev.gw2.resources.ResourceManager;
 import de.morrigan.dev.gw2.utils.observer.IObservable;
 import de.morrigan.dev.gw2.utils.observer.IObserver;
@@ -141,7 +141,7 @@ public class FilterPanel extends JPanel implements IObserver {
   private static final ResourceManager RESOURCE_MANAGER = ResourceManager.getInstance();
 
   /** Handel auf den ImageManager */
-  private static final ImageManager IMAGE_MANAGER = ImageManager.getInstance();
+  private static final ImageConstants IMAGE_MANAGER = ImageConstants.getInstance();
 
   private static final Dimension DEFAULT_BUTTON_SIZE = new Dimension(50, 20);
 
@@ -431,9 +431,9 @@ public class FilterPanel extends JPanel implements IObserver {
     this.lblSelectedElements.setText(RESOURCE_MANAGER.getLabel("selectedElements"));
 
     int iconSize = 25;
-    this.btnMoveAllLeft.setIcon(IMAGE_MANAGER.getImageIcon(ImageManager.ARROWS_LEFT_ICON, iconSize, iconSize));
-    this.btnMoveLeft.setIcon(IMAGE_MANAGER.getImageIcon(ImageManager.ARROW_LEFT_ICON, iconSize, iconSize));
-    this.btnMoveAllRight.setIcon(IMAGE_MANAGER.getImageIcon(ImageManager.ARROWS_RIGHT_ICON, iconSize, iconSize));
-    this.btnMoveRight.setIcon(IMAGE_MANAGER.getImageIcon(ImageManager.ARROW_RIGHT_ICON, iconSize, iconSize));
+    this.btnMoveAllLeft.setIcon(IMAGE_MANAGER.getImageIcon(ImageConstants.ARROWS_LEFT_ICON, iconSize, iconSize));
+    this.btnMoveLeft.setIcon(IMAGE_MANAGER.getImageIcon(ImageConstants.ARROW_LEFT_ICON, iconSize, iconSize));
+    this.btnMoveAllRight.setIcon(IMAGE_MANAGER.getImageIcon(ImageConstants.ARROWS_RIGHT_ICON, iconSize, iconSize));
+    this.btnMoveRight.setIcon(IMAGE_MANAGER.getImageIcon(ImageConstants.ARROW_RIGHT_ICON, iconSize, iconSize));
   }
 }

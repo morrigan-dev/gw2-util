@@ -18,7 +18,7 @@ import javax.swing.JPanel;
 import de.morrigan.dev.gw2.client.gui.interfaces.IListenerAction;
 import de.morrigan.dev.gw2.client.gui.interfaces.IStructuredView;
 import de.morrigan.dev.gw2.resources.FontConstants;
-import de.morrigan.dev.gw2.resources.ImageManager;
+import de.morrigan.dev.gw2.resources.ImageConstants;
 import de.morrigan.dev.swing.GCUtil;
 import de.morrigan.dev.swing.InsetConstants;
 import de.morrigan.dev.utils.resources.FontManager;
@@ -32,9 +32,9 @@ public class GW2MenuBar extends JPanel implements IStructuredView {
   private static final FontManager FONT_MANAGER = FontManager.getInstance();
 
   /** Handel auf den ImageManager */
-  private static final ImageManager IMAGE_MANAGER = ImageManager.getInstance();
+  private static final ImageConstants IMAGE_MANAGER = ImageConstants.getInstance();
 
-  private static final Image BACKGROUND = IMAGE_MANAGER.getImage(ImageManager.MENU_BAR_ICON);
+  private static final Image BACKGROUND = IMAGE_MANAGER.getImage(ImageConstants.MENU_BAR_ICON);
 
   private GW2Label lblHeadertext;
   private JLabel lblSpacer;
@@ -58,7 +58,7 @@ public class GW2MenuBar extends JPanel implements IStructuredView {
     this.lblHeadertext.setFont(FONT_MANAGER.getFont(FontConstants.MENOMONIA, 16f, Font.BOLD).get());
     this.pnlContent.setOpaque(false);
     this.pnlContent.setLayout(new BorderLayout());
-    this.lblArrows.setIcon(IMAGE_MANAGER.getImageIcon(ImageManager.ARROWS_UP_ICON, 20, 20));
+    this.lblArrows.setIcon(IMAGE_MANAGER.getImageIcon(ImageConstants.ARROWS_UP_ICON, 20, 20));
   }
 
   @Override
@@ -143,10 +143,10 @@ public class GW2MenuBar extends JPanel implements IStructuredView {
   public void setExpanded(boolean expand) {
     if (expand) {
       this.pnlContent.setVisible(true);
-      this.lblArrows.setIcon(IMAGE_MANAGER.getImageIcon(ImageManager.ARROWS_UP_ICON, 20, 20));
+      this.lblArrows.setIcon(IMAGE_MANAGER.getImageIcon(ImageConstants.ARROWS_UP_ICON, 20, 20));
     } else {
       this.pnlContent.setVisible(false);
-      this.lblArrows.setIcon(IMAGE_MANAGER.getImageIcon(ImageManager.ARROWS_DOWN_ICON, 20, 20));
+      this.lblArrows.setIcon(IMAGE_MANAGER.getImageIcon(ImageConstants.ARROWS_DOWN_ICON, 20, 20));
     }
   }
 
@@ -163,10 +163,10 @@ public class GW2MenuBar extends JPanel implements IStructuredView {
     boolean visible = this.pnlContent.isVisible();
     if (visible) {
       this.pnlContent.setVisible(false);
-      this.lblArrows.setIcon(IMAGE_MANAGER.getImageIcon(ImageManager.ARROWS_DOWN_ICON, 20, 20));
+      this.lblArrows.setIcon(IMAGE_MANAGER.getImageIcon(ImageConstants.ARROWS_DOWN_ICON, 20, 20));
     } else {
       this.pnlContent.setVisible(true);
-      this.lblArrows.setIcon(IMAGE_MANAGER.getImageIcon(ImageManager.ARROWS_UP_ICON, 20, 20));
+      this.lblArrows.setIcon(IMAGE_MANAGER.getImageIcon(ImageConstants.ARROWS_UP_ICON, 20, 20));
     }
   }
 }

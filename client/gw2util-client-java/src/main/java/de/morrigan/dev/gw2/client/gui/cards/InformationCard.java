@@ -8,10 +8,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Window;
-import java.math.BigDecimal;
-import java.text.NumberFormat;
 import java.util.EventObject;
-import java.util.Locale;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -39,7 +36,7 @@ import de.morrigan.dev.gw2.client.gw2.api.IThreadCallback;
 import de.morrigan.dev.gw2.client.model.InformationModel;
 import de.morrigan.dev.gw2.client.model.MainPanelModel;
 import de.morrigan.dev.gw2.resources.FontConstants;
-import de.morrigan.dev.gw2.resources.ImageManager;
+import de.morrigan.dev.gw2.resources.ImageConstants;
 import de.morrigan.dev.gw2.utils.observer.IObservable;
 import de.morrigan.dev.swing.GCUtil;
 import de.morrigan.dev.swing.InsetConstants;
@@ -130,9 +127,9 @@ public class InformationCard extends AbstractView<InformationModel> implements I
     this.lblNewVersion.setFont(FONT_MANAGER.getFont(FontConstants.MENOMONIA, 18f).get());
     this.lblNewVersion.setForeground(Color.RED);
     this.lblDeveloperName.setFont(FONT_MANAGER.getFont(FontConstants.MENOMONIA, 16f).get());
-    this.lblFacebook.setIcon(IMAGE_MANAGER.getImageIcon(ImageManager.FACEBOOK_ICON, 24, 24));
-    this.lblGooglePlus.setIcon(IMAGE_MANAGER.getImageIcon(ImageManager.GOOGLE_PLUS_ICON, 24, 24));
-    this.lblTwitter.setIcon(IMAGE_MANAGER.getImageIcon(ImageManager.TWITTER_ICON, 24, 24));
+    this.lblFacebook.setIcon(IMAGE_MANAGER.getImageIcon(ImageConstants.FACEBOOK_ICON, 24, 24));
+    this.lblGooglePlus.setIcon(IMAGE_MANAGER.getImageIcon(ImageConstants.GOOGLE_PLUS_ICON, 24, 24));
+    this.lblTwitter.setIcon(IMAGE_MANAGER.getImageIcon(ImageConstants.TWITTER_ICON, 24, 24));
 
     this.pnlCopyright.setOpaque(false);
     this.taCopyright.setFont(FONT_MANAGER.getFont(FontConstants.MENOMONIA_ITALIC, 12f).get());
@@ -272,12 +269,12 @@ public class InformationCard extends AbstractView<InformationModel> implements I
     // FIXME: Serveroperation für Überprüfung ob neue Version vorhanden. Nimmt Client Version entgegen und liefert boolean.
     // Version als String behandeln.
     // Erstellt von morrigan am 08.11.2020
-    BigDecimal newVersion = this.getMainModel().getVersion();
-    if (newVersion.doubleValue() > Double.parseDouble(Version.NUMBER)) {
-      String formattedVersion = "Version " + NumberFormat.getCurrencyInstance(Locale.US).format(newVersion);
-      this.lblNewVersion.setText(RESOURCE_MANAGER
-          .getMessageWithArguments("newVersionAvailable", formattedVersion));
-    }
+    //    BigDecimal newVersion = this.getMainModel().getVersion();
+    //    if (newVersion.doubleValue() > Double.parseDouble(Version.NUMBER)) {
+    //      String formattedVersion = "Version " + NumberFormat.getCurrencyInstance(Locale.US).format(newVersion);
+    //      this.lblNewVersion.setText(RESOURCE_MANAGER
+    //          .getMessageWithArguments("newVersionAvailable", formattedVersion));
+    //    }
   }
 
   @Override

@@ -31,7 +31,7 @@ import de.morrigan.dev.gw2.client.model.MainPanelModel;
 import de.morrigan.dev.gw2.client.model.NavigationModel;
 import de.morrigan.dev.gw2.client.model.RightsModel;
 import de.morrigan.dev.gw2.resources.FontConstants;
-import de.morrigan.dev.gw2.resources.ImageManager;
+import de.morrigan.dev.gw2.resources.ImageConstants;
 import de.morrigan.dev.gw2.resources.ResourceManager;
 import de.morrigan.dev.gw2.utils.annotations.RightCheck;
 import de.morrigan.dev.gw2.utils.annotations.RightCheck.Type;
@@ -61,9 +61,9 @@ public class MainPanel extends JPanel implements IObserver, INavigation, IThread
   private static final ResourceManager RESOURCE_MANAGER = ResourceManager.getInstance();
 
   /** Handel auf den ImageManager */
-  private static final ImageManager IMAGE_MANAGER = ImageManager.getInstance();
+  private static final ImageConstants IMAGE_MANAGER = ImageConstants.getInstance();
 
-  private static final Image BACKGROUND = IMAGE_MANAGER.getImage(ImageManager.BACKGROUND_IMAGE);
+  private static final Image BACKGROUND = IMAGE_MANAGER.getImage(ImageConstants.BACKGROUND_IMAGE);
 
   private GW2Label lblTitle;
 
@@ -144,9 +144,9 @@ public class MainPanel extends JPanel implements IObserver, INavigation, IThread
   public void showCard() {
     int cardIndex = this.model.getNavModel().getSelectedCard();
 
-    this.lblInformation.setIcon(IMAGE_MANAGER.getImageIcon(ImageManager.INFO_ICON));
-    this.lblDynamicMap.setIcon(IMAGE_MANAGER.getImageIcon(ImageManager.MAP_ICON));
-    this.lblAdministration.setIcon(IMAGE_MANAGER.getImageIcon(ImageManager.BLUE_BALL_ICON));
+    this.lblInformation.setIcon(IMAGE_MANAGER.getImageIcon(ImageConstants.INFO_ICON));
+    this.lblDynamicMap.setIcon(IMAGE_MANAGER.getImageIcon(ImageConstants.MAP_ICON));
+    this.lblAdministration.setIcon(IMAGE_MANAGER.getImageIcon(ImageConstants.BLUE_BALL_ICON));
 
     this.informationCard.setVisible(false);
     this.dynamicMapCard.setVisible(false);
@@ -155,16 +155,16 @@ public class MainPanel extends JPanel implements IObserver, INavigation, IThread
     try {
       switch (cardIndex) {
         case CARD_INFORMATION:
-          this.lblInformation.setIcon(IMAGE_MANAGER.getImageIcon(ImageManager.SELECTED_INFO_ICON));
+          this.lblInformation.setIcon(IMAGE_MANAGER.getImageIcon(ImageConstants.SELECTED_INFO_ICON));
           this.informationCard.setVisible(true);
         break;
         case CARD_MAP:
-          this.lblDynamicMap.setIcon(IMAGE_MANAGER.getImageIcon(ImageManager.SELECTED_MAP_ICON));
+          this.lblDynamicMap.setIcon(IMAGE_MANAGER.getImageIcon(ImageConstants.SELECTED_MAP_ICON));
           this.dynamicMapCard.initialize();
           this.dynamicMapCard.setVisible(true);
         break;
         case CARD_ADMINISTRATION:
-          this.lblAdministration.setIcon(IMAGE_MANAGER.getImageIcon(ImageManager.BLUE_BALL_ICON));
+          this.lblAdministration.setIcon(IMAGE_MANAGER.getImageIcon(ImageConstants.BLUE_BALL_ICON));
           this.adminCard.initialize();
           this.adminCard.setVisible(true);
         break;
@@ -210,7 +210,7 @@ public class MainPanel extends JPanel implements IObserver, INavigation, IThread
   private void configureGUI() {
     this.lblTitle.setFont(TITLE_FONT);
     this.lblTitle.setForeground(TITLE_COLOR);
-    this.lblClose.setIcon(IMAGE_MANAGER.getImageIcon(ImageManager.CLOSE_ICON));
+    this.lblClose.setIcon(IMAGE_MANAGER.getImageIcon(ImageConstants.CLOSE_ICON));
 
     this.lblDynamicMap.setVisible(false);
     this.lblAdministration.setVisible(false);
@@ -277,10 +277,10 @@ public class MainPanel extends JPanel implements IObserver, INavigation, IThread
       ListenerAction action = (ListenerAction) listenerAction;
       switch (action) {
         case CLOSE_ENTERED:
-          this.lblClose.setIcon(IMAGE_MANAGER.getImageIcon(ImageManager.CLOSE_HOVER_ICON));
+          this.lblClose.setIcon(IMAGE_MANAGER.getImageIcon(ImageConstants.CLOSE_HOVER_ICON));
         break;
         case CLOSE_LEFT:
-          this.lblClose.setIcon(IMAGE_MANAGER.getImageIcon(ImageManager.CLOSE_ICON));
+          this.lblClose.setIcon(IMAGE_MANAGER.getImageIcon(ImageConstants.CLOSE_ICON));
         break;
         case CLOSE_CLICKED:
           Main.getInstance().getMainFrame().setVisible(false);

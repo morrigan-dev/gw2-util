@@ -55,7 +55,7 @@ import de.morrigan.dev.gw2.dto.MapInfoDTO;
 import de.morrigan.dev.gw2.dto.common.enums.WPSubType;
 import de.morrigan.dev.gw2.dto.common.enums.WPType;
 import de.morrigan.dev.gw2.dto.exceptions.ServiceException;
-import de.morrigan.dev.gw2.resources.ImageManager;
+import de.morrigan.dev.gw2.resources.ImageConstants;
 import de.morrigan.dev.gw2.resources.ResourceManager;
 import de.morrigan.dev.gw2.utils.observer.IObservable;
 import de.morrigan.dev.gw2.utils.observer.IObserver;
@@ -85,7 +85,7 @@ public class GW2MapPanel extends JXMapKit implements IObserver, IStructuredView,
 	private static final ResourceManager RESOURCE_MANAGER = ResourceManager.getInstance();
 
 	/** Handel auf den ImageManager */
-	private static final ImageManager IMAGE_MANAGER = ImageManager.getInstance();
+	private static final ImageConstants IMAGE_MANAGER = ImageConstants.getInstance();
 
 	/** Anzahl der anzuzeigenden Kartenteile in der Horizontalen */
 	private static final int SHOWING_TILES_WIDTH = 3;
@@ -560,9 +560,9 @@ public class GW2MapPanel extends JXMapKit implements IObserver, IStructuredView,
 	}
 
 	private void showCreateMenu(MouseEvent event) {
-		ImageIcon oreIcon = IMAGE_MANAGER.getImageIcon(ImageManager.ORE_ICON, 15, 15);
-		ImageIcon woodIcon = IMAGE_MANAGER.getImageIcon(ImageManager.WOOD_ICON, 15, 15);
-		ImageIcon plantIcon = IMAGE_MANAGER.getImageIcon(ImageManager.PLANT_ICON, 15, 15);
+		ImageIcon oreIcon = IMAGE_MANAGER.getImageIcon(ImageConstants.ORE_ICON, 15, 15);
+		ImageIcon woodIcon = IMAGE_MANAGER.getImageIcon(ImageConstants.WOOD_ICON, 15, 15);
+		ImageIcon plantIcon = IMAGE_MANAGER.getImageIcon(ImageConstants.PLANT_ICON, 15, 15);
 
 		JPopupMenu menu = new JPopupMenu();
 		JMenu menuOre = new JMenu(RESOURCE_MANAGER.getLabel("ore"));
@@ -697,16 +697,16 @@ public class GW2MapPanel extends JXMapKit implements IObserver, IStructuredView,
 		JPopupMenu menu = new JPopupMenu();
 
 		JMenuItem itemRich = new JMenuItem(RESOURCE_MANAGER.getLabel("rich"), IMAGE_MANAGER.getImageIcon(
-				ImageManager.RICH_ICON, 10, 10));
+				ImageConstants.RICH_ICON, 10, 10));
 		itemRich.setActionCommand(GW2MapModel.AC_RICH_WP);
 		itemRich.addActionListener(this);
 		JMenuItem itemPermanent = new JMenuItem(RESOURCE_MANAGER.getLabel("permanent"), IMAGE_MANAGER.getImageIcon(
-				ImageManager.PERMANENT_ICON, 10, 10));
+				ImageConstants.PERMANENT_ICON, 10, 10));
 		itemPermanent.setActionCommand(GW2MapModel.AC_PERMANENT_WP);
 		itemPermanent.addActionListener(this);
 
 		JMenuItem itemDelete = new JMenuItem(RESOURCE_MANAGER.getLabel("delete"), IMAGE_MANAGER.getImageIcon(
-				ImageManager.DELETE_ICON, 10, 10));
+				ImageConstants.DELETE_ICON, 10, 10));
 		itemDelete.setActionCommand(GW2MapModel.AC_DELETE_WP);
 		itemDelete.addActionListener(this);
 
@@ -723,7 +723,7 @@ public class GW2MapPanel extends JXMapKit implements IObserver, IStructuredView,
 		JPopupMenu menu = new JPopupMenu();
 
 		JMenuItem itemDelete = new JMenuItem(RESOURCE_MANAGER.getLabel("resetSpots"), IMAGE_MANAGER.getImageIcon(
-				ImageManager.DELETE_ICON, 10, 10));
+				ImageConstants.DELETE_ICON, 10, 10));
 		itemDelete.setActionCommand(GW2MapModel.AC_DELETE_WP);
 		itemDelete.addActionListener(aEvent -> {
 			WPGW2Map wpgw2Map = getMapByMousePosition(event);

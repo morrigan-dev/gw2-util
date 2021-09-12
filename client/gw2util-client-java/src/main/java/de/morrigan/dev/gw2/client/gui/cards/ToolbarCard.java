@@ -28,7 +28,7 @@ import de.morrigan.dev.gw2.client.model.NavigationModel;
 import de.morrigan.dev.gw2.client.model.RightsModel;
 import de.morrigan.dev.gw2.client.model.TopMenuBarModel;
 import de.morrigan.dev.gw2.resources.FontConstants;
-import de.morrigan.dev.gw2.resources.ImageManager;
+import de.morrigan.dev.gw2.resources.ImageConstants;
 import de.morrigan.dev.gw2.utils.annotations.RightCheck;
 import de.morrigan.dev.gw2.utils.annotations.RightCheck.Type;
 import de.morrigan.dev.gw2.utils.observer.IObservable;
@@ -57,7 +57,7 @@ public class ToolbarCard extends AbstractView<TopMenuBarModel> {
   private static final Logger LOG = LoggerFactory.getLogger(ToolbarCard.class);
 
   /** Handel auf den ImageManager */
-  private static final ImageManager IMAGE_MANAGER = ImageManager.getInstance();
+  private static final ImageConstants IMAGE_MANAGER = ImageConstants.getInstance();
 
   /** Schriftart des Infotextes */
   private static final Font titleFont = FONT_MANAGER.getFont(FontConstants.MENOMONIA, 14f).get();
@@ -90,12 +90,12 @@ public class ToolbarCard extends AbstractView<TopMenuBarModel> {
       configureListener();
       updateLanguage();
 
-      RightsModel.getInstance().updateViewByRights(this);
+      //      RightsModel.getInstance().updateViewByRights(this);
 
       this.model.addObserver(this);
-      this.authModel.addObserver(this);
-      InfoMessageModel.getInstance().addObserver(this);
-      RightsModel.getInstance().addObserver(this);
+      //      this.authModel.addObserver(this);
+      //      InfoMessageModel.getInstance().addObserver(this);
+      //      RightsModel.getInstance().addObserver(this);
 
     } catch (final Exception e) {
       LOG.error(e.getMessage(), e);
@@ -107,9 +107,9 @@ public class ToolbarCard extends AbstractView<TopMenuBarModel> {
   public void configureGUI() {
     setOpaque(false);
 
-    this.barInfo.setIcon(IMAGE_MANAGER.getImageIcon(ImageManager.BAR_INFO_ICON));
-    this.barMap.setIcon(IMAGE_MANAGER.getImageIcon(ImageManager.BAR_MAP_ICON));
-    this.barExit.setIcon(IMAGE_MANAGER.getImageIcon(ImageManager.BAR_EXIT_ICON));
+    this.barInfo.setIcon(IMAGE_MANAGER.getImageIcon(ImageConstants.BAR_INFO_ICON));
+    this.barMap.setIcon(IMAGE_MANAGER.getImageIcon(ImageConstants.BAR_MAP_ICON));
+    this.barExit.setIcon(IMAGE_MANAGER.getImageIcon(ImageConstants.BAR_EXIT_ICON));
 
     this.barMap.setVisible(false);
 
@@ -187,12 +187,12 @@ public class ToolbarCard extends AbstractView<TopMenuBarModel> {
       ListenerAction action = (ListenerAction) listenerAction;
       switch (action) {
         case INFO_ENTERED:
-          this.barInfo.setIcon(IMAGE_MANAGER.getImageIcon(ImageManager.BAR_INFO_HOVER_ICON));
+          this.barInfo.setIcon(IMAGE_MANAGER.getImageIcon(ImageConstants.BAR_INFO_HOVER_ICON));
           InfoMessageModel.getInstance().setMessage("Silver Drachenkrieger Utilities");
           InfoMessageModel.getInstance().startTimer();
         break;
         case INFO_LEFT:
-          this.barInfo.setIcon(IMAGE_MANAGER.getImageIcon(ImageManager.BAR_INFO_ICON));
+          this.barInfo.setIcon(IMAGE_MANAGER.getImageIcon(ImageConstants.BAR_INFO_ICON));
           Main.getInstance().repaint();
         break;
         case INFO_CLICKED:
@@ -200,24 +200,24 @@ public class ToolbarCard extends AbstractView<TopMenuBarModel> {
         break;
 
         case MAP_ENTERED:
-          this.barMap.setIcon(IMAGE_MANAGER.getImageIcon(ImageManager.BAR_MAP_HOVER_ICON));
+          this.barMap.setIcon(IMAGE_MANAGER.getImageIcon(ImageConstants.BAR_MAP_HOVER_ICON));
           InfoMessageModel.getInstance().setMessage("Silver Drachenkrieger Utilities");
           InfoMessageModel.getInstance().startTimer();
         break;
         case MAP_LEFT:
-          this.barMap.setIcon(IMAGE_MANAGER.getImageIcon(ImageManager.BAR_MAP_ICON));
+          this.barMap.setIcon(IMAGE_MANAGER.getImageIcon(ImageConstants.BAR_MAP_ICON));
           Main.getInstance().repaint();
         break;
         case MAP_CLICKED:
           this.navModel.setSelectedCard(INavigation.CARD_MAP);
         break;
         case EXIT_ENTERED:
-          this.barExit.setIcon(IMAGE_MANAGER.getImageIcon(ImageManager.BAR_EXIT_HOVER_ICON));
+          this.barExit.setIcon(IMAGE_MANAGER.getImageIcon(ImageConstants.BAR_EXIT_HOVER_ICON));
           InfoMessageModel.getInstance().setMessage("Silver Drachenkrieger Utilities");
           InfoMessageModel.getInstance().startTimer();
         break;
         case EXIT_LEFT:
-          this.barExit.setIcon(IMAGE_MANAGER.getImageIcon(ImageManager.BAR_EXIT_ICON));
+          this.barExit.setIcon(IMAGE_MANAGER.getImageIcon(ImageConstants.BAR_EXIT_ICON));
           Main.getInstance().repaint();
         break;
         case EXIT_CLICKED:
@@ -292,7 +292,7 @@ public class ToolbarCard extends AbstractView<TopMenuBarModel> {
     String errorMsg = "";
     String detailMsg = RESOURCE_MANAGER.getMessage("exit_confirmation");
     MessageDialogModel dialogModel = new MessageDialogModel(
-        IMAGE_MANAGER.getImageIcon(ImageManager.CONFIRMATION_ICON), title, dialogHeaderText, errorMsg,
+        IMAGE_MANAGER.getImageIcon(ImageConstants.CONFIRMATION_ICON), title, dialogHeaderText, errorMsg,
         detailMsg);
     new ConfirmationDialog(getMainWindow(), dialogModel, new ListenerWrapper<Object>(resultListener));
   }

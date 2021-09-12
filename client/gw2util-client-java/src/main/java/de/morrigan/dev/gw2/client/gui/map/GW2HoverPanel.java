@@ -13,7 +13,7 @@ import javax.swing.border.LineBorder;
 import de.morrigan.dev.gw2.client.gui.components.GW2Label;
 import de.morrigan.dev.gw2.client.gui.interfaces.IListenerAction;
 import de.morrigan.dev.gw2.client.gui.interfaces.IStructuredView;
-import de.morrigan.dev.gw2.resources.ImageManager;
+import de.morrigan.dev.gw2.resources.ImageConstants;
 import de.morrigan.dev.gw2.resources.ResourceManager;
 import de.morrigan.dev.swing.GCUtil;
 import de.morrigan.dev.swing.InsetConstants;
@@ -27,7 +27,7 @@ public class GW2HoverPanel extends JDialog implements IStructuredView {
 	protected static final ResourceManager RESOURCE_MANAGER = ResourceManager.getInstance();
 
 	/** Handel auf den ImageManager */
-	protected static final ImageManager IMAGE_MANAGER = ImageManager.getInstance();
+	protected static final ImageConstants IMAGE_MANAGER = ImageConstants.getInstance();
 
 	/** Hintergrundfarbe des Panels */
 	private static final Color BACKGROUND_COLOR = new Color(30, 30, 50);
