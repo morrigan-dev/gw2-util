@@ -35,12 +35,12 @@ import org.slf4j.LoggerFactory;
 import de.morrigan.dev.gw2.client.gui.components.FilterModel.TreeObject;
 import de.morrigan.dev.gw2.resources.FontConstants;
 import de.morrigan.dev.gw2.resources.ImageConstants;
-import de.morrigan.dev.gw2.resources.ResourceManager;
 import de.morrigan.dev.gw2.utils.observer.IObservable;
 import de.morrigan.dev.gw2.utils.observer.IObserver;
 import de.morrigan.dev.swing.GCUtil;
 import de.morrigan.dev.swing.InsetConstants;
 import de.morrigan.dev.utils.resources.FontManager;
+import de.morrigan.dev.utils.resources.LanguageManager;
 
 public class FilterPanel extends JPanel implements IObserver {
 
@@ -137,8 +137,8 @@ public class FilterPanel extends JPanel implements IObserver {
   /** Logger für Debugausgaben */
   private static final Logger LOG = LoggerFactory.getLogger(FilterPanel.class);
 
-  /** Handel auf den LabelManager */
-  private static final ResourceManager RESOURCE_MANAGER = ResourceManager.getInstance();
+  /** Stellt Beschriftungen, Nachrichten und Fehlerbeschreibungen bereit */
+  private static final LanguageManager LANGUAGES = LanguageManager.getInstance();
 
   /** Handel auf den ImageManager */
   private static final ImageConstants IMAGE_MANAGER = ImageConstants.getInstance();
@@ -425,10 +425,10 @@ public class FilterPanel extends JPanel implements IObserver {
   }
 
   private void updateLanguage() {
-    this.header.setHeadertext(RESOURCE_MANAGER.getLabel("filter"));
+    this.header.setHeadertext(LANGUAGES.getLabel("filter"));
 
-    this.lblAvailableElements.setText(RESOURCE_MANAGER.getLabel("availableElements"));
-    this.lblSelectedElements.setText(RESOURCE_MANAGER.getLabel("selectedElements"));
+    this.lblAvailableElements.setText(LANGUAGES.getLabel("availableElements"));
+    this.lblSelectedElements.setText(LANGUAGES.getLabel("selectedElements"));
 
     int iconSize = 25;
     this.btnMoveAllLeft.setIcon(IMAGE_MANAGER.getImageIcon(ImageConstants.ARROWS_LEFT_ICON, iconSize, iconSize));

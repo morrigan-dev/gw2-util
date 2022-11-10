@@ -14,83 +14,83 @@ import de.morrigan.dev.gw2.client.gui.components.GW2Label;
 import de.morrigan.dev.gw2.client.gui.interfaces.IListenerAction;
 import de.morrigan.dev.gw2.client.gui.interfaces.IStructuredView;
 import de.morrigan.dev.gw2.resources.ImageConstants;
-import de.morrigan.dev.gw2.resources.ResourceManager;
 import de.morrigan.dev.swing.GCUtil;
 import de.morrigan.dev.swing.InsetConstants;
+import de.morrigan.dev.utils.resources.LanguageManager;
 
 public class GW2HoverPanel extends JDialog implements IStructuredView {
 
-	/** automatisch generierte serialVersionUID */
-	private static final long serialVersionUID = -8296584091692029189L;
+  /** automatisch generierte serialVersionUID */
+  private static final long serialVersionUID = -8296584091692029189L;
 
-	/** Handle auf den ResourceManager */
-	protected static final ResourceManager RESOURCE_MANAGER = ResourceManager.getInstance();
+  /** Stellt Beschriftungen, Nachrichten und Fehlerbeschreibungen bereit */
+  protected static final LanguageManager LANGUAGES = LanguageManager.getInstance();
 
-	/** Handel auf den ImageManager */
-	protected static final ImageConstants IMAGE_MANAGER = ImageConstants.getInstance();
+  /** Handel auf den ImageManager */
+  protected static final ImageConstants IMAGE_MANAGER = ImageConstants.getInstance();
 
-	/** Hintergrundfarbe des Panels */
-	private static final Color BACKGROUND_COLOR = new Color(30, 30, 50);
+  /** Hintergrundfarbe des Panels */
+  private static final Color BACKGROUND_COLOR = new Color(30, 30, 50);
 
-	/** Rahmenfarbe des Panels */
-	private static final LineBorder LINE_BORDER = new LineBorder(new Color(0, 0, 0), 2, false);
+  /** Rahmenfarbe des Panels */
+  private static final LineBorder LINE_BORDER = new LineBorder(new Color(0, 0, 0), 2, false);
 
-	protected JPanel pnlContent;
-	protected GW2Label lblInfo;
+  protected JPanel pnlContent;
+  protected GW2Label lblInfo;
 
-	public GW2HoverPanel() {
-		super();
+  public GW2HoverPanel() {
+    super();
 
-		createGUI();
-		configureGUI();
-		layoutGUI();
-		configureListener();
-		updateLanguage();
-	}
+    createGUI();
+    configureGUI();
+    layoutGUI();
+    configureListener();
+    updateLanguage();
+  }
 
-	@Override
-	public void configureGUI() {
-		setAlwaysOnTop(true);
-		setUndecorated(true);
-		this.pnlContent.setBorder(LINE_BORDER);
-		this.pnlContent.setBackground(BACKGROUND_COLOR);
-	}
+  @Override
+  public void configureGUI() {
+    setAlwaysOnTop(true);
+    setUndecorated(true);
+    this.pnlContent.setBorder(LINE_BORDER);
+    this.pnlContent.setBackground(BACKGROUND_COLOR);
+  }
 
-	@Override
-	public void configureListener() {
-		// keine Listener vorhanden
-	}
+  @Override
+  public void configureListener() {
+    // keine Listener vorhanden
+  }
 
-	@Override
-	public void createGUI() {
-		this.pnlContent = new JPanel();
-		this.lblInfo = new GW2Label();
-	}
+  @Override
+  public void createGUI() {
+    this.pnlContent = new JPanel();
+    this.lblInfo = new GW2Label();
+  }
 
-	@Override
-	public void handleListenerEvent(IListenerAction listenerAction, EventObject event) {
-		// keine Listener vorhanden
-	}
+  @Override
+  public void handleListenerEvent(IListenerAction listenerAction, EventObject event) {
+    // keine Listener vorhanden
+  }
 
-	@Override
-	public void layoutGUI() {
-		this.pnlContent.setLayout(new GridBagLayout());
-		GridBagConstraints gbc = new GridBagConstraints();
+  @Override
+  public void layoutGUI() {
+    this.pnlContent.setLayout(new GridBagLayout());
+    GridBagConstraints gbc = new GridBagConstraints();
 
-		GCUtil.configGC(gbc, 0, 0, GCUtil.WEST, GCUtil.NONE, 0.0, 0.0, 10, 1, InsetConstants.ALL_INSETS);
-		this.pnlContent.add(this.lblInfo, gbc);
+    GCUtil.configGC(gbc, 0, 0, GCUtil.WEST, GCUtil.NONE, 0.0, 0.0, 10, 1, InsetConstants.ALL_INSETS);
+    this.pnlContent.add(this.lblInfo, gbc);
 
-		setLayout(new BorderLayout());
-		add(this.pnlContent, BorderLayout.CENTER);
-	}
+    setLayout(new BorderLayout());
+    add(this.pnlContent, BorderLayout.CENTER);
+  }
 
-	public void setInfo(String info) {
-		this.lblInfo.setText(info);
-		pack();
-	}
+  public void setInfo(String info) {
+    this.lblInfo.setText(info);
+    pack();
+  }
 
-	@Override
-	public void updateLanguage() {
-		// keine GUI-Elemente mit Beschriftung vorhanden
-	}
+  @Override
+  public void updateLanguage() {
+    // keine GUI-Elemente mit Beschriftung vorhanden
+  }
 }

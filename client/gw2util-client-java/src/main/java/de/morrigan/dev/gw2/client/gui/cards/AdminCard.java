@@ -102,6 +102,6 @@ public class AdminCard extends AbstractView<AdminModel> {
 
   @Override
   public void updateLanguage() {
-    this.mbUserAdmin.setHeadertext(RESOURCE_MANAGER.getLabel("userAdmin"));
+    this.mbUserAdmin.setHeadertext(LANGUAGES.getLabel("userAdmin"));
   }
 }

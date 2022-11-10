@@ -19,9 +19,9 @@ import org.slf4j.LoggerFactory;
 
 import de.morrigan.dev.gw2.dto.common.enums.WPSubType;
 import de.morrigan.dev.gw2.resources.ImageConstants;
-import de.morrigan.dev.gw2.resources.ResourceManager;
 import de.morrigan.dev.swing.models.AbstractModel;
 import de.morrigan.dev.utils.BitUtil;
+import de.morrigan.dev.utils.resources.LanguageManager;
 
 public class FilterModel extends AbstractModel {
 
@@ -77,8 +77,8 @@ public class FilterModel extends AbstractModel {
   /** Logger für Debugausgaben */
   private static final Logger LOG = LoggerFactory.getLogger(FilterModel.class);
 
-  /** Handel auf den LabelManager */
-  private static final ResourceManager RM = ResourceManager.getInstance();
+  /** Stellt Beschriftungen, Nachrichten und Fehlerbeschreibungen bereit */
+  private static final LanguageManager LANGUAGES = LanguageManager.getInstance();
 
   /** Handel auf den ImageManager */
   private static final ImageConstants IM = ImageConstants.getInstance();
@@ -407,212 +407,220 @@ public class FilterModel extends AbstractModel {
   private void initAvailableElementsModel() {
     int gSort = 0;
     int iSort = 0;
-    ImageIcon icon = null;
+    ImageIcon icon;
 
-    GroupNode root = new GroupNode(new TreeObject(null, RM.getLabel("filter"), GROUP_ROOT, gSort++));
+    GroupNode root = new GroupNode(new TreeObject(null, LANGUAGES.getLabel("filter"), GROUP_ROOT, gSort++));
 
     icon = IM.getImageIcon(ImageConstants.ORE_ICON, ICON_SIZE);
-    GroupNode ore = new GroupNode(new TreeObject(icon, RM.getLabel("ore"), GROUP_ORE, gSort++));
+    GroupNode ore = new GroupNode(new TreeObject(icon, LANGUAGES.getLabel("ore"), GROUP_ORE, gSort++));
     icon = IM.getImageIcon(ImageConstants.ORICHALCUM_ICON, ICON_SIZE);
-    ItemNode oricalcum = new ItemNode(new TreeObject(icon, RM.getLabel("orichalcumVein"), ORE_ORICHALCUM, iSort++));
+    ItemNode oricalcum = new ItemNode(
+        new TreeObject(icon, LANGUAGES.getLabel("orichalcumVein"), ORE_ORICHALCUM, iSort++));
     icon = IM.getImageIcon(ImageConstants.MITHRIL_ICON, ICON_SIZE);
-    ItemNode mithril = new ItemNode(new TreeObject(icon, RM.getLabel("mithrilVein"), ORE_MITHRIL, iSort++));
+    ItemNode mithril = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("mithrilVein"), ORE_MITHRIL, iSort++));
     icon = IM.getImageIcon(ImageConstants.PLATINUM_ICON, ICON_SIZE);
-    ItemNode platinum = new ItemNode(new TreeObject(icon, RM.getLabel("platinumVein"), ORE_PLATINUM, iSort++));
+    ItemNode platinum = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("platinumVein"), ORE_PLATINUM, iSort++));
     icon = IM.getImageIcon(ImageConstants.GOLD_ICON, ICON_SIZE);
-    ItemNode gold = new ItemNode(new TreeObject(icon, RM.getLabel("goldVein"), ORE_GOLD, iSort++));
+    ItemNode gold = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("goldVein"), ORE_GOLD, iSort++));
     icon = IM.getImageIcon(ImageConstants.SILVER_ICON, ICON_SIZE);
-    ItemNode silver = new ItemNode(new TreeObject(icon, RM.getLabel("silverVein"), ORE_SILVER, iSort++));
+    ItemNode silver = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("silverVein"), ORE_SILVER, iSort++));
     icon = IM.getImageIcon(ImageConstants.IRON_ICON, ICON_SIZE);
-    ItemNode iron = new ItemNode(new TreeObject(icon, RM.getLabel("ironVein"), ORE_IRON, iSort++));
+    ItemNode iron = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("ironVein"), ORE_IRON, iSort++));
     icon = IM.getImageIcon(ImageConstants.COPPER_ICON, ICON_SIZE);
-    ItemNode copper = new ItemNode(new TreeObject(icon, RM.getLabel("copperVein"), ORE_COPPER, iSort++));
+    ItemNode copper = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("copperVein"), ORE_COPPER, iSort++));
 
     iSort = 0;
     GroupNode wood = new GroupNode(new TreeObject(IM.getImageIcon(ImageConstants.WOOD_ICON, ICON_SIZE),
-        RM.getLabel("wood"), GROUP_WOOD, gSort++));
+        LANGUAGES.getLabel("wood"), GROUP_WOOD, gSort++));
     icon = IM.getImageIcon(ImageConstants.ANCIENT_WOOD_ICON, ICON_SIZE);
-    ItemNode orrian = new ItemNode(new TreeObject(icon, RM.getLabel("orrian"), WOOD_ORRIAN, iSort++));
+    ItemNode orrian = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("orrian"), WOOD_ORRIAN, iSort++));
     icon = IM.getImageIcon(ImageConstants.ANCIENT_WOOD_ICON, ICON_SIZE);
-    ItemNode ancient = new ItemNode(new TreeObject(icon, RM.getLabel("ancient"), WOOD_ANCIENT, iSort++));
+    ItemNode ancient = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("ancient"), WOOD_ANCIENT, iSort++));
     icon = IM.getImageIcon(ImageConstants.ELDER_WOOD_ICON, ICON_SIZE);
-    ItemNode baoba = new ItemNode(new TreeObject(icon, RM.getLabel("baoba"), WOOD_BAOBA, iSort++));
+    ItemNode baoba = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("baoba"), WOOD_BAOBA, iSort++));
     icon = IM.getImageIcon(ImageConstants.ELDER_WOOD_ICON, ICON_SIZE);
-    ItemNode redOak = new ItemNode(new TreeObject(icon, RM.getLabel("redOak"), WOOD_REDOAK, iSort++));
+    ItemNode redOak = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("redOak"), WOOD_REDOAK, iSort++));
     icon = IM.getImageIcon(ImageConstants.ELDER_WOOD_ICON, ICON_SIZE);
-    ItemNode cypress = new ItemNode(new TreeObject(icon, RM.getLabel("cypress"), WOOD_CYPRESS, iSort++));
+    ItemNode cypress = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("cypress"), WOOD_CYPRESS, iSort++));
     icon = IM.getImageIcon(ImageConstants.HARD_WOOD_ICON, ICON_SIZE);
-    ItemNode banyan = new ItemNode(new TreeObject(icon, RM.getLabel("banyan"), WOOD_BANYAN, iSort++));
+    ItemNode banyan = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("banyan"), WOOD_BANYAN, iSort++));
     icon = IM.getImageIcon(ImageConstants.HARD_WOOD_ICON, ICON_SIZE);
-    ItemNode inglewood = new ItemNode(new TreeObject(icon, RM.getLabel("inglewood"), WOOD_INGLEWOOD, iSort++));
+    ItemNode inglewood = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("inglewood"), WOOD_INGLEWOOD, iSort++));
     icon = IM.getImageIcon(ImageConstants.HARD_WOOD_ICON, ICON_SIZE);
-    ItemNode pine = new ItemNode(new TreeObject(icon, RM.getLabel("pine"), WOOD_PINE, iSort++));
+    ItemNode pine = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("pine"), WOOD_PINE, iSort++));
     icon = IM.getImageIcon(ImageConstants.SEASONED_WOOD_ICON, ICON_SIZE);
-    ItemNode fir = new ItemNode(new TreeObject(icon, RM.getLabel("fir"), WOOD_FIR, iSort++));
+    ItemNode fir = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("fir"), WOOD_FIR, iSort++));
     icon = IM.getImageIcon(ImageConstants.SEASONED_WOOD_ICON, ICON_SIZE);
-    ItemNode tukawa = new ItemNode(new TreeObject(icon, RM.getLabel("tukawa"), WOOD_TUKAWA, iSort++));
+    ItemNode tukawa = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("tukawa"), WOOD_TUKAWA, iSort++));
     icon = IM.getImageIcon(ImageConstants.SOFT_WOOD_ICON, ICON_SIZE);
-    ItemNode snowCherry = new ItemNode(new TreeObject(icon, RM.getLabel("snowCherry"), WOOD_SNOWCHERRY, iSort++));
+    ItemNode snowCherry = new ItemNode(
+        new TreeObject(icon, LANGUAGES.getLabel("snowCherry"), WOOD_SNOWCHERRY, iSort++));
     icon = IM.getImageIcon(ImageConstants.SOFT_WOOD_ICON, ICON_SIZE);
-    ItemNode mimosa = new ItemNode(new TreeObject(icon, RM.getLabel("mimosa"), WOOD_MIMOSA, iSort++));
+    ItemNode mimosa = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("mimosa"), WOOD_MIMOSA, iSort++));
     icon = IM.getImageIcon(ImageConstants.SOFT_WOOD_ICON, ICON_SIZE);
-    ItemNode gummo = new ItemNode(new TreeObject(icon, RM.getLabel("gummo"), WOOD_GUMMO, iSort++));
+    ItemNode gummo = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("gummo"), WOOD_GUMMO, iSort++));
     icon = IM.getImageIcon(ImageConstants.GREEN_WOOD_ICON, ICON_SIZE);
-    ItemNode aspen = new ItemNode(new TreeObject(icon, RM.getLabel("aspen"), WOOD_ASPEN, iSort++));
+    ItemNode aspen = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("aspen"), WOOD_ASPEN, iSort++));
     icon = IM.getImageIcon(ImageConstants.GREEN_WOOD_ICON, ICON_SIZE);
-    ItemNode ekku = new ItemNode(new TreeObject(icon, RM.getLabel("ekku"), WOOD_EKKU, iSort++));
+    ItemNode ekku = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("ekku"), WOOD_EKKU, iSort++));
     icon = IM.getImageIcon(ImageConstants.GREEN_WOOD_ICON, ICON_SIZE);
-    ItemNode kertch = new ItemNode(new TreeObject(icon, RM.getLabel("kertch"), WOOD_KERTCH, iSort++));
+    ItemNode kertch = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("kertch"), WOOD_KERTCH, iSort++));
 
     iSort = 0;
     GroupNode plant = new GroupNode(new TreeObject(IM.getImageIcon(ImageConstants.PLANT_ICON, ICON_SIZE),
-        RM.getLabel("plant"), GROUP_PLANT, gSort++));
+        LANGUAGES.getLabel("plant"), GROUP_PLANT, gSort++));
     icon = IM.getImageIcon(ImageConstants.PLANT_SAFFRON_THREAD_ICON, ICON_SIZE);
-    ItemNode blackCrocus = new ItemNode(new TreeObject(icon, RM.getLabel("blackCrocus"), PLANT_BLACK_CROCUS,
+    ItemNode blackCrocus = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("blackCrocus"), PLANT_BLACK_CROCUS,
         iSort++));
     icon = IM.getImageIcon(ImageConstants.PLANT_GHOST_PEPPER_ICON, ICON_SIZE);
-    ItemNode ghostPepper = new ItemNode(new TreeObject(icon, RM.getLabel("ghostPepper"), PLANT_GHOST_PEPPER,
+    ItemNode ghostPepper = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("ghostPepper"), PLANT_GHOST_PEPPER,
         iSort++));
     icon = IM.getImageIcon(ImageConstants.PLANT_LOTUS_ROOT_ICON, ICON_SIZE);
-    ItemNode lotus = new ItemNode(new TreeObject(icon, RM.getLabel("lotus"), PLANT_LOTUS, iSort++));
+    ItemNode lotus = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("lotus"), PLANT_LOTUS, iSort++));
     icon = IM.getImageIcon(ImageConstants.PLANT_OMNOMBERRY_ICON, ICON_SIZE);
-    ItemNode omnomberries = new ItemNode(new TreeObject(icon, RM.getLabel("omnomberries"), PLANT_OMNOMBERRIES,
+    ItemNode omnomberries = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("omnomberries"), PLANT_OMNOMBERRIES,
         iSort++));
     icon = IM.getImageIcon(ImageConstants.PLANT_ORRIAN_TRUFFLE_ICON, ICON_SIZE);
-    ItemNode orrianTruffle = new ItemNode(new TreeObject(icon, RM.getLabel("orrianTruffle"), PLANT_ORRIAN_TRUFFLE,
-        iSort++));
+    ItemNode orrianTruffle = new ItemNode(
+        new TreeObject(icon, LANGUAGES.getLabel("orrianTruffle"), PLANT_ORRIAN_TRUFFLE,
+            iSort++));
     icon = IM.getImageIcon(ImageConstants.PLANT_SEAWEED_ICON, ICON_SIZE);
-    ItemNode seaweed = new ItemNode(new TreeObject(icon, RM.getLabel("seaweed"), PLANT_SEAWEED, iSort++));
+    ItemNode seaweed = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("seaweed"), PLANT_SEAWEED, iSort++));
     icon = IM.getImageIcon(ImageConstants.PLANT_SNOW_TRUFFLE_ICON, ICON_SIZE);
-    ItemNode snowTruffle = new ItemNode(new TreeObject(icon, RM.getLabel("snowTruffle"), PLANT_SNOW_TRUFFLE,
+    ItemNode snowTruffle = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("snowTruffle"), PLANT_SNOW_TRUFFLE,
         iSort++));
 
     icon = IM.getImageIcon(ImageConstants.PLANT_ARTICHOKE_ICON, ICON_SIZE);
-    ItemNode artichoke = new ItemNode(new TreeObject(icon, RM.getLabel("artichoke"), PLANT_ARTICHOKE, iSort++));
+    ItemNode artichoke = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("artichoke"), PLANT_ARTICHOKE, iSort++));
     icon = IM.getImageIcon(ImageConstants.PLANT_ASPARAGUS_SPEAR_ICON, ICON_SIZE);
-    ItemNode asparagus = new ItemNode(new TreeObject(icon, RM.getLabel("asparagus"), PLANT_ASPARAGUS, iSort++));
+    ItemNode asparagus = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("asparagus"), PLANT_ASPARAGUS, iSort++));
     icon = IM.getImageIcon(ImageConstants.PLANT_PASSION_FLOWER_ICON, ICON_SIZE);
-    ItemNode bloomingPassiflora = new ItemNode(new TreeObject(icon, RM.getLabel("bloomingPassiflora"),
+    ItemNode bloomingPassiflora = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("bloomingPassiflora"),
         PLANT_BLOOMING_PASSIFLORA, iSort++));
     icon = IM.getImageIcon(ImageConstants.PLANT_BUTTERNUT_SQUASH_ICON, ICON_SIZE);
-    ItemNode butternutSquash = new ItemNode(new TreeObject(icon, RM.getLabel("butternutSquash"),
+    ItemNode butternutSquash = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("butternutSquash"),
         PLANT_BUTTERNUT_SQUASH, iSort++));
     icon = IM.getImageIcon(ImageConstants.PLANT_CAYENNE_PEPPER_ICON, ICON_SIZE);
-    ItemNode cayennePepper = new ItemNode(new TreeObject(icon, RM.getLabel("cayennePepper"), PLANT_CAYENNE_PEPPER,
-        iSort++));
+    ItemNode cayennePepper = new ItemNode(
+        new TreeObject(icon, LANGUAGES.getLabel("cayennePepper"), PLANT_CAYENNE_PEPPER,
+            iSort++));
     icon = IM.getImageIcon(ImageConstants.PLANT_ICON, ICON_SIZE);
-    ItemNode herbPatch = new ItemNode(new TreeObject(icon, RM.getLabel("herbPatch"), PLANT_HERB_PATCH, iSort++));
+    ItemNode herbPatch = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("herbPatch"), PLANT_HERB_PATCH, iSort++));
     icon = IM.getImageIcon(ImageConstants.PLANT_LEEK_ICON, ICON_SIZE);
-    ItemNode leaks = new ItemNode(new TreeObject(icon, RM.getLabel("leaks"), PLANT_LEEKS, iSort++));
+    ItemNode leaks = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("leaks"), PLANT_LEEKS, iSort++));
     icon = IM.getImageIcon(ImageConstants.PLANT_PASSION_FLOWER_ICON, ICON_SIZE);
-    ItemNode passiflora = new ItemNode(new TreeObject(icon, RM.getLabel("passiflora"), PLANT_PASSIFLORA, iSort++));
+    ItemNode passiflora = new ItemNode(
+        new TreeObject(icon, LANGUAGES.getLabel("passiflora"), PLANT_PASSIFLORA, iSort++));
     icon = IM.getImageIcon(ImageConstants.PLANT_RASPBERRY_ICON, ICON_SIZE);
     ItemNode raspberries = new ItemNode(
-        new TreeObject(icon, RM.getLabel("raspberries"), PLANT_RASPBERRIES, iSort++));
+        new TreeObject(icon, LANGUAGES.getLabel("raspberries"), PLANT_RASPBERRIES, iSort++));
     icon = IM.getImageIcon(ImageConstants.PLANT_ICON, ICON_SIZE);
-    ItemNode verdantHerbs = new ItemNode(new TreeObject(icon, RM.getLabel("verdantHerbs"), PLANT_VERDANT_HERBS,
+    ItemNode verdantHerbs = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("verdantHerbs"), PLANT_VERDANT_HERBS,
         iSort++));
     icon = IM.getImageIcon(ImageConstants.PLANT_ICON, ICON_SIZE);
-    ItemNode winterRootVegetables = new ItemNode(new TreeObject(icon, RM.getLabel("winterRootVegetables"),
+    ItemNode winterRootVegetables = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("winterRootVegetables"),
         PLANT_WINTER_ROOT_VEGETABLES, iSort++));
 
     icon = IM.getImageIcon(ImageConstants.PLANT_BLACKBERRY_ICON, ICON_SIZE);
-    ItemNode blackberries = new ItemNode(new TreeObject(icon, RM.getLabel("blackberries"), PLANT_BLACKBERRIES,
+    ItemNode blackberries = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("blackberries"), PLANT_BLACKBERRIES,
         iSort++));
     icon = IM.getImageIcon(ImageConstants.PLANT_HEAD_OF_CAULIFLOWER_ICON, ICON_SIZE);
     ItemNode cauliflower = new ItemNode(
-        new TreeObject(icon, RM.getLabel("cauliflower"), PLANT_CAULIFLOWER, iSort++));
+        new TreeObject(icon, LANGUAGES.getLabel("cauliflower"), PLANT_CAULIFLOWER, iSort++));
     icon = IM.getImageIcon(ImageConstants.PLANT_CORAL_CHUNK_ICON, ICON_SIZE);
-    ItemNode coral = new ItemNode(new TreeObject(icon, RM.getLabel("coral"), PLANT_CORAL, iSort++));
+    ItemNode coral = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("coral"), PLANT_CORAL, iSort++));
     icon = IM.getImageIcon(ImageConstants.PLANT_ICON, ICON_SIZE);
-    ItemNode matureHerbs = new ItemNode(new TreeObject(icon, RM.getLabel("matureHerbs"), PLANT_MATURE_HERBS,
+    ItemNode matureHerbs = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("matureHerbs"), PLANT_MATURE_HERBS,
         iSort++));
     icon = IM.getImageIcon(ImageConstants.PLANT_PORTOBELLO_MUSHROOM_ICON, ICON_SIZE);
-    ItemNode portobelloMushrooms = new ItemNode(new TreeObject(icon, RM.getLabel("portobelloMushrooms"),
+    ItemNode portobelloMushrooms = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("portobelloMushrooms"),
         PLANT_PORTOBELLO_MUSHROOMS, iSort++));
     icon = IM.getImageIcon(ImageConstants.PLANT_ONION_ICON, ICON_SIZE);
-    ItemNode scallions = new ItemNode(new TreeObject(icon, RM.getLabel("scallions"), PLANT_SCALLIONS, iSort++));
+    ItemNode scallions = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("scallions"), PLANT_SCALLIONS, iSort++));
     icon = IM.getImageIcon(ImageConstants.PLANT_SUGAR_PUMPKIN_ICON, ICON_SIZE);
-    ItemNode sugarPumpkin = new ItemNode(new TreeObject(icon, RM.getLabel("sugarPumpkin"), PLANT_SUGAR_PUMPKIN,
+    ItemNode sugarPumpkin = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("sugarPumpkin"), PLANT_SUGAR_PUMPKIN,
         iSort++));
     icon = IM.getImageIcon(ImageConstants.PLANT_ICON, ICON_SIZE);
-    ItemNode variegatedTaproots = new ItemNode(new TreeObject(icon, RM.getLabel("variegatedTaproots"),
+    ItemNode variegatedTaproots = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("variegatedTaproots"),
         PLANT_VARIEGATED_TAPROOTS, iSort++));
 
     icon = IM.getImageIcon(ImageConstants.PLANT_HEAD_OF_CABBAGE_ICON, ICON_SIZE);
-    ItemNode cabbage = new ItemNode(new TreeObject(icon, RM.getLabel("cabbage"), PLANT_CABBAGE, iSort++));
+    ItemNode cabbage = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("cabbage"), PLANT_CABBAGE, iSort++));
     icon = IM.getImageIcon(ImageConstants.PLANT_GRAPE_ICON, ICON_SIZE);
-    ItemNode grapes = new ItemNode(new TreeObject(icon, RM.getLabel("grapes"), PLANT_GRAPES, iSort++));
+    ItemNode grapes = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("grapes"), PLANT_GRAPES, iSort++));
     icon = IM.getImageIcon(ImageConstants.PLANT_KALE_LEAF_ICON, ICON_SIZE);
-    ItemNode kale = new ItemNode(new TreeObject(icon, RM.getLabel("kale"), PLANT_KALE, iSort++));
+    ItemNode kale = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("kale"), PLANT_KALE, iSort++));
     icon = IM.getImageIcon(ImageConstants.PLANT_ICON, ICON_SIZE);
-    ItemNode rootVegetables = new ItemNode(new TreeObject(icon, RM.getLabel("rootVegetables"),
+    ItemNode rootVegetables = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("rootVegetables"),
         PLANT_ROOT_VEGETABLES, iSort++));
     icon = IM.getImageIcon(ImageConstants.PLANT_MUSHROOM_ICON, ICON_SIZE);
-    ItemNode variedMushrooms = new ItemNode(new TreeObject(icon, RM.getLabel("variedMushrooms"),
+    ItemNode variedMushrooms = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("variedMushrooms"),
         PLANT_VARIED_MUSHROOMS, iSort++));
     icon = IM.getImageIcon(ImageConstants.PLANT_ICON, ICON_SIZE);
-    ItemNode youngHerbs = new ItemNode(new TreeObject(icon, RM.getLabel("youngHerbs"), PLANT_YOUNG_HERBS, iSort++));
+    ItemNode youngHerbs = new ItemNode(
+        new TreeObject(icon, LANGUAGES.getLabel("youngHerbs"), PLANT_YOUNG_HERBS, iSort++));
     icon = IM.getImageIcon(ImageConstants.PLANT_ZUCCHINI_ICON, ICON_SIZE);
-    ItemNode zucchini = new ItemNode(new TreeObject(icon, RM.getLabel("zucchini"), PLANT_ZUCCHINI, iSort++));
+    ItemNode zucchini = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("zucchini"), PLANT_ZUCCHINI, iSort++));
 
     icon = IM.getImageIcon(ImageConstants.PLANT_CLAM_ICON, ICON_SIZE);
-    ItemNode clam = new ItemNode(new TreeObject(icon, RM.getLabel("clam"), PLANT_CLAM, iSort++));
+    ItemNode clam = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("clam"), PLANT_CLAM, iSort++));
     icon = IM.getImageIcon(ImageConstants.PLANT_ICON, ICON_SIZE);
-    ItemNode herbSprouts = new ItemNode(new TreeObject(icon, RM.getLabel("herbSprouts"), PLANT_HERB_SPROUTS,
+    ItemNode herbSprouts = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("herbSprouts"), PLANT_HERB_SPROUTS,
         iSort++));
     icon = IM.getImageIcon(ImageConstants.PLANT_SPINACH_LEAF_ICON, ICON_SIZE);
-    ItemNode spinach = new ItemNode(new TreeObject(icon, RM.getLabel("spinach"), PLANT_SPINACH, iSort++));
+    ItemNode spinach = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("spinach"), PLANT_SPINACH, iSort++));
     icon = IM.getImageIcon(ImageConstants.PLANT_STRAWBERRY_ICON, ICON_SIZE);
-    ItemNode strawberryPatch = new ItemNode(new TreeObject(icon, RM.getLabel("strawberryPatch"),
+    ItemNode strawberryPatch = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("strawberryPatch"),
         PLANT_STRAWBERRY_PATCH, iSort++));
     icon = IM.getImageIcon(ImageConstants.PLANT_ICON, ICON_SIZE);
-    ItemNode taproots = new ItemNode(new TreeObject(icon, RM.getLabel("taproots"), PLANT_TAPROOTS, iSort++));
+    ItemNode taproots = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("taproots"), PLANT_TAPROOTS, iSort++));
 
     icon = IM.getImageIcon(ImageConstants.PLANT_BLUEBERRY_ICON, ICON_SIZE);
-    ItemNode blueberryBush = new ItemNode(new TreeObject(icon, RM.getLabel("blueberryBush"), PLANT_BLUEBERRY_BUSH,
-        iSort++));
+    ItemNode blueberryBush = new ItemNode(
+        new TreeObject(icon, LANGUAGES.getLabel("blueberryBush"), PLANT_BLUEBERRY_BUSH,
+            iSort++));
     icon = IM.getImageIcon(ImageConstants.PLANT_MUSHROOM_ICON, ICON_SIZE);
-    ItemNode buttonMushrooms = new ItemNode(new TreeObject(icon, RM.getLabel("buttonMushrooms"),
+    ItemNode buttonMushrooms = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("buttonMushrooms"),
         PLANT_BUTTON_MUSHROOMS, iSort++));
     icon = IM.getImageIcon(ImageConstants.PLANT_CARROT_ICON, ICON_SIZE);
-    ItemNode carrots = new ItemNode(new TreeObject(icon, RM.getLabel("carrots"), PLANT_CARROTS, iSort++));
+    ItemNode carrots = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("carrots"), PLANT_CARROTS, iSort++));
     icon = IM.getImageIcon(ImageConstants.PLANT_ICON, ICON_SIZE);
-    ItemNode herbPatchLowLevel = new ItemNode(new TreeObject(icon, RM.getLabel("herbPatchLowLevel"),
+    ItemNode herbPatchLowLevel = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("herbPatchLowLevel"),
         PLANT_HERB_PATCH_LOW, iSort++));
     icon = IM.getImageIcon(ImageConstants.PLANT_ICON, ICON_SIZE);
-    ItemNode herbSeedlings = new ItemNode(new TreeObject(icon, RM.getLabel("herbSeedlings"), PLANT_HERB_SEEDLINGS,
-        iSort++));
+    ItemNode herbSeedlings = new ItemNode(
+        new TreeObject(icon, LANGUAGES.getLabel("herbSeedlings"), PLANT_HERB_SEEDLINGS,
+            iSort++));
     icon = IM.getImageIcon(ImageConstants.PLANT_HEAD_OF_LETTUCE_ICON, ICON_SIZE);
-    ItemNode lettuce = new ItemNode(new TreeObject(icon, RM.getLabel("lettuce"), PLANT_LETTUCE, iSort++));
+    ItemNode lettuce = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("lettuce"), PLANT_LETTUCE, iSort++));
     icon = IM.getImageIcon(ImageConstants.PLANT_ONION_ICON, ICON_SIZE);
-    ItemNode onions = new ItemNode(new TreeObject(icon, RM.getLabel("onions"), PLANT_ONIONS, iSort++));
+    ItemNode onions = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("onions"), PLANT_ONIONS, iSort++));
     icon = IM.getImageIcon(ImageConstants.PLANT_POTATO_ICON, ICON_SIZE);
-    ItemNode potato = new ItemNode(new TreeObject(icon, RM.getLabel("potato"), PLANT_POTATO, iSort));
+    ItemNode potato = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("potato"), PLANT_POTATO, iSort));
 
     iSort = 0;
     GroupNode other = new GroupNode(new TreeObject(IM.getImageIcon(ImageConstants.BLUE_BALL_ICON, ICON_SIZE),
-        RM.getLabel("other"), GROUP_OTHER, gSort++));
+        LANGUAGES.getLabel("other"), GROUP_OTHER, gSort++));
     icon = IM.getImageIcon(ImageConstants.HEART_ICON, ICON_SIZE);
-    ItemNode heart = new ItemNode(new TreeObject(icon, RM.getLabel("heart"), OTHER_HEART, iSort++));
+    ItemNode heart = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("heart"), OTHER_HEART, iSort++));
     icon = IM.getImageIcon(ImageConstants.WAYPOINT_ICON, ICON_SIZE);
-    ItemNode waypoint = new ItemNode(new TreeObject(icon, RM.getLabel("waypoint"), OTHER_WAYPOINT, iSort++));
+    ItemNode waypoint = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("waypoint"), OTHER_WAYPOINT, iSort++));
     icon = IM.getImageIcon(ImageConstants.POI_ICON, ICON_SIZE);
-    ItemNode poi = new ItemNode(new TreeObject(icon, RM.getLabel("poi"), OTHER_POI, iSort++));
+    ItemNode poi = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("poi"), OTHER_POI, iSort++));
     icon = IM.getImageIcon(ImageConstants.SKILL_CHALLEGENE_ICON, ICON_SIZE);
-    ItemNode skillChallenge = new ItemNode(new TreeObject(icon, RM.getLabel("skillChallenge"),
+    ItemNode skillChallenge = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("skillChallenge"),
         OTHER_SKILL_CHALLENGE, iSort++));
     icon = IM.getImageIcon(ImageConstants.VISTA_ICON, ICON_SIZE);
-    ItemNode vista = new ItemNode(new TreeObject(icon, RM.getLabel("vista"), OTHER_VISTA, iSort++));
+    ItemNode vista = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("vista"), OTHER_VISTA, iSort++));
     icon = IM.getImageIcon(ImageConstants.CHEST_ICON, ICON_SIZE);
-    ItemNode chest = new ItemNode(new TreeObject(icon, RM.getLabel("chest"), OTHER_CHEST, iSort++));
+    ItemNode chest = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("chest"), OTHER_CHEST, iSort++));
     icon = IM.getImageIcon(ImageConstants.GUILD_BOUNTY_ICON, ICON_SIZE);
-    ItemNode guildBounty = new ItemNode(new TreeObject(icon, RM.getLabel("guildBounty"), OTHER_GUILD_BOUNTY,
+    ItemNode guildBounty = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("guildBounty"), OTHER_GUILD_BOUNTY,
         iSort++));
     icon = IM.getImageIcon(ImageConstants.UNLOCK_ICON, ICON_SIZE);
-    ItemNode dungeon = new ItemNode(new TreeObject(icon, RM.getLabel("dungeon"), OTHER_UNLOCK, iSort++));
+    ItemNode dungeon = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("dungeon"), OTHER_UNLOCK, iSort++));
     icon = IM.getImageIcon(ImageConstants.EMPTY_ICON, ICON_SIZE);
-    ItemNode mapName = new ItemNode(new TreeObject(icon, RM.getLabel("mapName"), OTHER_MAP_NAME, iSort));
+    ItemNode mapName = new ItemNode(new TreeObject(icon, LANGUAGES.getLabel("mapName"), OTHER_MAP_NAME, iSort));
 
     root.add(ore);
     ore.add(oricalcum);
@@ -786,15 +794,15 @@ public class FilterModel extends AbstractModel {
 
   private void initSelectedElementsModel() {
     int groupSort = 0;
-    GroupNode root = new GroupNode(new TreeObject(null, RM.getLabel("filter"), GROUP_ROOT, groupSort++));
+    GroupNode root = new GroupNode(new TreeObject(null, LANGUAGES.getLabel("filter"), GROUP_ROOT, groupSort++));
     GroupNode ore = new GroupNode(new TreeObject(IM.getImageIcon(ImageConstants.ORE_ICON, ICON_SIZE),
-        RM.getLabel("ore"), GROUP_ORE, groupSort++));
+        LANGUAGES.getLabel("ore"), GROUP_ORE, groupSort++));
     GroupNode wood = new GroupNode(new TreeObject(IM.getImageIcon(ImageConstants.WOOD_ICON, ICON_SIZE),
-        RM.getLabel("wood"), GROUP_WOOD, groupSort++));
+        LANGUAGES.getLabel("wood"), GROUP_WOOD, groupSort++));
     GroupNode plant = new GroupNode(new TreeObject(IM.getImageIcon(ImageConstants.PLANT_ICON, ICON_SIZE),
-        RM.getLabel("plant"), GROUP_PLANT, groupSort++));
+        LANGUAGES.getLabel("plant"), GROUP_PLANT, groupSort++));
     GroupNode other = new GroupNode(new TreeObject(IM.getImageIcon(ImageConstants.BLUE_BALL_ICON, ICON_SIZE),
-        RM.getLabel("other"), GROUP_OTHER, groupSort));
+        LANGUAGES.getLabel("other"), GROUP_OTHER, groupSort));
 
     root.add(ore);
     root.add(wood);

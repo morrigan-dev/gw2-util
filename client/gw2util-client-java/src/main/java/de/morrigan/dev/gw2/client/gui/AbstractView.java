@@ -15,13 +15,13 @@ import org.slf4j.LoggerFactory;
 import de.morrigan.dev.gw2.client.gui.interfaces.IStructuredView;
 import de.morrigan.dev.gw2.client.model.MainPanelModel;
 import de.morrigan.dev.gw2.resources.ImageConstants;
-import de.morrigan.dev.gw2.resources.ResourceManager;
 import de.morrigan.dev.gw2.utils.exceptions.AbstractException;
 import de.morrigan.dev.gw2.utils.observer.IObserver;
 import de.morrigan.dev.swing.GCUtil;
 import de.morrigan.dev.swing.InsetConstants;
 import de.morrigan.dev.swing.models.AbstractModel;
 import de.morrigan.dev.utils.resources.FontManager;
+import de.morrigan.dev.utils.resources.LanguageManager;
 
 /**
  * Diese Klasse stellt verschiedene Daten und Methoden bereit, die von allen Swing-Views verwendet werden können. Jede
@@ -30,7 +30,7 @@ import de.morrigan.dev.utils.resources.FontManager;
  * <b>GUI Content</b><br>
  * Die Unterklassen bauen lediglich ihre GUI zusammen und müssen diese dann über setContent() dieser Klasse übergeben,
  * damit dieser in das bestehende Layout, dass diese Klasse vorgibt eingebettet werden kann.
- * 
+ *
  * @author morrigan
  */
 public abstract class AbstractView<T extends AbstractModel> extends JPanel implements IObserver, IStructuredView {
@@ -44,8 +44,8 @@ public abstract class AbstractView<T extends AbstractModel> extends JPanel imple
   /** FontManager der verschiedene Schriftarten OS unabhängig bereitstellt */
   protected static final FontManager FONT_MANAGER = FontManager.getInstance();
 
-  /** Handel auf den LabelManager */
-  protected static final ResourceManager RESOURCE_MANAGER = ResourceManager.getInstance();
+  /** Stellt Beschriftungen, Nachrichten und Fehlerbeschreibungen bereit */
+  protected static final LanguageManager LANGUAGES = LanguageManager.getInstance();
 
   /** Handel auf den ImageManager */
   protected static final ImageConstants IMAGE_MANAGER = ImageConstants.getInstance();
@@ -70,7 +70,7 @@ public abstract class AbstractView<T extends AbstractModel> extends JPanel imple
 
   /**
    * Erzeugt ein neues Panel und setzt die übergebenen Parameter.
-   * 
+   *
    * @param mainWindow Hauptfenster auf dem diese View liegt
    * @param mainModel Hauptmodel, in dem alle anderen bereitsgestellt werden
    */
@@ -88,7 +88,7 @@ public abstract class AbstractView<T extends AbstractModel> extends JPanel imple
   }
 
   public MainPanelModel getMainModel() {
-    return mainModel;
+    return this.mainModel;
   }
 
   public T getModel() {
@@ -99,7 +99,7 @@ public abstract class AbstractView<T extends AbstractModel> extends JPanel imple
    * Diese Methode erzeugt die GUI, die Listener und konfiguriert diese für die Oberklasse. Die Erzeugung und die
    * Konfiguration in den Unterklassen wird über entsprechende Methoden geregelt. Diese Methode behandelt keine
    * Exceptions. Diese müssen in der Unterklasse behandelt werden.
-   * 
+   *
    * @param model Model für dieses Panel.
    * @throws Exception
    */

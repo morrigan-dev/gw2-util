@@ -21,7 +21,6 @@ import de.morrigan.dev.gw2.client.gui.interfaces.IListenerAction;
 import de.morrigan.dev.gw2.client.gui.interfaces.IStructuredView;
 import de.morrigan.dev.gw2.dto.exceptions.ServiceException;
 import de.morrigan.dev.gw2.resources.FontConstants;
-import de.morrigan.dev.gw2.resources.ResourceManager;
 import de.morrigan.dev.gw2.utils.observer.IObservable;
 import de.morrigan.dev.gw2.utils.observer.IObserver;
 import de.morrigan.dev.swing.GCUtil;
@@ -29,6 +28,7 @@ import de.morrigan.dev.swing.InsetConstants;
 import de.morrigan.dev.swing.factories.ComponentFactory;
 import de.morrigan.dev.swing.factories.MessageDialogFactory;
 import de.morrigan.dev.utils.resources.FontManager;
+import de.morrigan.dev.utils.resources.LanguageManager;
 
 public class LoginPanel extends JPanel implements IStructuredView, IObserver {
 
@@ -44,8 +44,8 @@ public class LoginPanel extends JPanel implements IStructuredView, IObserver {
   /** FontManager der verschiedene Schriftarten OS unabhängig bereitstellt */
   private static final FontManager FONT_MANAGER = FontManager.getInstance();
 
-  /** Handle auf den ResourceManager */
-  private static final ResourceManager RESOURCE_MANAGER = ResourceManager.getInstance();
+  /** Stellt Beschriftungen, Nachrichten und Fehlerbeschreibungen bereit */
+  private static final LanguageManager LANGUAGES = LanguageManager.getInstance();
 
   private JPanel pnlBevorLogin;
   private GW2Label lblUsername;
@@ -191,11 +191,11 @@ public class LoginPanel extends JPanel implements IStructuredView, IObserver {
 
   @Override
   public void updateLanguage() {
-    this.lblUsername.setText(RESOURCE_MANAGER.getLabelWithSeparator("username"));
-    this.lblPassword.setText(RESOURCE_MANAGER.getLabelWithSeparator("password"));
-    this.btLogin.setText(RESOURCE_MANAGER.getButtonLabel("login"));
-    this.btLogout.setText(RESOURCE_MANAGER.getButtonLabel("logout"));
-    this.chkStyLoggedOn.setText(RESOURCE_MANAGER.getLabel("stayLoggedOn"));
+    this.lblUsername.setText(LANGUAGES.getLabelWithColon("username"));
+    this.lblPassword.setText(LANGUAGES.getLabelWithColon("password"));
+    this.btLogin.setText(LANGUAGES.getLabel("login"));
+    this.btLogout.setText(LANGUAGES.getLabel("logout"));
+    this.chkStyLoggedOn.setText(LANGUAGES.getLabel("stayLoggedOn"));
   }
 
   private void doLogin() throws ServiceException {

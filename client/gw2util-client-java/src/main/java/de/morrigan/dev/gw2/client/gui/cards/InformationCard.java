@@ -1,6 +1,5 @@
 package de.morrigan.dev.gw2.client.gui.cards;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -14,12 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyledDocument;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -78,9 +73,6 @@ public class InformationCard extends AbstractView<InformationModel> implements I
   private GW2MenuBar mbSDNote;
   private JTextArea taSDNote;
 
-  private JPanel pnlCopyright;
-  private JTextPane taCopyright;
-
   public InformationCard(Window mainWindow, MainPanelModel mainModel) {
     super(mainWindow, mainModel);
 
@@ -105,7 +97,7 @@ public class InformationCard extends AbstractView<InformationModel> implements I
 
   @Override
   public void basicDataAvailable() {
-    this.lblGW2APIBuilt.setText(RESOURCE_MANAGER.getLabelWithArguments("gw2APIBuild", GW2_API_MODEL.getBuild()));
+    this.lblGW2APIBuilt.setText(LANGUAGES.getMessage("gw2APIBuild", GW2_API_MODEL.getBuild()));
   }
 
   @Override
@@ -130,17 +122,6 @@ public class InformationCard extends AbstractView<InformationModel> implements I
     this.lblFacebook.setIcon(IMAGE_MANAGER.getImageIcon(ImageConstants.FACEBOOK_ICON, 24, 24));
     this.lblGooglePlus.setIcon(IMAGE_MANAGER.getImageIcon(ImageConstants.GOOGLE_PLUS_ICON, 24, 24));
     this.lblTwitter.setIcon(IMAGE_MANAGER.getImageIcon(ImageConstants.TWITTER_ICON, 24, 24));
-
-    this.pnlCopyright.setOpaque(false);
-    this.taCopyright.setFont(FONT_MANAGER.getFont(FontConstants.MENOMONIA_ITALIC, 12f).get());
-    this.taCopyright.setBorder(new EmptyBorder(0, 0, 0, 0));
-    this.taCopyright.setEditable(false);
-    this.taCopyright.setOpaque(false);
-    this.taCopyright.setForeground(Color.WHITE);
-    StyledDocument doc = this.taCopyright.getStyledDocument();
-    SimpleAttributeSet center = new SimpleAttributeSet();
-    StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
-    doc.setParagraphAttributes(0, doc.getLength(), center, false);
 
     this.taSDNote.setFont(FONT_MANAGER.getFont(FontConstants.MENOMONIA, 16f).get());
     this.taSDNote.setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -182,9 +163,6 @@ public class InformationCard extends AbstractView<InformationModel> implements I
 
     this.mbSDNote = new GW2MenuBar();
     this.taSDNote = ComponentFactory.getMultiLineLabel();
-
-    this.pnlCopyright = new JPanel();
-    this.taCopyright = new JTextPane();
   }
 
   @Override
@@ -196,9 +174,6 @@ public class InformationCard extends AbstractView<InformationModel> implements I
   public void layoutGUI() {
     setLayout(new GridBagLayout());
     GridBagConstraints gbc = new GridBagConstraints();
-
-    this.pnlCopyright.setLayout(new BorderLayout());
-    this.pnlCopyright.add(this.taCopyright, BorderLayout.CENTER);
 
     Insets ltrInsets = (Insets) InsetConstants.LTR_INSETS.clone();
     ltrInsets.left = 15;
@@ -241,12 +216,6 @@ public class InformationCard extends AbstractView<InformationModel> implements I
     this.pnlContent.add(this.mbSDNote, gbc);
     GCUtil.configGC(gbc, 0, y, GCUtil.WEST, GCUtil.BOTH, 1.0, 1.0, 3, 1, InsetConstants.NO_INSETS);
     this.pnlContent.add(new JLabel(), gbc);
-
-    GCUtil.configGC(gbc, 0, 0, GCUtil.NORTH, GCUtil.BOTH, 1.0, 1.0, 1, 1, InsetConstants.ALL_INSETS);
-    add(this.scContent, gbc);
-    GCUtil.configGC(gbc, 0, 1, GCUtil.SOUTH, GCUtil.HORI, 1.0, 0.0, 1, 1, InsetConstants.ALL_INSETS);
-    add(this.pnlCopyright, gbc);
-
   }
 
   @Override
@@ -256,15 +225,14 @@ public class InformationCard extends AbstractView<InformationModel> implements I
 
   @Override
   public void updateLanguage() {
-    this.taCopyright.setText(RESOURCE_MANAGER.getMessage("arenanet_copyright"));
-    this.lblApplicationName.setText(RESOURCE_MANAGER.getLabel("utilTitle"));
+    this.lblApplicationName.setText(LANGUAGES.getLabel("utilTitle"));
     this.lblApplicationVersion.setText("Version " + Version.NUMBER);
-    this.mbLogin.setHeadertext(RESOURCE_MANAGER.getLabel("login"));
-    this.mbRegister.setHeadertext(RESOURCE_MANAGER.getLabel("register"));
-    this.mbDeveloper.setHeadertext(RESOURCE_MANAGER.getLabel("developer"));
-    this.lblDeveloperName.setText(RESOURCE_MANAGER.getLabel("developerName"));
-    this.mbSDNote.setHeadertext(RESOURCE_MANAGER.getLabel("hint"));
-    this.taSDNote.setText(RESOURCE_MANAGER.getMessage("silver_drachenkrieger_hint"));
+    this.mbLogin.setHeadertext(LANGUAGES.getLabel("login"));
+    this.mbRegister.setHeadertext(LANGUAGES.getLabel("register"));
+    this.mbDeveloper.setHeadertext(LANGUAGES.getLabel("developer"));
+    this.lblDeveloperName.setText(LANGUAGES.getLabel("developerName"));
+    this.mbSDNote.setHeadertext(LANGUAGES.getLabel("hint"));
+    this.taSDNote.setText(LANGUAGES.getMessage("silver_drachenkrieger_hint"));
 
     // FIXME: Serveroperation für Überprüfung ob neue Version vorhanden. Nimmt Client Version entgegen und liefert boolean.
     // Version als String behandeln.

@@ -267,10 +267,8 @@ public class ToolbarCard extends AbstractView<TopMenuBarModel> {
       }
     }
 
-    if (obs instanceof RightsModel) {
-      if ((updateFlag & RightsModel.RIGHTS_CHANGED) != 0) {
-        RightsModel.getInstance().updateViewByRights(this);
-      }
+    if ((obs instanceof RightsModel) && ((updateFlag & RightsModel.RIGHTS_CHANGED) != 0)) {
+      RightsModel.getInstance().updateViewByRights(this);
     }
   }
 
@@ -287,10 +285,10 @@ public class ToolbarCard extends AbstractView<TopMenuBarModel> {
       }
       return false;
     };
-    String title = RESOURCE_MANAGER.getLabel("question");
-    String dialogHeaderText = RESOURCE_MANAGER.getLabel("question");
+    String title = LANGUAGES.getLabel("question");
+    String dialogHeaderText = LANGUAGES.getLabel("question");
     String errorMsg = "";
-    String detailMsg = RESOURCE_MANAGER.getMessage("exit_confirmation");
+    String detailMsg = LANGUAGES.getMessage("exit_confirmation");
     MessageDialogModel dialogModel = new MessageDialogModel(
         IMAGE_MANAGER.getImageIcon(ImageConstants.CONFIRMATION_ICON), title, dialogHeaderText, errorMsg,
         detailMsg);

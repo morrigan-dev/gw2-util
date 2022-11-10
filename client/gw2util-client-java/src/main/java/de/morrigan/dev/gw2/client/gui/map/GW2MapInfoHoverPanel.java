@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -59,11 +60,7 @@ public class GW2MapInfoHoverPanel extends GW2HoverPanel {
       if (!getOuterType().equals(other.getOuterType())) {
         return false;
       }
-      if (this.resLabel == null) {
-        if (other.resLabel != null) {
-          return false;
-        }
-      } else if (!this.resLabel.equals(other.resLabel)) {
+      if (!Objects.equals(this.resLabel, other.resLabel)) {
         return false;
       }
       return true;
@@ -130,7 +127,7 @@ public class GW2MapInfoHoverPanel extends GW2HoverPanel {
 
   public void setData(String mapName, Map<WPSubType, Integer> resourceAmount) {
     LOG.debug("mapName: {}, resourceAmount: {}", mapName, resourceAmount);
-    setInfo(RESOURCE_MANAGER.getLabel("resourceOverview") + " (" + mapName + ")");
+    setInfo(LANGUAGES.getLabel("resourceOverview") + " (" + mapName + ")");
 
     GridBagConstraints gbc = new GridBagConstraints();
     List<WPSubType> wpSubTypes = new ArrayList<>(resourceAmount.keySet());

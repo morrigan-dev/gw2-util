@@ -22,18 +22,18 @@ import de.morrigan.dev.gw2.dto.common.Protocol;
 import de.morrigan.dev.gw2.dto.common.Protocol.SEVERITY;
 import de.morrigan.dev.gw2.dto.exceptions.ServiceException;
 import de.morrigan.dev.gw2.dto.remote.interfaces.IRemoteAuthenticationService;
-import de.morrigan.dev.gw2.resources.ResourceManager;
 import de.morrigan.dev.swing.factories.MessageDialogFactory;
 import de.morrigan.dev.swing.models.AbstractModel;
 import de.morrigan.dev.utils.BitUtil;
+import de.morrigan.dev.utils.resources.LanguageManager;
 
 public class AuthenticationModel extends AbstractModel {
 
   /** Logger für Debugausgaben */
   private static final Logger LOG = LoggerFactory.getLogger(AuthenticationModel.class);
 
-  /** Handle auf den ResourceManager */
-  private static final ResourceManager RESOURCE_MANAGER = ResourceManager.getInstance();
+  /** Stellt Beschriftungen, Nachrichten und Fehlerbeschreibungen bereit */
+  private static final LanguageManager LANGUAGES = LanguageManager.getInstance();
 
   public static final long SESSION_KEY_CHANGED = BitUtil.setLongBit(0);
   public static final long USERNAME_KEY_CHANGED = BitUtil.setLongBit(1);
@@ -114,8 +114,8 @@ public class AuthenticationModel extends AbstractModel {
       Vector<String> rights = this.authService.getRightsOfUser(getAuthDTO());
       this.rightsModel.setRights(rights);
     } else {
-      String messageHeader = RESOURCE_MANAGER.getLabel("error");
-      String message = RESOURCE_MANAGER.getErrorMessage(protocol.getErrorCode());
+      String messageHeader = LANGUAGES.getLabel("error");
+      String message = LANGUAGES.getError(Integer.toString(protocol.getErrorCode()));
       String messageDetail = protocol.getErrorMsg();
       MessageDialogFactory.showInformationDialog(Main.getInstance().getMainFrame(), null, messageHeader, message,
           messageDetail);

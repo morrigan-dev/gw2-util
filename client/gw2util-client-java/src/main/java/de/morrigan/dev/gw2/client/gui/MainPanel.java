@@ -32,7 +32,6 @@ import de.morrigan.dev.gw2.client.model.NavigationModel;
 import de.morrigan.dev.gw2.client.model.RightsModel;
 import de.morrigan.dev.gw2.resources.FontConstants;
 import de.morrigan.dev.gw2.resources.ImageConstants;
-import de.morrigan.dev.gw2.resources.ResourceManager;
 import de.morrigan.dev.gw2.utils.annotations.RightCheck;
 import de.morrigan.dev.gw2.utils.annotations.RightCheck.Type;
 import de.morrigan.dev.gw2.utils.observer.IObservable;
@@ -40,6 +39,7 @@ import de.morrigan.dev.gw2.utils.observer.IObserver;
 import de.morrigan.dev.swing.components.MessageDialog;
 import de.morrigan.dev.swing.factories.MessageDialogFactory;
 import de.morrigan.dev.utils.resources.FontManager;
+import de.morrigan.dev.utils.resources.LanguageManager;
 
 public class MainPanel extends JPanel implements IObserver, INavigation, IThreadCallback {
 
@@ -57,8 +57,8 @@ public class MainPanel extends JPanel implements IObserver, INavigation, IThread
   /** FontManager der verschiedene Schriftarten OS unabhängig bereitstellt */
   private static final FontManager FONT_MANAGER = FontManager.getInstance();
 
-  /** Handle auf den ResourceManager */
-  private static final ResourceManager RESOURCE_MANAGER = ResourceManager.getInstance();
+  /** Stellt Beschriftungen, Nachrichten und Fehlerbeschreibungen bereit */
+  private static final LanguageManager LANGUAGES = LanguageManager.getInstance();
 
   /** Handel auf den ImageManager */
   private static final ImageConstants IMAGE_MANAGER = ImageConstants.getInstance();
@@ -192,16 +192,14 @@ public class MainPanel extends JPanel implements IObserver, INavigation, IThread
       showCard();
     }
 
-    if (obs instanceof RightsModel) {
-      if ((updateFlag & RightsModel.RIGHTS_CHANGED) != 0) {
-        this.model.getRightsModel().updateViewByRights(this);
-      }
+    if ((obs instanceof RightsModel) && ((updateFlag & RightsModel.RIGHTS_CHANGED) != 0)) {
+      this.model.getRightsModel().updateViewByRights(this);
     }
   }
 
   @Override
   public void waypointsAvailable() {
-    GW2APIModel gw2apiModel = model.getGw2APIModel();
+    GW2APIModel gw2apiModel = this.model.getGw2APIModel();
     GW2MapModel.getInstance().setStaticWaypoints(gw2apiModel.getGw2Waypoints(), gw2apiModel.getGw2POIs(),
         gw2apiModel.getGw2Unlock(), gw2apiModel.getGw2Vista(), gw2apiModel.getGw2Skill(),
         gw2apiModel.getGw2Heart(), gw2apiModel.getGw2MapInfo());
@@ -335,6 +333,6 @@ public class MainPanel extends JPanel implements IObserver, INavigation, IThread
   }
 
   private void updateLanguage() {
-    this.lblTitle.setText(RESOURCE_MANAGER.getLabel("utilTitle"));
+    this.lblTitle.setText(LANGUAGES.getLabel("utilTitle"));
   }
 }

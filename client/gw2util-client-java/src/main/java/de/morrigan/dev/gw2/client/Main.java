@@ -25,6 +25,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Locale;
 
 import javax.swing.JFrame;
 import javax.swing.JRootPane;
@@ -49,6 +50,7 @@ import de.morrigan.dev.gw2.utils.observer.IObserver;
 import de.morrigan.dev.swing.factories.MessageDialogFactory;
 import de.morrigan.dev.utils.resources.FontManager;
 import de.morrigan.dev.utils.resources.ImageManager;
+import de.morrigan.dev.utils.resources.LanguageManager;
 
 /**
  * Diese Klasse beinhaltet den Programmeinstieg und verwaltet die Toolbar, sowie das Hauptfenster. Sie ist als Singleton
@@ -58,6 +60,9 @@ import de.morrigan.dev.utils.resources.ImageManager;
  * @author morrigan
  */
 public class Main implements IObserver {
+
+  /** Logger für Debugausgaben */
+  private static final Logger LOG = LoggerFactory.getLogger(Main.class);
 
   public enum Design {
     NORMAL, SMALL
@@ -72,8 +77,8 @@ public class Main implements IObserver {
   /** Größe des Fensters im kleinen Modus */
   public static final Dimension WINDOW_BOUNDS_SMALL = new Dimension(370, 370);
 
-  /** Logger für Debugausgaben */
-  private static final Logger LOG = LoggerFactory.getLogger(Main.class);
+  /** Stellt Beschriftungen, Nachrichten und Fehlerbeschreibungen bereit */
+  private static final LanguageManager LANGUAGES = LanguageManager.getInstance();
 
   /** Einzige Instanz dieser Klasse */
   private static final Main MAIN = new Main();
@@ -115,6 +120,7 @@ public class Main implements IObserver {
     try {
       FontManager.getInstance().loadAllFontsFromResources("font");
       loadImages();
+      loadLanguages();
       initUIManager();
       this.mainModel = new MainPanelModel();
     } catch (Exception e) {
@@ -133,6 +139,11 @@ public class Main implements IObserver {
         MessageDialogFactory.handleExcpetion(this.mainFrame, e, null);
       }
     });
+  }
+
+  private void loadLanguages() {
+    LANGUAGES.loadLabelsFromResources("labels", Locale.GERMANY);
+    LANGUAGES.loadMessagesFromResources("messages", Locale.GERMANY);
   }
 
   private void loadImages() {

@@ -20,134 +20,134 @@ import de.morrigan.dev.gw2.client.gui.interfaces.IListenerAction;
 import de.morrigan.dev.gw2.client.gui.interfaces.IStructuredView;
 import de.morrigan.dev.gw2.client.model.RegisterModel;
 import de.morrigan.dev.gw2.dto.exceptions.ServiceException;
-import de.morrigan.dev.gw2.resources.ResourceManager;
 import de.morrigan.dev.gw2.utils.observer.IObservable;
 import de.morrigan.dev.gw2.utils.observer.IObserver;
 import de.morrigan.dev.swing.GCUtil;
 import de.morrigan.dev.swing.InsetConstants;
 import de.morrigan.dev.swing.factories.ComponentFactory;
 import de.morrigan.dev.swing.factories.MessageDialogFactory;
+import de.morrigan.dev.utils.resources.LanguageManager;
 
 public class RegisterPanel extends JPanel implements IStructuredView, IObserver {
 
-	private enum ListenerAction implements IListenerAction {
-		REGISTER_CLICKED
-	}
+  private enum ListenerAction implements IListenerAction {
+    REGISTER_CLICKED
+  }
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	/** Logger für Debugausgaben */
-	private static final Logger LOG = LoggerFactory.getLogger(RegisterPanel.class);
+  /** Logger für Debugausgaben */
+  private static final Logger LOG = LoggerFactory.getLogger(RegisterPanel.class);
 
-	/** Handel auf den LabelManager */
-	private static final ResourceManager RESOURCE_MANAGER = ResourceManager.getInstance();
+  /** Stellt Beschriftungen, Nachrichten und Fehlerbeschreibungen bereit */
+  private static final LanguageManager LANGUAGES = LanguageManager.getInstance();
 
-	private GW2Label lblUsername;
-	private JTextField tfUsername;
-	private GW2Label lblPassword;
-	private JPasswordField pfPassword;
-	private JButton btRegister;
+  private GW2Label lblUsername;
+  private JTextField tfUsername;
+  private GW2Label lblPassword;
+  private JPasswordField pfPassword;
+  private JButton btRegister;
 
-	private RegisterModel model;
+  private RegisterModel model;
 
-	public RegisterPanel() {
-		super();
+  public RegisterPanel() {
+    super();
 
-		createGUI();
-		layoutGUI();
-		configureGUI();
-		configureListener();
-		updateLanguage();
+    createGUI();
+    layoutGUI();
+    configureGUI();
+    configureListener();
+    updateLanguage();
 
-		this.model = new RegisterModel();
-		this.model.addObserver(this);
-	}
+    this.model = new RegisterModel();
+    this.model.addObserver(this);
+  }
 
-	@Override
-	public void configureGUI() {
-		setOpaque(false);
-		this.btRegister.setOpaque(false);
-		this.btRegister.setBackground(new Color(0, 0, 0, 0));
+  @Override
+  public void configureGUI() {
+    setOpaque(false);
+    this.btRegister.setOpaque(false);
+    this.btRegister.setBackground(new Color(0, 0, 0, 0));
 
-		this.tfUsername.setBackground(new Color(29, 28, 24, 150));
-		this.tfUsername.setForeground(new Color(222, 222, 222));
-		this.tfUsername.setBorder(new LineBorder(Color.BLACK, 2));
-		this.pfPassword.setForeground(new Color(222, 222, 222));
-		this.pfPassword.setBackground(new Color(29, 28, 24, 150));
-		this.pfPassword.setBorder(new LineBorder(Color.BLACK, 2));
-	}
+    this.tfUsername.setBackground(new Color(29, 28, 24, 150));
+    this.tfUsername.setForeground(new Color(222, 222, 222));
+    this.tfUsername.setBorder(new LineBorder(Color.BLACK, 2));
+    this.pfPassword.setForeground(new Color(222, 222, 222));
+    this.pfPassword.setBackground(new Color(29, 28, 24, 150));
+    this.pfPassword.setBorder(new LineBorder(Color.BLACK, 2));
+  }
 
-	@Override
-	public void configureListener() {
-		this.btRegister.addActionListener(event -> handleListenerEvent(ListenerAction.REGISTER_CLICKED, event));
-	}
+  @Override
+  public void configureListener() {
+    this.btRegister.addActionListener(event -> handleListenerEvent(ListenerAction.REGISTER_CLICKED, event));
+  }
 
-	@Override
-	public void createGUI() {
-		this.lblUsername = new GW2Label();
-		this.tfUsername = ComponentFactory.getDefaultJTextField();
-		this.lblPassword = new GW2Label();
-		this.pfPassword = ComponentFactory.getDefaultJPasswordField();
-		this.btRegister = new JButton();
-	}
+  @Override
+  public void createGUI() {
+    this.lblUsername = new GW2Label();
+    this.tfUsername = ComponentFactory.getDefaultJTextField();
+    this.lblPassword = new GW2Label();
+    this.pfPassword = ComponentFactory.getDefaultJPasswordField();
+    this.btRegister = new JButton();
+  }
 
-	@Override
-	public void handleListenerEvent(IListenerAction listenerAction, EventObject event) {
-		LOG.debug("listenerAction: {}, event: {}", listenerAction, event);
-		try {
-			final ListenerAction action = (ListenerAction) listenerAction;
-			switch (action) {
-				case REGISTER_CLICKED:
-					doRegister();
-				break;
+  @Override
+  public void handleListenerEvent(IListenerAction listenerAction, EventObject event) {
+    LOG.debug("listenerAction: {}, event: {}", listenerAction, event);
+    try {
+      final ListenerAction action = (ListenerAction) listenerAction;
+      switch (action) {
+        case REGISTER_CLICKED:
+          doRegister();
+        break;
 
-				default:
-					LOG.warn("Die Aktion {} ist nicht gemappt!", action);
-				break;
-			}
-		} catch (Exception e) {
-			LOG.error(e.getMessage(), e);
-			MessageDialogFactory.handleExcpetion(Main.getInstance().getMainFrame(), e, null);
-		}
-	}
+        default:
+          LOG.warn("Die Aktion {} ist nicht gemappt!", action);
+        break;
+      }
+    } catch (Exception e) {
+      LOG.error(e.getMessage(), e);
+      MessageDialogFactory.handleExcpetion(Main.getInstance().getMainFrame(), e, null);
+    }
+  }
 
-	@Override
-	public void layoutGUI() {
+  @Override
+  public void layoutGUI() {
 
-		setLayout(new GridBagLayout());
+    setLayout(new GridBagLayout());
 
-		final GridBagConstraints gbc = new GridBagConstraints();
+    final GridBagConstraints gbc = new GridBagConstraints();
 
-		GCUtil.configGC(gbc, 0, 0, GCUtil.WEST, GCUtil.NONE, 0.0, 0.0, 1, 1, InsetConstants.NO_INSETS);
-		add(this.lblUsername, gbc);
-		GCUtil.configGC(gbc, 1, 0, GCUtil.WEST, GCUtil.NONE, 0.0, 0.0, 1, 1, InsetConstants.LT_INSETS);
-		add(this.tfUsername, gbc);
-		GCUtil.configGC(gbc, 0, 1, GCUtil.WEST, GCUtil.NONE, 0.0, 0.0, 1, 1, InsetConstants.TOP_INSETS);
-		add(this.lblPassword, gbc);
-		GCUtil.configGC(gbc, 1, 1, GCUtil.WEST, GCUtil.NONE, 0.0, 0.0, 1, 1, InsetConstants.LT_INSETS);
-		add(this.pfPassword, gbc);
-		GCUtil.configGC(gbc, 0, 2, GCUtil.WEST, GCUtil.NONE, 0.0, 0.0, 1, 1, InsetConstants.TOP_INSETS);
-		add(this.btRegister, gbc);
-		GCUtil.configGC(gbc, 2, 0, GCUtil.WEST, GCUtil.HORI, 1.0, 0.0, 1, 3, InsetConstants.NO_INSETS);
-		add(new JLabel(), gbc);
-	}
+    GCUtil.configGC(gbc, 0, 0, GCUtil.WEST, GCUtil.NONE, 0.0, 0.0, 1, 1, InsetConstants.NO_INSETS);
+    add(this.lblUsername, gbc);
+    GCUtil.configGC(gbc, 1, 0, GCUtil.WEST, GCUtil.NONE, 0.0, 0.0, 1, 1, InsetConstants.LT_INSETS);
+    add(this.tfUsername, gbc);
+    GCUtil.configGC(gbc, 0, 1, GCUtil.WEST, GCUtil.NONE, 0.0, 0.0, 1, 1, InsetConstants.TOP_INSETS);
+    add(this.lblPassword, gbc);
+    GCUtil.configGC(gbc, 1, 1, GCUtil.WEST, GCUtil.NONE, 0.0, 0.0, 1, 1, InsetConstants.LT_INSETS);
+    add(this.pfPassword, gbc);
+    GCUtil.configGC(gbc, 0, 2, GCUtil.WEST, GCUtil.NONE, 0.0, 0.0, 1, 1, InsetConstants.TOP_INSETS);
+    add(this.btRegister, gbc);
+    GCUtil.configGC(gbc, 2, 0, GCUtil.WEST, GCUtil.HORI, 1.0, 0.0, 1, 3, InsetConstants.NO_INSETS);
+    add(new JLabel(), gbc);
+  }
 
-	@Override
-	public void update(IObservable obs, long updateFlag) {
-		// keine GUI-Elemente die ein Update benötigen
-	}
+  @Override
+  public void update(IObservable obs, long updateFlag) {
+    // keine GUI-Elemente die ein Update benötigen
+  }
 
-	@Override
-	public void updateLanguage() {
-		this.lblUsername.setText(RESOURCE_MANAGER.getLabelWithSeparator("username"));
-		this.lblPassword.setText(RESOURCE_MANAGER.getLabelWithSeparator("password"));
-		this.btRegister.setText(RESOURCE_MANAGER.getButtonLabel("register"));
-	}
+  @Override
+  public void updateLanguage() {
+    this.lblUsername.setText(LANGUAGES.getLabelWithColon("username"));
+    this.lblPassword.setText(LANGUAGES.getLabelWithColon("password"));
+    this.btRegister.setText(LANGUAGES.getLabel("register"));
+  }
 
-	private void doRegister() throws ServiceException {
-		String username = this.tfUsername.getText();
-		String password = new String(this.pfPassword.getPassword());
-		this.model.register(username, password);
-	}
+  private void doRegister() throws ServiceException {
+    String username = this.tfUsername.getText();
+    String password = new String(this.pfPassword.getPassword());
+    this.model.register(username, password);
+  }
 
 }
